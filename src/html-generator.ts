@@ -1,5 +1,12 @@
 import type { ScoredRFP, RunMetadata } from "./types.js";
-import { categoryHue, daysUntil, stripHtml, truncate, esc, urgencyClass } from "./utils.js";
+import {
+  categoryHue,
+  daysUntil,
+  stripHtml,
+  truncate,
+  esc,
+  urgencyClass,
+} from "./utils.js";
 
 const ESBD_DETAIL_URL = "https://www.txsmartbuy.gov/esbd/#/esbd";
 const ESBD_FILE_BASE = "https://www.txsmartbuy.gov";
@@ -36,7 +43,7 @@ function renderCard(rfp: ScoredRFP, rank: number): string {
       : "";
 
   return `
-    <div class="card">
+    <div class="card" data-categories="${rfp.matchedCategories.map(esc).join(",")}">
       <div class="card-header">
         <span class="rank">#${rank}</span>
         <span class="score">Score: ${rfp.relevanceScore.toFixed(1)}</span>
@@ -361,6 +368,66 @@ function getCSS(): string {
       font-size: 0.85rem;
     }
 
+    .filter-bar {
+      background: #fff;
+      border-radius: 8px;
+      padding: 0.75rem 1.25rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #4b5563;
+      white-space: nowrap;
+    }
+
+    .filter-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .filter-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border: 2px solid transparent;
+      cursor: pointer;
+      background: hsl(var(--hue),55%,92%);
+      color: hsl(var(--hue),60%,30%);
+      transition: border-color 0.15s, opacity 0.15s, transform 0.1s;
+      user-select: none;
+    }
+
+    .filter-badge:hover {
+      border-color: hsl(var(--hue),50%,70%);
+      transform: translateY(-1px);
+    }
+
+    .filter-badge.active {
+      border-color: hsl(var(--hue),60%,40%);
+      box-shadow: 0 0 0 1px hsl(var(--hue),60%,40%);
+    }
+
+    .filter-badge .count {
+      font-size: 0.7rem;
+      opacity: 0.6;
+    }
+
+    .card.hidden-by-filter {
+      display: none;
+    }
+
     footer {
       text-align: center;
       color: #9ca3af;
@@ -375,6 +442,7 @@ function getCSS(): string {
       .meta-row { flex-direction: column; gap: 0.25rem; }
       .badges { margin-left: 0; }
       .card-contact { flex-direction: column; gap: 0.4rem; }
+      .filter-bar { flex-direction: column; align-items: flex-start; }
     }
   `;
 }
@@ -388,12 +456,6 @@ export function generateHTML(
     timeStyle: "short",
   });
 
-  const categorySummary = Object.entries(metadata.categoryCounts)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 8)
-    .map(([cat, count]) => `${cat} (${count})`)
-    .join(", ");
-
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -404,42 +466,61 @@ export function generateHTML(
 </head>
 <body>
   <div class="container">
-    <header>
-      <h1>LightRFP — Government RFP Results</h1>
-      <p>Top ${results.length} solicitations relevant to building maintenance &amp; construction vendors</p>
-      <p style="font-size:0.8rem;color:#9ca3af">Generated: ${esc(generatedStr)} | Source: Texas ESBD</p>
-    </header>
-
-    <div class="summary-bar">
-      <div class="summary-stat">
-        <div class="num">${metadata.totalScanned}</div>
-        <div class="label">Scanned</div>
-      </div>
-      <div class="summary-stat">
-        <div class="num">${metadata.totalRelevant}</div>
-        <div class="label">Relevant</div>
-      </div>
-      <div class="summary-stat">
-        <div class="num">${results.length}</div>
-        <div class="label">Top Results</div>
-      </div>
-      <div class="summary-stat">
-        <div class="num">${metadata.elapsedSeconds.toFixed(0)}s</div>
-        <div class="label">Runtime</div>
+    <div class="filter-bar">
+      <span class="filter-label">Top Categories:</span>
+      <div class="filter-badges">
+        ${Object.entries(metadata.categoryCounts)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 8)
+          .map(([cat, count]) => {
+            const hue = categoryHue(cat);
+            return `<button class="filter-badge" data-category="${esc(cat)}" style="--hue:${hue}">${esc(cat)} <span class="count">${count}</span></button>`;
+          })
+          .join("\n        ")}
       </div>
     </div>
-
-    ${categorySummary ? `<p style="text-align:center;font-size:0.85rem;color:#6b7280;margin-bottom:1.5rem"><strong>Top categories:</strong> ${esc(categorySummary)}</p>` : ""}
 
     ${results.map((rfp, i) => renderCard(rfp, i + 1)).join("\n")}
 
     ${renderMethodology()}
 
     <footer>
-      LightRFP Scraper &mdash; Data sourced from
+      LightRFP &mdash; ${esc(generatedStr)} &mdash; Data sourced from
       <a href="https://www.txsmartbuy.gov/esbd" style="color:#6b7280">Texas ESBD</a>
     </footer>
   </div>
+  <script>
+    (function() {
+      var active = null;
+      var badges = document.querySelectorAll('.filter-badge');
+      var cards = document.querySelectorAll('.card');
+
+      function applyFilter(category) {
+        active = category;
+        badges.forEach(function(b) {
+          b.classList.toggle('active', b.getAttribute('data-category') === category);
+        });
+        cards.forEach(function(card) {
+          var cats = (card.getAttribute('data-categories') || '').split(',');
+          card.classList.toggle('hidden-by-filter', cats.indexOf(category) === -1);
+        });
+      }
+
+      function clearFilter() {
+        active = null;
+        badges.forEach(function(b) { b.classList.remove('active'); });
+        cards.forEach(function(c) { c.classList.remove('hidden-by-filter'); });
+      }
+
+      badges.forEach(function(badge) {
+        badge.addEventListener('click', function() {
+          var cat = badge.getAttribute('data-category');
+          if (active === cat) { clearFilter(); } else { applyFilter(cat); }
+        });
+        badge.addEventListener('dblclick', function() { clearFilter(); });
+      });
+    })();
+  </script>
 </body>
 </html>`;
 }
