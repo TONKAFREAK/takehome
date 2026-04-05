@@ -131,25 +131,17 @@ function renderCard(rfp: ScoredRFP, rank: number): string {
         <p>${rfp.aiShortSummary ? esc(rfp.aiShortSummary) : esc(description)}</p>
       </div>
 
-      ${
-        description
-          ? `<details class="original-description">
+      ${rfp.aiShortSummary && description ? `<details class="card-dropdown">
         <summary>Original description</summary>
         <p>${esc(description)}</p>
-      </details>`
-          : ""
-      }
+      </details>` : ""}
 
-      ${
-        rfp.aiSummary
-          ? `<details class="original-description">
+      ${rfp.aiSummary ? `<details class="card-dropdown">
         <summary>AI Summary</summary>
         <div class="ai-summary-content">${renderMarkdown(rfp.aiSummary)}</div>
-      </details>`
-          : ""
-      }
+      </details>` : ""}
 
-      <details class="match-details">
+      <details class="card-dropdown">
         <summary>Matched tags</summary>
         <p>${esc(rfp.matchDetails)}</p>
       </details>
@@ -351,20 +343,20 @@ function getCSS(): string {
       padding-left: 0.75rem;
     }
 
-    .original-description {
+    .card-dropdown {
       font-size: 0.82rem;
       color: #6b7280;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
     }
 
-    .original-description summary {
+    .card-dropdown summary {
       cursor: pointer;
       user-select: none;
       color: #9ca3af;
       font-size: 0.78rem;
     }
 
-    .original-description p {
+    .card-dropdown > p {
       margin-top: 0.35rem;
       border-left: 2px solid #e5e7eb;
       padding-left: 0.75rem;
@@ -409,21 +401,6 @@ function getCSS(): string {
       background: #e5e7eb;
     }
 
-    .ai-summary {
-      font-size: 0.85rem;
-      color: #374151;
-      border-top: 1px solid #f3f4f6;
-      padding-top: 0.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .ai-summary summary {
-      cursor: pointer;
-      user-select: none;
-      font-weight: 600;
-      color: #4b5563;
-    }
-
     .ai-summary-content {
       margin-top: 0.5rem;
       padding-left: 0.75rem;
@@ -448,22 +425,6 @@ function getCSS(): string {
       margin-top: 0.6rem;
       margin-bottom: 0.25rem;
       color: #1f2937;
-    }
-
-    .match-details {
-      font-size: 0.78rem;
-      color: #9ca3af;
-      border-top: 1px solid #f3f4f6;
-      padding-top: 0.5rem;
-    }
-
-    .match-details summary {
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .match-details p {
-      margin-top: 0rem;
     }
 
     .methodology {

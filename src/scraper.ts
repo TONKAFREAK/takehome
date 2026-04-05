@@ -2,7 +2,7 @@ import "dotenv/config";
 import { writeFileSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
-import { ESBDClient, extractPdfs } from "./api.js";
+import { ESBDClient, extractDocuments } from "./api.js";
 import { isLikelyRelevant, selectTopResults } from "./relevance.js";
 import { generateHTML } from "./html-generator.js";
 import { summarizeRfps } from "./summarizer.js";
@@ -10,6 +10,7 @@ import { ensureDir, formatElapsed, deduplicateByField } from "./utils.js";
 import type { RunMetadata } from "./types.js";
 
 const TOP_COUNT = 20;
+const SKIP_AI = process.argv.includes("--noai");
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_DIR = join(__dirname, "..", "output");
 const DATA_DIR = join(__dirname, "..", "data");
@@ -53,19 +54,23 @@ async function main(): Promise<void> {
   console.log(`\nDownloading ${totalAttachments} attachments for top ${topResults.length} results...`);
   await client.downloadAttachments(topResults, DATA_DIR);
 
-  // 7. Extract text from downloaded PDFs
-  console.log("\nExtracting text from PDFs...");
-  await extractPdfs(topResults, DATA_DIR);
+  // 7. Extract text from downloaded documents
+  console.log("\nExtracting text from documents...");
+  await extractDocuments(topResults, DATA_DIR);
 
   // 8. Summarize each solicitation with AI
-  console.log("\nSummarizing solicitations with AI...");
-  const summaries = await summarizeRfps(topResults, DATA_DIR);
-  for (const rfp of topResults) {
-    const result = summaries.get(rfp.solicitationId);
-    if (result) {
-      rfp.aiSummary = result.summary;
-      rfp.aiShortSummary = result.shortSummary;
+  if (!SKIP_AI) {
+    console.log("\nSummarizing solicitations with AI...");
+    const summaries = await summarizeRfps(topResults, DATA_DIR);
+    for (const rfp of topResults) {
+      const result = summaries.get(rfp.solicitationId);
+      if (result) {
+        rfp.aiSummary = result.summary;
+        rfp.aiShortSummary = result.shortSummary;
+      }
     }
+  } else {
+    console.log("\nSkipping AI summarization (--noai)");
   }
 
   // 9. Build metadata
