@@ -106,8 +106,13 @@ function renderCard(rfp: ScoredRFP, rank: number): string {
       </div>
 
       <div class="card-description">
-        <p>${esc(description)}</p>
+        <p>${rfp.aiShortSummary ? esc(rfp.aiShortSummary) : esc(description)}</p>
       </div>
+
+      ${description ? `<details class="original-description">
+        <summary>Original description</summary>
+        <p>${esc(description)}</p>
+      </details>` : ""}
 
       <div class="card-contact">
         ${rfp.contactName ? `<span><strong>Contact:</strong> ${esc(rfp.contactName)}</span>` : ""}
@@ -322,6 +327,25 @@ function getCSS(): string {
       padding-left: 0.75rem;
     }
 
+    .original-description {
+      font-size: 0.82rem;
+      color: #6b7280;
+      margin-bottom: 0.75rem;
+    }
+
+    .original-description summary {
+      cursor: pointer;
+      user-select: none;
+      color: #9ca3af;
+      font-size: 0.78rem;
+    }
+
+    .original-description p {
+      margin-top: 0.35rem;
+      border-left: 2px solid #e5e7eb;
+      padding-left: 0.75rem;
+    }
+
     .card-contact {
       display: flex;
       flex-wrap: wrap;
@@ -378,11 +402,28 @@ function getCSS(): string {
 
     .ai-summary-content {
       margin-top: 0.5rem;
+      padding-left: 0.75rem;
       line-height: 1.6;
     }
 
     .ai-summary-content p {
       margin-bottom: 0.4rem;
+    }
+
+    .ai-summary-content ul {
+      padding-left: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .ai-summary-content li {
+      margin-bottom: 0.2rem;
+    }
+
+    .ai-summary-content h3,
+    .ai-summary-content h4 {
+      margin-top: 0.6rem;
+      margin-bottom: 0.25rem;
+      color: #1f2937;
     }
 
     .match-details {
