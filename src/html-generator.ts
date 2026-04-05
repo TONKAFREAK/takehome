@@ -11,6 +11,51 @@ import {
 const ESBD_DETAIL_URL = "https://www.txsmartbuy.gov/esbd";
 const ESBD_FILE_BASE = "https://www.txsmartbuy.gov";
 
+function renderMarkdown(md: string): string {
+  const escaped = esc(md);
+  const lines = escaped.split("\n");
+  const html: string[] = [];
+  let inList = false;
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) {
+      if (inList) { html.push("</ul>"); inList = false; }
+      continue;
+    }
+    // Headings
+    const h = trimmed.match(/^(#{1,3})\s+(.+)$/);
+    if (h) {
+      if (inList) { html.push("</ul>"); inList = false; }
+      const level = h[1]!.length + 1; // ## -> h3, ### -> h4 (offset since it's inside a card)
+      html.push(`<h${level}>${h[2]}</h${level}>`);
+      continue;
+    }
+    // List items
+    const li = trimmed.match(/^[-*]\s+(.+)$/);
+    if (li) {
+      if (!inList) { html.push("<ul>"); inList = true; }
+      html.push(`<li>${li[1]}</li>`);
+      continue;
+    }
+    // Numbered list
+    const oli = trimmed.match(/^\d+\.\s+(.+)$/);
+    if (oli) {
+      if (!inList) { html.push("<ul>"); inList = true; }
+      html.push(`<li>${oli[1]}</li>`);
+      continue;
+    }
+    // Paragraph
+    if (inList) { html.push("</ul>"); inList = false; }
+    html.push(`<p>${trimmed}</p>`);
+  }
+  if (inList) html.push("</ul>");
+
+  return html.join("\n")
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*(.+?)\*/g, "<em>$1</em>");
+}
+
 function renderBadge(category: string): string {
   const hue = categoryHue(category);
   return `<span class="badge" style="background:hsl(${hue},55%,92%);color:hsl(${hue},60%,30%)">${esc(category)}</span>`;
@@ -71,6 +116,11 @@ function renderCard(rfp: ScoredRFP, rank: number): string {
       </div>
 
       ${attachmentHtml}
+
+      ${rfp.aiSummary ? `<details class="ai-summary">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content">${renderMarkdown(rfp.aiSummary)}</div>
+      </details>` : ""}
 
       <details class="match-details">
         <summary>Matched tags</summary>
@@ -309,6 +359,30 @@ function getCSS(): string {
 
     .attachment-link:hover {
       background: #e5e7eb;
+    }
+
+    .ai-summary {
+      font-size: 0.85rem;
+      color: #374151;
+      border-top: 1px solid #f3f4f6;
+      padding-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .ai-summary summary {
+      cursor: pointer;
+      user-select: none;
+      font-weight: 600;
+      color: #4b5563;
+    }
+
+    .ai-summary-content {
+      margin-top: 0.5rem;
+      line-height: 1.6;
+    }
+
+    .ai-summary-content p {
+      margin-bottom: 0.4rem;
     }
 
     .match-details {

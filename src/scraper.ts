@@ -1,9 +1,11 @@
+import "dotenv/config";
 import { writeFileSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import { ESBDClient, extractPdfs } from "./api.js";
 import { isLikelyRelevant, selectTopResults } from "./relevance.js";
 import { generateHTML } from "./html-generator.js";
+import { summarizeRfps } from "./summarizer.js";
 import { ensureDir, formatElapsed, deduplicateByField } from "./utils.js";
 import type { RunMetadata } from "./types.js";
 
@@ -55,7 +57,15 @@ async function main(): Promise<void> {
   console.log("\nExtracting text from PDFs...");
   await extractPdfs(topResults, DATA_DIR);
 
-  // 8. Build metadata
+  // 8. Summarize each solicitation with AI
+  console.log("\nSummarizing solicitations with AI...");
+  const summaries = await summarizeRfps(topResults, DATA_DIR);
+  for (const rfp of topResults) {
+    const summary = summaries.get(rfp.solicitationId);
+    if (summary) rfp.aiSummary = summary;
+  }
+
+  // 9. Build metadata
   const categoryCounts: Record<string, number> = {};
   for (const rfp of topResults) {
     for (const cat of rfp.matchedCategories) {
@@ -74,7 +84,7 @@ async function main(): Promise<void> {
     categoryCounts,
   };
 
-  // 8. Generate HTML
+  // 10. Generate HTML
   console.log("\nGenerating HTML output...");
   const html = generateHTML(topResults, metadata);
 
@@ -82,7 +92,7 @@ async function main(): Promise<void> {
   ensureDir(outputPath);
   writeFileSync(outputPath, html, "utf-8");
 
-  // 9. Summary
+  // 11. Summary
   console.log(`\n=== Done in ${formatElapsed(elapsedSeconds)} ===`);
   console.log(`Scanned:  ${combined.length} open solicitations`);
   console.log(`Relevant: ${relevant.length} passed pre-filter`);
