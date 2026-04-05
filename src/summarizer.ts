@@ -48,7 +48,11 @@ SOLICITATION DETAILS:
 ATTACHED DOCUMENT TEXT:
 ${pdfContent}
 
-Provide a concise summary with these sections:
+Respond in EXACTLY this format:
+
+SHORT_SUMMARY: [1-2 sentence plain text summary of what this solicitation is for and why a vendor should care]
+
+FULL_SUMMARY:
 1. **Overview**: What is being solicited in 2-3 sentences.
 2. **Scope of Work**: Key deliverables and requirements.
 3. **Bid Requirements**: Qualifications, certifications, bonds, or insurance needed.
@@ -68,13 +72,28 @@ function loadExtractedTexts(rfpDir: string): string[] {
   return files.map((f) => readFileSync(join(extractedDir, f), "utf-8"));
 }
 
+interface SummaryResult {
+  summary: string;
+  shortSummary: string;
+}
+
+function parseSummaryResponse(raw: string): SummaryResult {
+  const shortMatch = raw.match(/SHORT_SUMMARY:\s*(.+?)(?:\n\n|\nFULL_SUMMARY:)/s);
+  const fullMatch = raw.match(/FULL_SUMMARY:\s*([\s\S]+)$/);
+
+  return {
+    shortSummary: shortMatch ? shortMatch[1]!.trim() : raw.slice(0, 200).trim(),
+    summary: fullMatch ? fullMatch[1]!.trim() : raw.trim(),
+  };
+}
+
 export async function summarizeRfps(
   rfps: RFPDetail[],
   dataDir: string,
-  concurrency: number = 5,
-): Promise<Map<string, string>> {
+  concurrency: number = 20,
+): Promise<Map<string, SummaryResult>> {
   const model = createModel();
-  const summaries = new Map<string, string>();
+  const summaries = new Map<string, SummaryResult>();
 
   const tasks = rfps.map((rfp) => async () => {
     const rfpDir = join(dataDir, rfp.solicitationId);
@@ -83,14 +102,16 @@ export async function summarizeRfps(
 
     const prompt = buildPrompt(rfp, extractedTexts);
     const response = await model.invoke([new HumanMessage(prompt)]);
-    const summary =
+    const raw =
       typeof response.content === "string"
         ? response.content
         : response.content.map((c) => ("text" in c ? c.text : "")).join("");
 
+    const parsed = parseSummaryResponse(raw);
+
     ensureDir(summaryPath);
-    writeFileSync(summaryPath, summary, "utf-8");
-    return { id: rfp.solicitationId, summary };
+    writeFileSync(summaryPath, raw, "utf-8");
+    return { id: rfp.solicitationId, ...parsed };
   });
 
   const results = await runConcurrent(tasks, concurrency);
@@ -98,7 +119,7 @@ export async function summarizeRfps(
 
   for (const r of results) {
     if (r.status === "fulfilled") {
-      summaries.set(r.value.id, r.value.summary);
+      summaries.set(r.value.id, { summary: r.value.summary, shortSummary: r.value.shortSummary });
     } else {
       failed++;
       const msg =
