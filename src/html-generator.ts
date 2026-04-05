@@ -20,13 +20,19 @@ function renderMarkdown(md: string): string {
   for (const line of lines) {
     const trimmed = line.trim();
     if (!trimmed) {
-      if (inList) { html.push("</ul>"); inList = false; }
+      if (inList) {
+        html.push("</ul>");
+        inList = false;
+      }
       continue;
     }
     // Headings
     const h = trimmed.match(/^(#{1,3})\s+(.+)$/);
     if (h) {
-      if (inList) { html.push("</ul>"); inList = false; }
+      if (inList) {
+        html.push("</ul>");
+        inList = false;
+      }
       const level = h[1]!.length + 1; // ## -> h3, ### -> h4 (offset since it's inside a card)
       html.push(`<h${level}>${h[2]}</h${level}>`);
       continue;
@@ -34,24 +40,34 @@ function renderMarkdown(md: string): string {
     // List items
     const li = trimmed.match(/^[-*]\s+(.+)$/);
     if (li) {
-      if (!inList) { html.push("<ul>"); inList = true; }
+      if (!inList) {
+        html.push("<ul>");
+        inList = true;
+      }
       html.push(`<li>${li[1]}</li>`);
       continue;
     }
     // Numbered list
     const oli = trimmed.match(/^\d+\.\s+(.+)$/);
     if (oli) {
-      if (!inList) { html.push("<ul>"); inList = true; }
+      if (!inList) {
+        html.push("<ul>");
+        inList = true;
+      }
       html.push(`<li>${oli[1]}</li>`);
       continue;
     }
     // Paragraph
-    if (inList) { html.push("</ul>"); inList = false; }
+    if (inList) {
+      html.push("</ul>");
+      inList = false;
+    }
     html.push(`<p>${trimmed}</p>`);
   }
   if (inList) html.push("</ul>");
 
-  return html.join("\n")
+  return html
+    .join("\n")
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/\*(.+?)\*/g, "<em>$1</em>");
 }
@@ -105,32 +121,40 @@ function renderCard(rfp: ScoredRFP, rank: number): string {
         ${rfp.value && parseFloat(rfp.value) >= 1 ? `<span><strong>Value:</strong> $${esc(rfp.value)}</span>` : ""}
       </div>
 
-      <div class="card-description">
-        <p>${rfp.aiShortSummary ? esc(rfp.aiShortSummary) : esc(description)}</p>
-      </div>
-
-      ${description ? `<details class="original-description">
-        <summary>Original description</summary>
-        <p>${esc(description)}</p>
-      </details>` : ""}
-
       <div class="card-contact">
         ${rfp.contactName ? `<span><strong>Contact:</strong> ${esc(rfp.contactName)}</span>` : ""}
         ${rfp.contactNumber ? `<span><strong>Phone:</strong> ${esc(rfp.contactNumber)}</span>` : ""}
         ${rfp.contactEmail ? `<span><strong>Email:</strong> <a href="mailto:${esc(rfp.contactEmail)}">${esc(rfp.contactEmail)}</a></span>` : ""}
       </div>
 
-      ${attachmentHtml}
+      <div class="card-description">
+        <p>${rfp.aiShortSummary ? esc(rfp.aiShortSummary) : esc(description)}</p>
+      </div>
 
-      ${rfp.aiSummary ? `<details class="ai-summary">
+      ${
+        description
+          ? `<details class="original-description">
+        <summary>Original description</summary>
+        <p>${esc(description)}</p>
+      </details>`
+          : ""
+      }
+
+      ${
+        rfp.aiSummary
+          ? `<details class="original-description">
         <summary>AI Summary</summary>
         <div class="ai-summary-content">${renderMarkdown(rfp.aiSummary)}</div>
-      </details>` : ""}
+      </details>`
+          : ""
+      }
 
       <details class="match-details">
         <summary>Matched tags</summary>
         <p>${esc(rfp.matchDetails)}</p>
       </details>
+
+       ${attachmentHtml}
     </div>`;
 }
 
@@ -439,7 +463,7 @@ function getCSS(): string {
     }
 
     .match-details p {
-      margin-top: 0.35rem;
+      margin-top: 0rem;
     }
 
     .methodology {
