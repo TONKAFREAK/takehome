@@ -61,8 +61,11 @@ async function main(): Promise<void> {
   console.log("\nSummarizing solicitations with AI...");
   const summaries = await summarizeRfps(topResults, DATA_DIR);
   for (const rfp of topResults) {
-    const summary = summaries.get(rfp.solicitationId);
-    if (summary) rfp.aiSummary = summary;
+    const result = summaries.get(rfp.solicitationId);
+    if (result) {
+      rfp.aiSummary = result.summary;
+      rfp.aiShortSummary = result.shortSummary;
+    }
   }
 
   // 9. Build metadata
