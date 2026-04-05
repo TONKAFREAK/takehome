@@ -91,6 +91,7 @@ export interface ScoredRFP extends RFPDetail {
   relevanceScore: number;
   matchedCategories: string[];
   matchDetails: string;
+  aiSummary?: string;
 }
 
 export interface RunMetadata {
