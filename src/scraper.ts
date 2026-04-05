@@ -1,7 +1,7 @@
 import { writeFileSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
-import { ESBDClient } from "./api.js";
+import { ESBDClient, extractPdfs } from "./api.js";
 import { isLikelyRelevant, selectTopResults } from "./relevance.js";
 import { generateHTML } from "./html-generator.js";
 import { ensureDir, formatElapsed, deduplicateByField } from "./utils.js";
@@ -10,6 +10,7 @@ import type { RunMetadata } from "./types.js";
 const TOP_COUNT = 20;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_DIR = join(__dirname, "..", "output");
+const DATA_DIR = join(__dirname, "..", "data");
 
 async function main(): Promise<void> {
   const startTime = Date.now();
@@ -45,7 +46,16 @@ async function main(): Promise<void> {
   console.log("\nScoring and ranking...");
   const topResults = selectTopResults(details, TOP_COUNT);
 
-  // 6. Build metadata
+  // 6. Download attachments for top results
+  const totalAttachments = topResults.reduce((n, r) => n + r.attachments.length, 0);
+  console.log(`\nDownloading ${totalAttachments} attachments for top ${topResults.length} results...`);
+  await client.downloadAttachments(topResults, DATA_DIR);
+
+  // 7. Extract text from downloaded PDFs
+  console.log("\nExtracting text from PDFs...");
+  await extractPdfs(topResults, DATA_DIR);
+
+  // 8. Build metadata
   const categoryCounts: Record<string, number> = {};
   for (const rfp of topResults) {
     for (const cat of rfp.matchedCategories) {
@@ -64,7 +74,7 @@ async function main(): Promise<void> {
     categoryCounts,
   };
 
-  // 7. Generate HTML
+  // 8. Generate HTML
   console.log("\nGenerating HTML output...");
   const html = generateHTML(topResults, metadata);
 
@@ -72,7 +82,7 @@ async function main(): Promise<void> {
   ensureDir(outputPath);
   writeFileSync(outputPath, html, "utf-8");
 
-  // 8. Summary
+  // 9. Summary
   console.log(`\n=== Done in ${formatElapsed(elapsedSeconds)} ===`);
   console.log(`Scanned:  ${combined.length} open solicitations`);
   console.log(`Relevant: ${relevant.length} passed pre-filter`);

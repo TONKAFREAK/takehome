@@ -1,11 +1,14 @@
 import axios, { type AxiosInstance } from "axios";
+import { writeFileSync, readFileSync, readdirSync } from "fs";
+import { join } from "path";
+import { PDFParse } from "pdf-parse";
 import type {
   ESBDListResponse,
   ESBDListRequest,
   RFPDetail,
   RFPListing,
 } from "./types.js";
-import { withRetry, runConcurrent } from "./utils.js";
+import { withRetry, runConcurrent, ensureDir } from "./utils.js";
 
 const BASE_URL = "https://www.txsmartbuy.gov";
 const SERVICES_PATH = "/app/extensions/CPA/CPAMain/1.0.0/services";
@@ -150,4 +153,113 @@ export class ESBDClient {
     console.log(`  Fetched ${details.length}/${listings.length} details${failed > 0 ? ` (${failed} failed)` : ""}`);
     return details;
   }
+
+  async downloadAttachments(
+    rfps: RFPDetail[],
+    dataDir: string,
+    concurrency: number = 10,
+  ): Promise<number> {
+    const tasks: (() => Promise<string>)[] = [];
+
+    for (const rfp of rfps) {
+      for (const att of rfp.attachments) {
+        const dir = join(dataDir, rfp.solicitationId);
+        const filePath = join(dir, att.fileName);
+        tasks.push(() => this.downloadFile(att.fileURL, filePath));
+      }
+    }
+
+    if (tasks.length === 0) {
+      console.log("  No attachments to download");
+      return 0;
+    }
+
+    const results = await runConcurrent(tasks, concurrency);
+    let downloaded = 0;
+    let failed = 0;
+
+    for (const r of results) {
+      if (r.status === "fulfilled") {
+        downloaded++;
+      } else {
+        failed++;
+        const msg = r.reason instanceof Error ? r.reason.message : String(r.reason);
+        console.warn(`  Download failed: ${msg}`);
+      }
+    }
+
+    console.log(`  Downloaded ${downloaded}/${tasks.length} attachments${failed > 0 ? ` (${failed} failed)` : ""}`);
+    return downloaded;
+  }
+
+  private async downloadFile(fileURL: string, filePath: string): Promise<string> {
+    const res = await withRetry(() =>
+      this.client.get(fileURL, {
+        responseType: "arraybuffer",
+        headers: this.cookies ? { Cookie: this.cookies } : {},
+      }),
+    );
+
+    ensureDir(filePath);
+    writeFileSync(filePath, Buffer.from(res.data));
+    return filePath;
+  }
+}
+
+export async function extractPdfs(
+  rfps: RFPDetail[],
+  dataDir: string,
+  concurrency: number = 10,
+): Promise<number> {
+  const tasks: (() => Promise<string>)[] = [];
+
+  for (const rfp of rfps) {
+    const rfpDir = join(dataDir, rfp.solicitationId);
+    let files: string[];
+    try {
+      files = readdirSync(rfpDir);
+    } catch {
+      continue;
+    }
+
+    const pdfs = files.filter((f) => f.toLowerCase().endsWith(".pdf"));
+    for (const pdf of pdfs) {
+      const pdfPath = join(rfpDir, pdf);
+      const extractedDir = join(rfpDir, "extracted");
+      const txtName = pdf.replace(/\.pdf$/i, ".txt");
+      const txtPath = join(extractedDir, txtName);
+
+      tasks.push(async () => {
+        const buf = readFileSync(pdfPath);
+        const parser = new PDFParse({ data: new Uint8Array(buf) });
+        const result = await parser.getText();
+        await parser.destroy();
+        ensureDir(txtPath);
+        writeFileSync(txtPath, result.text, "utf-8");
+        return txtPath;
+      });
+    }
+  }
+
+  if (tasks.length === 0) {
+    console.log("  No PDFs to extract");
+    return 0;
+  }
+
+  const results = await runConcurrent(tasks, concurrency);
+  let extracted = 0;
+  let failed = 0;
+
+  for (const r of results) {
+    if (r.status === "fulfilled") {
+      extracted++;
+    } else {
+      failed++;
+      const msg = r.reason instanceof Error ? r.reason.message : String(r.reason);
+      console.warn(`  Extract failed: ${msg}`);
+    }
+  }
+
+  console.log(`  Extracted ${extracted}/${tasks.length} PDFs${failed > 0 ? ` (${failed} failed)` : ""}`);
+  return extracted;
 }
