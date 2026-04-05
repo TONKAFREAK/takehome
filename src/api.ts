@@ -2,6 +2,7 @@ import axios, { type AxiosInstance } from "axios";
 import { writeFileSync, readFileSync, readdirSync } from "fs";
 import { join } from "path";
 import { PDFParse } from "pdf-parse";
+import mammoth from "mammoth";
 import type {
   ESBDListResponse,
   ESBDListRequest,
@@ -206,7 +207,7 @@ export class ESBDClient {
   }
 }
 
-export async function extractPdfs(
+export async function extractDocuments(
   rfps: RFPDetail[],
   dataDir: string,
   concurrency: number = 10,
@@ -222,27 +223,38 @@ export async function extractPdfs(
       continue;
     }
 
-    const pdfs = files.filter((f) => f.toLowerCase().endsWith(".pdf"));
-    for (const pdf of pdfs) {
-      const pdfPath = join(rfpDir, pdf);
-      const extractedDir = join(rfpDir, "extracted");
-      const txtName = pdf.replace(/\.pdf$/i, ".txt");
-      const txtPath = join(extractedDir, txtName);
+    const extractedDir = join(rfpDir, "extracted");
 
-      tasks.push(async () => {
-        const buf = readFileSync(pdfPath);
-        const parser = new PDFParse({ data: new Uint8Array(buf) });
-        const result = await parser.getText();
-        await parser.destroy();
-        ensureDir(txtPath);
-        writeFileSync(txtPath, result.text, "utf-8");
-        return txtPath;
-      });
+    for (const file of files) {
+      const lower = file.toLowerCase();
+      const filePath = join(rfpDir, file);
+
+      if (lower.endsWith(".pdf")) {
+        const txtPath = join(extractedDir, file.replace(/\.pdf$/i, ".txt"));
+        tasks.push(async () => {
+          const buf = readFileSync(filePath);
+          const parser = new PDFParse({ data: new Uint8Array(buf) });
+          const result = await parser.getText();
+          await parser.destroy();
+          ensureDir(txtPath);
+          writeFileSync(txtPath, result.text, "utf-8");
+          return txtPath;
+        });
+      } else if (lower.endsWith(".docx")) {
+        const txtPath = join(extractedDir, file.replace(/\.docx$/i, ".txt"));
+        tasks.push(async () => {
+          const buf = readFileSync(filePath);
+          const result = await mammoth.extractRawText({ buffer: buf });
+          ensureDir(txtPath);
+          writeFileSync(txtPath, result.value, "utf-8");
+          return txtPath;
+        });
+      }
     }
   }
 
   if (tasks.length === 0) {
-    console.log("  No PDFs to extract");
+    console.log("  No documents to extract");
     return 0;
   }
 
@@ -260,6 +272,6 @@ export async function extractPdfs(
     }
   }
 
-  console.log(`  Extracted ${extracted}/${tasks.length} PDFs${failed > 0 ? ` (${failed} failed)` : ""}`);
+  console.log(`  Extracted ${extracted}/${tasks.length} documents${failed > 0 ? ` (${failed} failed)` : ""}`);
   return extracted;
 }
