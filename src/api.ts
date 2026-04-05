@@ -5,7 +5,7 @@ import type {
   RFPDetail,
   RFPListing,
 } from "./types.js";
-import { delay, withRetry } from "./utils.js";
+import { withRetry, runConcurrent } from "./utils.js";
 
 const BASE_URL = "https://www.txsmartbuy.gov";
 const SERVICES_PATH = "/app/extensions/CPA/CPAMain/1.0.0/services";
@@ -74,6 +74,7 @@ export class ESBDClient {
 
   async fetchAllListings(
     filters: Partial<ESBDListRequest> = {},
+    concurrency: number = 6,
   ): Promise<RFPListing[]> {
     const first = await this.fetchListings(1, filters);
     const totalPages = Math.ceil(
@@ -84,17 +85,26 @@ export class ESBDClient {
       `Found ${first.totalRecordsFound} solicitations (${totalPages} pages)`,
     );
 
+    if (totalPages <= 1) return first.lines;
+
+    const tasks = Array.from({ length: totalPages - 1 }, (_, i) => {
+      const page = i + 2;
+      return () => this.fetchListings(page, filters);
+    });
+
+    const results = await runConcurrent(tasks, concurrency);
     const allListings: RFPListing[] = [...first.lines];
 
-    for (let page = 2; page <= totalPages; page++) {
-      await delay(1200);
-      const result = await this.fetchListings(page, filters);
-      allListings.push(...result.lines);
-      console.log(
-        `  Page ${page}/${totalPages} — ${allListings.length} records`,
-      );
+    for (let i = 0; i < results.length; i++) {
+      const r = results[i]!;
+      if (r.status === "fulfilled") {
+        allListings.push(...r.value.lines);
+      } else {
+        console.warn(`  Page ${i + 2} failed: ${r.reason}`);
+      }
     }
 
+    console.log(`  Fetched ${allListings.length} listings across ${totalPages} pages`);
     return allListings;
   }
 
@@ -114,33 +124,30 @@ export class ESBDClient {
 
   async fetchDetails(
     listings: RFPListing[],
-    delayMs: number = 1200,
+    concurrency: number = 10,
   ): Promise<RFPDetail[]> {
+    const tasks = listings.map((listing) => {
+      return () => this.fetchDetail(listing.solicitationId);
+    });
+
+    const results = await runConcurrent(tasks, concurrency);
     const details: RFPDetail[] = [];
     let failed = 0;
 
-    for (let i = 0; i < listings.length; i++) {
-      const listing = listings[i]!;
-      try {
-        if (i > 0) await delay(delayMs);
-        const detail = await this.fetchDetail(listing.solicitationId);
-        details.push(detail);
-        console.log(
-          `  Detail ${i + 1}/${listings.length}: ${listing.solicitationId} ✓`,
-        );
-      } catch (err) {
+    for (let i = 0; i < results.length; i++) {
+      const r = results[i]!;
+      if (r.status === "fulfilled") {
+        details.push(r.value);
+      } else {
         failed++;
-        const msg = err instanceof Error ? err.message : String(err);
+        const msg = r.reason instanceof Error ? r.reason.message : String(r.reason);
         console.warn(
-          `  Detail ${i + 1}/${listings.length}: ${listing.solicitationId} ✗ (${msg})`,
+          `  Detail ${listings[i]!.solicitationId} ✗ (${msg})`,
         );
       }
     }
 
-    if (failed > 0) {
-      console.warn(`  ${failed} detail fetch(es) failed`);
-    }
-
+    console.log(`  Fetched ${details.length}/${listings.length} details${failed > 0 ? ` (${failed} failed)` : ""}`);
     return details;
   }
 }

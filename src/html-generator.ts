@@ -8,7 +8,7 @@ import {
   urgencyClass,
 } from "./utils.js";
 
-const ESBD_DETAIL_URL = "https://www.txsmartbuy.gov/esbd/#/esbd";
+const ESBD_DETAIL_URL = "https://www.txsmartbuy.gov/esbd";
 const ESBD_FILE_BASE = "https://www.txsmartbuy.gov";
 
 function renderBadge(category: string): string {
@@ -26,7 +26,7 @@ function renderCard(rfp: ScoredRFP, rank: number): string {
         ? "DUE TODAY"
         : `${days} day${days !== 1 ? "s" : ""} left`;
 
-  const description = truncate(stripHtml(rfp.description));
+  const description = stripHtml(rfp.description);
   const detailLink = `${ESBD_DETAIL_URL}/${encodeURIComponent(rfp.solicitationId)}`;
 
   const attachmentHtml =
@@ -45,25 +45,19 @@ function renderCard(rfp: ScoredRFP, rank: number): string {
   return `
     <div class="card" data-categories="${rfp.matchedCategories.map(esc).join(",")}">
       <div class="card-header">
-        <span class="rank">#${rank}</span>
-        <span class="score">Score: ${rfp.relevanceScore.toFixed(1)}</span>
-        <div class="badges">${rfp.matchedCategories.map(renderBadge).join(" ")}</div>
+        
+
+        <h2 class="card-title">
+        <a href="${esc(detailLink)}" target="_blank"><span class="rank">#${rank}</span> ${esc(rfp.title)}</a>
+      </h2>
       </div>
 
-      <h2 class="card-title">
-        <a href="${esc(detailLink)}" target="_blank">${esc(rfp.title)}</a>
-      </h2>
-
       <div class="card-meta">
-        <div class="meta-row">
-          <span><strong>ID:</strong> ${esc(rfp.solicitationId)}</span>
-          <span><strong>Agency:</strong> ${esc(rfp.agencyName)}</span>
-        </div>
-        <div class="meta-row">
-          <span><strong>Posted:</strong> ${esc(rfp.postingDate)}</span>
-          <span class="due ${dueClass}"><strong>Due:</strong> ${esc(rfp.responseDue)} ${esc(rfp.responseTime)} <em>(${dueLabel})</em></span>
-        </div>
-        ${rfp.value ? `<div class="meta-row"><span><strong>Value:</strong> $${esc(rfp.value)}</span></div>` : ""}
+        <span><strong>ID:</strong> ${esc(rfp.solicitationId)}</span>
+        <span><strong>Agency:</strong> ${esc(rfp.agencyName)}</span>
+        <span><strong>Posted:</strong> ${esc(rfp.postingDate)}</span>
+        <span class="due ${dueClass}"><strong>Due:</strong> ${esc(rfp.responseDue)} ${esc(rfp.responseTime)} <em>(${dueLabel})</em></span>
+        ${rfp.value && parseFloat(rfp.value) >= 1 ? `<span><strong>Value:</strong> $${esc(rfp.value)}</span>` : ""}
       </div>
 
       <div class="card-description">
@@ -78,9 +72,10 @@ function renderCard(rfp: ScoredRFP, rank: number): string {
 
       ${attachmentHtml}
 
-      <div class="match-details">
-        <em>Matched: ${esc(rfp.matchDetails)}</em>
-      </div>
+      <details class="match-details">
+        <summary>Matched tags</summary>
+        <p>${esc(rfp.matchDetails)}</p>
+      </details>
     </div>`;
 }
 
@@ -92,9 +87,9 @@ function renderMethodology(): string {
       <h3>Data Source Discovery</h3>
       <p>
         I explored the Texas ESBD portal (<a href="https://www.txsmartbuy.gov/esbd">txsmartbuy.gov/esbd</a>)
-        using Chrome DevTools. The site is a JavaScript SPA built on Oracle NetSuite SuiteCommerce Advanced.
+        using Firefox DevTools. The site is a JavaScript SPA built on Oracle NetSuite SuiteCommerce Advanced.
         By monitoring network traffic in the Network tab, I discovered a JSON API endpoint that the frontend
-        uses to fetch solicitation data — specifically a POST endpoint at
+        uses to fetch solicitation data, specifically a POST endpoint at
         <code>ESBD.Service.ss</code> for listings and a GET endpoint at
         <code>ESBD.Details.Service.ss</code> for full solicitation details.
       </p>
@@ -103,8 +98,8 @@ function renderMethodology(): string {
       <p>I chose to query the JSON API directly rather than scraping rendered HTML because:</p>
       <ul>
         <li>Structured JSON data is more reliable than HTML parsing</li>
-        <li>Faster execution — no browser rendering overhead (no Playwright/Selenium needed)</li>
-        <li>Less fragile — API contracts change less often than HTML layout</li>
+        <li>Faster execution, no browser rendering overhead (no Playwright/Selenium needed)</li>
+        <li>Less fragile, API contracts change less often than HTML layout</li>
         <li>Allows efficient pagination and server-side filtering</li>
       </ul>
 
@@ -114,10 +109,10 @@ function renderMethodology(): string {
         list of relevant keywords and subcategories. Each RFP is scored across multiple fields:
       </p>
       <ul>
-        <li><strong>Title</strong> (weight 3.0) — strongest signal for what the RFP is about</li>
-        <li><strong>NIGP codes</strong> (weight 2.5) — official commodity classification codes</li>
-        <li><strong>Description</strong> (weight 2.0) — full context from the detail page</li>
-        <li><strong>Agency name</strong> (weight 0.5) — weak but sometimes helpful signal</li>
+        <li><strong>Title</strong> (weight 3.0) : strongest signal for what the RFP is about</li>
+        <li><strong>NIGP codes</strong> (weight 2.5) : official commodity classification codes</li>
+        <li><strong>Description</strong> (weight 2.0) : full context from the detail page</li>
+        <li><strong>Agency name</strong> (weight 0.5) : weak but sometimes helpful signal</li>
       </ul>
       <p>
         A pre-filter runs on listing data (title + NIGP codes) to skip obviously irrelevant RFPs
@@ -129,7 +124,6 @@ function renderMethodology(): string {
         <li>Keyword matching may miss RFPs that use unusual or highly specific terminology</li>
         <li>Some RFP details exist only inside attached PDF documents, which are not analyzed in the base version</li>
         <li>The relevance scoring is heuristic (keyword-based), not ML/semantic-based</li>
-        <li>Self-imposed rate limiting (1.2s between requests) means full scrape takes several minutes</li>
         <li>API session cookies may expire during very long runs</li>
       </ul>
     </section>`;
@@ -244,7 +238,7 @@ function getCSS(): string {
 
     .card-title {
       font-size: 1.1rem;
-      margin-bottom: 0.75rem;
+      margin: 0;
     }
 
     .card-title a {
@@ -257,16 +251,12 @@ function getCSS(): string {
     }
 
     .card-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.25rem 1.5rem;
       font-size: 0.88rem;
       color: #4b5563;
       margin-bottom: 0.75rem;
-    }
-
-    .meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      margin-bottom: 0.25rem;
     }
 
     .due.overdue { color: #991b1b; font-weight: 700; }
@@ -328,6 +318,15 @@ function getCSS(): string {
       padding-top: 0.5rem;
     }
 
+    .match-details summary {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .match-details p {
+      margin-top: 0.35rem;
+    }
+
     .methodology {
       background: #fff;
       border-radius: 8px;
@@ -368,60 +367,33 @@ function getCSS(): string {
       font-size: 0.85rem;
     }
 
-    .filter-bar {
-      background: #fff;
-      border-radius: 8px;
-      padding: 0.75rem 1.25rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-
-    .filter-label {
+    .top-categories {
+      text-align: center;
       font-size: 0.85rem;
-      font-weight: 600;
+      color: #6b7280;
+      margin-bottom: 1.5rem;
+    }
+
+    .top-categories strong {
       color: #4b5563;
-      white-space: nowrap;
     }
 
-    .filter-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
-
-    .filter-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      padding: 0.2rem 0.65rem;
-      border-radius: 9999px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      border: 2px solid transparent;
+    .cat-link {
+      color: #6b7280;
       cursor: pointer;
-      background: hsl(var(--hue),55%,92%);
-      color: hsl(var(--hue),60%,30%);
-      transition: border-color 0.15s, opacity 0.15s, transform 0.1s;
-      user-select: none;
+      border: none;
+      background: none;
+      font: inherit;
+      padding: 0;
     }
 
-    .filter-badge:hover {
-      border-color: hsl(var(--hue),50%,70%);
-      transform: translateY(-1px);
+    .cat-link:hover {
+      color: #1a56db;
     }
 
-    .filter-badge.active {
-      border-color: hsl(var(--hue),60%,40%);
-      box-shadow: 0 0 0 1px hsl(var(--hue),60%,40%);
-    }
-
-    .filter-badge .count {
-      font-size: 0.7rem;
-      opacity: 0.6;
+    .cat-link.active {
+      color: #1a56db;
+      font-weight: 600;
     }
 
     .card.hidden-by-filter {
@@ -439,11 +411,10 @@ function getCSS(): string {
 
     @media (max-width: 640px) {
       body { padding: 1rem 0.5rem; }
-      .meta-row { flex-direction: column; gap: 0.25rem; }
+      .card-meta { grid-template-columns: 1fr; }
       .badges { margin-left: 0; }
       .card-contact { flex-direction: column; gap: 0.4rem; }
-      .filter-bar { flex-direction: column; align-items: flex-start; }
-    }
+}
   `;
 }
 
@@ -466,19 +437,16 @@ export function generateHTML(
 </head>
 <body>
   <div class="container">
-    <div class="filter-bar">
-      <span class="filter-label">Top Categories:</span>
-      <div class="filter-badges">
-        ${Object.entries(metadata.categoryCounts)
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 8)
-          .map(([cat, count]) => {
-            const hue = categoryHue(cat);
-            return `<button class="filter-badge" data-category="${esc(cat)}" style="--hue:${hue}">${esc(cat)} <span class="count">${count}</span></button>`;
-          })
-          .join("\n        ")}
-      </div>
-    </div>
+    <p class="top-categories"><strong>Top categories:</strong> ${Object.entries(
+      metadata.categoryCounts,
+    )
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 8)
+      .map(
+        ([cat, count]) =>
+          `<button class="cat-link" data-category="${esc(cat)}">${esc(cat)} (${count})</button>`,
+      )
+      .join(", ")}</p>
 
     ${results.map((rfp, i) => renderCard(rfp, i + 1)).join("\n")}
 
@@ -492,13 +460,13 @@ export function generateHTML(
   <script>
     (function() {
       var active = null;
-      var badges = document.querySelectorAll('.filter-badge');
+      var links = document.querySelectorAll('.cat-link');
       var cards = document.querySelectorAll('.card');
 
       function applyFilter(category) {
         active = category;
-        badges.forEach(function(b) {
-          b.classList.toggle('active', b.getAttribute('data-category') === category);
+        links.forEach(function(l) {
+          l.classList.toggle('active', l.getAttribute('data-category') === category);
         });
         cards.forEach(function(card) {
           var cats = (card.getAttribute('data-categories') || '').split(',');
@@ -508,16 +476,16 @@ export function generateHTML(
 
       function clearFilter() {
         active = null;
-        badges.forEach(function(b) { b.classList.remove('active'); });
+        links.forEach(function(l) { l.classList.remove('active'); });
         cards.forEach(function(c) { c.classList.remove('hidden-by-filter'); });
       }
 
-      badges.forEach(function(badge) {
-        badge.addEventListener('click', function() {
-          var cat = badge.getAttribute('data-category');
+      links.forEach(function(link) {
+        link.addEventListener('click', function() {
+          var cat = link.getAttribute('data-category');
           if (active === cat) { clearFilter(); } else { applyFilter(cat); }
         });
-        badge.addEventListener('dblclick', function() { clearFilter(); });
+        link.addEventListener('dblclick', function() { clearFilter(); });
       });
     })();
   </script>

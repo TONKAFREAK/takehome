@@ -20,13 +20,12 @@ async function main(): Promise<void> {
   const client = new ESBDClient();
   await client.initSession();
 
-  // 2. Fetch all open solicitations
-  console.log("\nFetching open solicitations...");
-  const allListings = await client.fetchAllListings({ status: "1" });
-
-  // Also grab "Addendum Posted" (status 6) — still open, just updated
-  console.log("\nFetching addendum-posted solicitations...");
-  const addendumListings = await client.fetchAllListings({ status: "6" });
+  // 2. Fetch open + addendum-posted solicitations in parallel
+  console.log("\nFetching open & addendum-posted solicitations...");
+  const [allListings, addendumListings] = await Promise.all([
+    client.fetchAllListings({ status: "1" }),
+    client.fetchAllListings({ status: "6" }),
+  ]);
 
   const combined = deduplicateByField([...allListings, ...addendumListings]);
   console.log(`\nTotal unique open listings: ${combined.length}`);

@@ -107,6 +107,29 @@ export function daysUntil(dateStr: string): number {
   return Math.ceil((due.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
 }
 
+/** Run async tasks with a concurrency limit */
+export async function runConcurrent<T>(
+  tasks: (() => Promise<T>)[],
+  concurrency: number,
+): Promise<PromiseSettledResult<T>[]> {
+  const results: PromiseSettledResult<T>[] = new Array(tasks.length);
+  let next = 0;
+
+  async function worker(): Promise<void> {
+    while (next < tasks.length) {
+      const idx = next++;
+      try {
+        results[idx] = { status: "fulfilled", value: await tasks[idx]!() };
+      } catch (reason) {
+        results[idx] = { status: "rejected", reason };
+      }
+    }
+  }
+
+  await Promise.all(Array.from({ length: Math.min(concurrency, tasks.length) }, () => worker()));
+  return results;
+}
+
 /** Map days-until-due to a CSS urgency class */
 export function urgencyClass(days: number): string {
   if (days < 0) return "overdue";
