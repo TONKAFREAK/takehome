@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LightRFP — Top 20 Government RFPs</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                   "Helvetica Neue", Arial, sans-serif;
+      background: #f0f2f5;
+      color: #1f2937;
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      color: #111827;
+      margin-bottom: 0.25rem;
+    }
+
+    header p {
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+
+    .summary-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      background: #fff;
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .summary-stat {
+      text-align: center;
+    }
+
+    .summary-stat .num {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1a56db;
+    }
+
+    .summary-stat .label {
+      font-size: 0.8rem;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .rank {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #1a56db;
+    }
+
+    .score {
+      font-size: 0.85rem;
+      color: #059669;
+      font-weight: 600;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-left: auto;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.15rem 0.55rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-title a {
+      color: #1a56db;
+      text-decoration: none;
+    }
+
+    .card-title a:hover {
+      text-decoration: underline;
+    }
+
+    .card-meta {
+      font-size: 0.88rem;
+      color: #4b5563;
+      margin-bottom: 0.75rem;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .due.overdue { color: #991b1b; font-weight: 700; }
+    .due.urgent  { color: #dc2626; font-weight: 700; }
+    .due.soon    { color: #d97706; font-weight: 600; }
+    .due.normal  { color: #4b5563; }
+
+    .card-description {
+      font-size: 0.9rem;
+      color: #374151;
+      margin-bottom: 0.75rem;
+      border-left: 3px solid #e5e7eb;
+      padding-left: 0.75rem;
+    }
+
+    .card-contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      font-size: 0.85rem;
+      color: #4b5563;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-contact a {
+      color: #1a56db;
+      text-decoration: none;
+    }
+
+    .card-contact a:hover {
+      text-decoration: underline;
+    }
+
+    .attachments {
+      font-size: 0.83rem;
+      color: #4b5563;
+      margin-bottom: 0.5rem;
+    }
+
+    .attachment-link {
+      display: inline-block;
+      background: #f3f4f6;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      color: #1a56db;
+      text-decoration: none;
+      font-size: 0.78rem;
+      margin: 0.15rem 0.2rem;
+    }
+
+    .attachment-link:hover {
+      background: #e5e7eb;
+    }
+
+    .match-details {
+      font-size: 0.78rem;
+      color: #9ca3af;
+      border-top: 1px solid #f3f4f6;
+      padding-top: 0.5rem;
+    }
+
+    .methodology {
+      background: #fff;
+      border-radius: 8px;
+      padding: 2rem;
+      margin-top: 2.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .methodology h2 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: #111827;
+    }
+
+    .methodology h3 {
+      font-size: 1.05rem;
+      margin-top: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: #1f2937;
+    }
+
+    .methodology p,
+    .methodology li {
+      font-size: 0.92rem;
+      color: #374151;
+      margin-bottom: 0.5rem;
+    }
+
+    .methodology ul {
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .methodology code {
+      background: #f3f4f6;
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.85rem;
+    }
+
+    footer {
+      text-align: center;
+      color: #9ca3af;
+      font-size: 0.8rem;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    @media (max-width: 640px) {
+      body { padding: 1rem 0.5rem; }
+      .meta-row { flex-direction: column; gap: 0.25rem; }
+      .badges { margin-left: 0; }
+      .card-contact { flex-direction: column; gap: 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>LightRFP — Government RFP Results</h1>
+      <p>Top 20 solicitations relevant to building maintenance &amp; construction vendors</p>
+      <p style="font-size:0.8rem;color:#9ca3af">Generated: Apr 5, 2026, 2:32 AM | Source: Texas ESBD</p>
+    </header>
+
+    <div class="summary-bar">
+      <div class="summary-stat">
+        <div class="num">624</div>
+        <div class="label">Scanned</div>
+      </div>
+      <div class="summary-stat">
+        <div class="num">437</div>
+        <div class="label">Relevant</div>
+      </div>
+      <div class="summary-stat">
+        <div class="num">20</div>
+        <div class="label">Top Results</div>
+      </div>
+      <div class="summary-stat">
+        <div class="num">994s</div>
+        <div class="label">Runtime</div>
+      </div>
+    </div>
+
+    <p style="text-align:center;font-size:0.85rem;color:#6b7280;margin-bottom:1.5rem"><strong>Top categories:</strong> General Contractors (15), Concrete (14), Electrical (11), Asphalt (8), Carpentry / Glaziery (8), Plumbing (8), Architecture and Design (7), Excavating (7)</p>
+
+    
+    <div class="card">
+      <div class="card-header">
+        <span class="rank">#1</span>
+        <span class="score">Score: 114.5</span>
+        <div class="badges"><span class="badge" style="background:hsl(60,55%,92%);color:hsl(60,60%,30%)">Architecture and Design</span> <span class="badge" style="background:hsl(273,55%,92%);color:hsl(273,60%,30%)">Asphalt</span> <span class="badge" style="background:hsl(190,55%,92%);color:hsl(190,60%,30%)">Bathroom</span> <span class="badge" style="background:hsl(315,55%,92%);color:hsl(315,60%,30%)">Cabinets</span> <span class="badge" style="background:hsl(220,55%,92%);color:hsl(220,60%,30%)">Carpentry / Glaziery</span> <span class="badge" style="background:hsl(277,55%,92%);color:hsl(277,60%,30%)">Concrete</span> <span class="badge" style="background:hsl(120,55%,92%);color:hsl(120,60%,30%)">Electrical</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">Excavating</span> <span class="badge" style="background:hsl(295,55%,92%);color:hsl(295,60%,30%)">Exterior Maintenance</span> <span class="badge" style="background:hsl(210,55%,92%);color:hsl(210,60%,30%)">Flooring</span> <span class="badge" style="background:hsl(74,55%,92%);color:hsl(74,60%,30%)">Interior Installation</span> <span class="badge" style="background:hsl(91,55%,92%);color:hsl(91,60%,30%)">Lawn and Landscaping</span> <span class="badge" style="background:hsl(334,55%,92%);color:hsl(334,60%,30%)">Life Safety</span> <span class="badge" style="background:hsl(82,55%,92%);color:hsl(82,60%,30%)">Moving</span> <span class="badge" style="background:hsl(358,55%,92%);color:hsl(358,60%,30%)">Paint</span> <span class="badge" style="background:hsl(156,55%,92%);color:hsl(156,60%,30%)">Plumbing</span> <span class="badge" style="background:hsl(88,55%,92%);color:hsl(88,60%,30%)">Security</span> <span class="badge" style="background:hsl(333,55%,92%);color:hsl(333,60%,30%)">Surveys and Appraisal</span> <span class="badge" style="background:hsl(266,55%,92%);color:hsl(266,60%,30%)">Wallpaper</span> <span class="badge" style="background:hsl(219,55%,92%);color:hsl(219,60%,30%)">Windows</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">General Contractors</span></div>
+      </div>
+
+      <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/#/esbd/750-25-26-008" target="_blank">Longview University Center Renovation</a>
+      </h2>
+
+      <div class="card-meta">
+        <div class="meta-row">
+          <span><strong>ID:</strong> 750-25-26-008</span>
+          <span><strong>Agency:</strong> University Of Texas At Tyler - 750</span>
+        </div>
+        <div class="meta-row">
+          <span><strong>Posted:</strong> 3/18/2026</span>
+          <span class="due normal"><strong>Due:</strong> 4/14/2026 3:00 PM <em>(9 days left)</em></span>
+        </div>
+        <div class="meta-row"><span><strong>Value:</strong> $3,000,000.00</span></div>
+      </div>
+
+      <div class="card-description">
+        <p>The University of Texas at Tyler is soliciting proposals for supervision,materials, equipment and labor for renovations and improvements to the LongviewUniversity Center, to include all related work as described in the constructiondocuments issued...</p>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Demi Beckham</span>
+        <span><strong>Phone:</strong> (903) 565-6407</span>
+        <span><strong>Email:</strong> <a href="mailto:Demi.Beckham@uttyler.edu">Demi.Beckham@uttyler.edu</a></span>
+      </div>
+
+      <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32851848&amp;c=852252&amp;h=61nN5ibj3puCJfmKoPtMfkMuPvCJGRURpwCgxhP90pw0cgrT&amp;_xt=.doc" target="_blank" class="attachment-link">ESBD_497431_1773847030023_RFP 750-25-26-008 Longview University Center Renovation.docx</a>
+        </div>
+
+      <div class="match-details">
+        <em>Matched: Architecture and Design: &quot;architect&quot; in nigpCodes, &quot;architectural&quot; in nigpCodes; Asphalt: &quot;asphalt&quot; in nigpCodes, &quot;striping&quot; in nigpCodes; Bathroom: &quot;toilet&quot; in nigpCodes, &quot;shower&quot; in nigpCodes; Cabinets: &quot;cabinet&quot; in nigpCodes, &quot;millwork&quot; in nigpCodes; Carpentry / Glaziery: &quot;glazing&quot; in nigpCodes, &quot;trim&quot; in nigpCodes, &quot;door&quot; in nigpCodes; Concrete: &quot;concrete&quot; in nigpCodes, &quot;cement&quot; in nigpCodes; Electrical: &quot;electrical&quot; in nigpCodes, &quot;wiring&quot; in nigpCodes; Excavating: &quot;demolition&quot; in nigpCodes; Exterior Maintenance: &quot;caulking&quot; in nigpCodes; Flooring: &quot;flooring&quot; in nigpCodes, &quot;floor&quot; in nigpCodes; Interior Installation: &quot;drywall&quot; in nigpCodes, &quot;ceiling&quot; in nigpCodes; Lawn and Landscaping: &quot;landscaping&quot; in nigpCodes, &quot;tree trimming&quot; in nigpCodes, &quot;grounds maintenance&quot; in nigpCodes; Life Safety: &quot;fire alarm&quot; in nigpCodes, &quot;fire suppression&quot; in nigpCodes; Moving: &quot;moving&quot; in nigpCodes; Paint: &quot;paint&quot; in nigpCodes, &quot;painting&quot; in nigpCodes; Plumbing: &quot;plumbing&quot; in nigpCodes, &quot;fixture&quot; in nigpCodes, &quot;plumbing fixture&quot; in nigpCodes; Security: &quot;security&quot; in nigpCodes, &quot;alarm system&quot; in nigpCodes; Surveys and Appraisal: &quot;survey&quot; in nigpCodes, &quot;surveying&quot; in nigpCodes, &quot;land survey&quot; in nigpCodes; Wallpaper: &quot;wallpaper&quot; in nigpCodes; Windows: &quot;window&quot; in nigpCodes, &quot;glass&quot; in nigpCodes, &quot;glazing&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description, &quot;renovation&quot; in title, &quot;renovation&quot; in description, &quot;general construction&quot; in nigpCodes</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="rank">#2</span>
+        <span class="score">Score: 61.0</span>
+        <div class="badges"><span class="badge" style="background:hsl(190,55%,92%);color:hsl(190,60%,30%)">Bathroom</span> <span class="badge" style="background:hsl(220,55%,92%);color:hsl(220,60%,30%)">Carpentry / Glaziery</span> <span class="badge" style="background:hsl(277,55%,92%);color:hsl(277,60%,30%)">Concrete</span> <span class="badge" style="background:hsl(120,55%,92%);color:hsl(120,60%,30%)">Electrical</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">Excavating</span> <span class="badge" style="background:hsl(348,55%,92%);color:hsl(348,60%,30%)">Exterior Installation</span> <span class="badge" style="background:hsl(210,55%,92%);color:hsl(210,60%,30%)">Flooring</span> <span class="badge" style="background:hsl(48,55%,92%);color:hsl(48,60%,30%)">Insulation</span> <span class="badge" style="background:hsl(74,55%,92%);color:hsl(74,60%,30%)">Interior Installation</span> <span class="badge" style="background:hsl(358,55%,92%);color:hsl(358,60%,30%)">Paint</span> <span class="badge" style="background:hsl(156,55%,92%);color:hsl(156,60%,30%)">Plumbing</span> <span class="badge" style="background:hsl(302,55%,92%);color:hsl(302,60%,30%)">Roofing</span> <span class="badge" style="background:hsl(266,55%,92%);color:hsl(266,60%,30%)">Wallpaper</span> <span class="badge" style="background:hsl(219,55%,92%);color:hsl(219,60%,30%)">Windows</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">General Contractors</span></div>
+      </div>
+
+      <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/#/esbd/SSC-CSP-2025-06767" target="_blank">SSC - RELLIS Hangars 8 &amp; 9 and Restroom Building - Bryan, TX</a>
+      </h2>
+
+      <div class="card-meta">
+        <div class="meta-row">
+          <span><strong>ID:</strong> SSC-CSP-2025-06767</span>
+          <span><strong>Agency:</strong> Texas A&amp;M University System - 710</span>
+        </div>
+        <div class="meta-row">
+          <span><strong>Posted:</strong> 3/31/2026</span>
+          <span class="due normal"><strong>Due:</strong> 4/23/2026 2:00 PM <em>(18 days left)</em></span>
+        </div>
+        <div class="meta-row"><span><strong>Value:</strong> $0.01</span></div>
+      </div>
+
+      <div class="card-description">
+        <p>SSC Services for Education (SSC) as Owner Designated Representative (ODR) for Texas A&amp;M University RELLIS Campus is requesting Competitive Sealed Proposals (CSP) from general construction contractors for the construction of two PEMB hangars and a...</p>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> David Ritter</span>
+        <span><strong>Phone:</strong> (979) 219-0774</span>
+        <span><strong>Email:</strong> <a href="mailto:david.ritter@sscserv.com">david.ritter@sscserv.com</a></span>
+      </div>
+
+      <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32908783&amp;c=852252&amp;h=GRUondqO7GAL-5Q2hxHOOTrMd4K7b39956DDc_jeBr_LQk8L&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_502534_1774982001854_2025-06767_Notice of Project-CS_26.03.20.pdf</a>
+        </div>
+
+      <div class="match-details">
+        <em>Matched: Bathroom: &quot;restroom&quot; in title, &quot;restroom&quot; in description; Carpentry / Glaziery: &quot;glazing&quot; in nigpCodes; Concrete: &quot;concrete&quot; in nigpCodes, &quot;masonry&quot; in nigpCodes, &quot;cmu&quot; in description; Electrical: &quot;electrical&quot; in nigpCodes; Excavating: &quot;site work&quot; in nigpCodes; Exterior Installation: &quot;siding&quot; in nigpCodes; Flooring: &quot;flooring&quot; in nigpCodes, &quot;floor&quot; in nigpCodes; Insulation: &quot;insulation&quot; in nigpCodes; Interior Installation: &quot;ceiling&quot; in nigpCodes; Paint: &quot;paint&quot; in nigpCodes, &quot;painting&quot; in nigpCodes; Plumbing: &quot;plumbing&quot; in nigpCodes; Roofing: &quot;roof&quot; in nigpCodes, &quot;roofing&quot; in nigpCodes; Wallpaper: &quot;wallpaper&quot; in nigpCodes; Windows: &quot;glass&quot; in nigpCodes, &quot;glazing&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description, &quot;building construction&quot; in nigpCodes, &quot;general construction&quot; in description</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="rank">#3</span>
+        <span class="score">Score: 51.0</span>
+        <div class="badges"><span class="badge" style="background:hsl(60,55%,92%);color:hsl(60,60%,30%)">Architecture and Design</span> <span class="badge" style="background:hsl(190,55%,92%);color:hsl(190,60%,30%)">Bathroom</span> <span class="badge" style="background:hsl(220,55%,92%);color:hsl(220,60%,30%)">Carpentry / Glaziery</span> <span class="badge" style="background:hsl(91,55%,92%);color:hsl(91,60%,30%)">Lawn and Landscaping</span> <span class="badge" style="background:hsl(334,55%,92%);color:hsl(334,60%,30%)">Life Safety</span> <span class="badge" style="background:hsl(156,55%,92%);color:hsl(156,60%,30%)">Plumbing</span></div>
+      </div>
+
+      <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/#/esbd/MSIR0426" target="_blank">Maintenance Sprinkler System Installation &amp; Repair Services</a>
+      </h2>
+
+      <div class="card-meta">
+        <div class="meta-row">
+          <span><strong>ID:</strong> MSIR0426</span>
+          <span><strong>Agency:</strong> Harlingen CISD - S0315</span>
+        </div>
+        <div class="meta-row">
+          <span><strong>Posted:</strong> 3/28/2026</span>
+          <span class="due normal"><strong>Due:</strong> 4/14/2026 2:00 PM <em>(9 days left)</em></span>
+        </div>
+        <div class="meta-row"><span><strong>Value:</strong> $75,000.00</span></div>
+      </div>
+
+      <div class="card-description">
+        <p>Proposal Specifications are available at: https://hcisdbid.ionwave.net/Login.aspx Proposals are to reach the Purchasing Department ON OR BEFORE the above-mentioned due date &amp; time. Harlingen Consolidated Independent School District Purchasing...</p>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Sylvia Deleon</span>
+        <span><strong>Phone:</strong> (956) 430-9740</span>
+        <span><strong>Email:</strong> <a href="mailto:sylvia.deleon@hcisd.org">sylvia.deleon@hcisd.org</a></span>
+      </div>
+
+      <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32888232&amp;c=852252&amp;h=TIe44vEQVwiaPuMbTkL6YzEuOC5eYRWY_GwVNlkSo7hoK_jD&amp;_xt=.doc" target="_blank" class="attachment-link">ESBD_501379_1774574146424_NewsMultiBid 03122026-2.docx</a>
+        </div>
+
+      <div class="match-details">
+        <em>Matched: Architecture and Design: &quot;architect&quot; in nigpCodes, &quot;architectural&quot; in nigpCodes; Bathroom: &quot;toilet&quot; in nigpCodes; Carpentry / Glaziery: &quot;trim&quot; in nigpCodes; Lawn and Landscaping: &quot;landscaping&quot; in nigpCodes, &quot;lawn&quot; in nigpCodes, &quot;irrigation&quot; in nigpCodes, &quot;sprinkler&quot; in title, &quot;sprinkler&quot; in nigpCodes, &quot;tree trimming&quot; in nigpCodes, &quot;turf&quot; in nigpCodes, &quot;grounds maintenance&quot; in nigpCodes; Life Safety: &quot;fire protection&quot; in nigpCodes, &quot;sprinkler system&quot; in title, &quot;sprinkler system&quot; in nigpCodes, &quot;smoke detector&quot; in nigpCodes, &quot;fire sprinkler&quot; in nigpCodes; Plumbing: &quot;plumbing&quot; in nigpCodes, &quot;pipe&quot; in nigpCodes, &quot;fixture&quot; in nigpCodes</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="rank">#4</span>
+        <span class="score">Score: 50.0</span>
+        <div class="badges"><span class="badge" style="background:hsl(273,55%,92%);color:hsl(273,60%,30%)">Asphalt</span> <span class="badge" style="background:hsl(220,55%,92%);color:hsl(220,60%,30%)">Carpentry / Glaziery</span> <span class="badge" style="background:hsl(277,55%,92%);color:hsl(277,60%,30%)">Concrete</span> <span class="badge" style="background:hsl(158,55%,92%);color:hsl(158,60%,30%)">Fencing</span> <span class="badge" style="background:hsl(91,55%,92%);color:hsl(91,60%,30%)">Lawn and Landscaping</span> <span class="badge" style="background:hsl(82,55%,92%);color:hsl(82,60%,30%)">Moving</span> <span class="badge" style="background:hsl(12,55%,92%);color:hsl(12,60%,30%)">Structural Work</span> <span class="badge" style="background:hsl(150,55%,92%);color:hsl(150,60%,30%)">Wall-Making</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">General Contractors</span></div>
+      </div>
+
+      <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/#/esbd/23-04203-10" target="_blank">2026 Task Order Contract for the Street Rehabilitation Package 10 Flatwork</a>
+      </h2>
+
+      <div class="card-meta">
+        <div class="meta-row">
+          <span><strong>ID:</strong> 23-04203-10</span>
+          <span><strong>Agency:</strong> City of San Antonio - M0152</span>
+        </div>
+        <div class="meta-row">
+          <span><strong>Posted:</strong> 3/20/2026</span>
+          <span class="due normal"><strong>Due:</strong> 4/28/2026 2:00 PM <em>(23 days left)</em></span>
+        </div>
+        <div class="meta-row"><span><strong>Value:</strong> $1,000,000.00</span></div>
+      </div>
+
+      <div class="card-description">
+        <p>Solicitation Type and Name: Formal Invitation for Bids for 2026 Task Order Contract for the Street Rehabilitation Package 10 Flatwork Solicitation Number: 23-04203-10 Description: Project construction may include but is not limited to: removal and...</p>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Michelle Birch</span>
+        <span><strong>Phone:</strong> (210) 207-8642</span>
+        <span><strong>Email:</strong> <a href="mailto:michelle.birch@sanantonio.gov">michelle.birch@sanantonio.gov</a></span>
+      </div>
+
+      <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32861837&amp;c=852252&amp;h=RH10YLcNw-5ypBpAnYhi8uwRuKCEs13DteCJM99tJpVlF8b9&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_498782_1774031248894_Solicitation Synopsis Non-Discretionary.pdf</a>
+        </div>
+
+      <div class="match-details">
+        <em>Matched: Asphalt: &quot;asphalt&quot; in description, &quot;pavement&quot; in description; Carpentry / Glaziery: &quot;door&quot; in description; Concrete: &quot;concrete&quot; in nigpCodes, &quot;concrete&quot; in description, &quot;cement&quot; in description, &quot;sidewalk&quot; in nigpCodes, &quot;sidewalk&quot; in description, &quot;curb&quot; in description, &quot;flatwork&quot; in title, &quot;flatwork&quot; in description; Fencing: &quot;fence&quot; in nigpCodes, &quot;fence&quot; in description, &quot;fence installation&quot; in nigpCodes, &quot;fence installation&quot; in description; Lawn and Landscaping: &quot;sod&quot; in nigpCodes, &quot;sod&quot; in description; Moving: &quot;moving&quot; in description, &quot;relocation&quot; in description; Structural Work: &quot;retaining wall&quot; in description; Wall-Making: &quot;retaining wall&quot; in description; General Contractors: &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="rank">#5</span>
+        <span class="score">Score: 45.5</span>
+        <div class="badges"><span class="badge" style="background:hsl(207,55%,92%);color:hsl(207,60%,30%)">Basement</span> <span class="badge" style="background:hsl(277,55%,92%);color:hsl(277,60%,30%)">Concrete</span> <span class="badge" style="background:hsl(120,55%,92%);color:hsl(120,60%,30%)">Electrical</span> <span class="badge" style="background:hsl(200,55%,92%);color:hsl(200,60%,30%)">HVAC</span> <span class="badge" style="background:hsl(19,55%,92%);color:hsl(19,60%,30%)">Interior Maintenance</span> <span class="badge" style="background:hsl(184,55%,92%);color:hsl(184,60%,30%)">Metalwork</span> <span class="badge" style="background:hsl(156,55%,92%);color:hsl(156,60%,30%)">Plumbing</span> <span class="badge" style="background:hsl(12,55%,92%);color:hsl(12,60%,30%)">Structural Work</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">General Contractors</span></div>
+      </div>
+
+      <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/#/esbd/RFP_26-003" target="_blank">SE Campus SE-02 Structural Repairs &amp; Improvements</a>
+      </h2>
+
+      <div class="card-meta">
+        <div class="meta-row">
+          <span><strong>ID:</strong> RFP_26-003</span>
+          <span><strong>Agency:</strong> Tarrant County College - J2201</span>
+        </div>
+        <div class="meta-row">
+          <span><strong>Posted:</strong> 3/12/2026</span>
+          <span class="due normal"><strong>Due:</strong> 4/17/2026 2:00 PM <em>(12 days left)</em></span>
+        </div>
+        <div class="meta-row"><span><strong>Value:</strong> $800,000.00</span></div>
+      </div>
+
+      <div class="card-description">
+        <p>Tarrant County College District (TCCD) announces RFP #26-003: SE CampusSE-02 Structural Repairs &amp; Improvements. The RFP proposal submission deadline is Friday, April 17, 2026, at 2:00PM local time. A virtual initial publicconference is scheduled for...</p>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Darren King</span>
+        <span><strong>Phone:</strong> (817) 515-1508</span>
+        <span><strong>Email:</strong> <a href="mailto:darren.king@tccd.edu">darren.king@tccd.edu</a></span>
+      </div>
+
+      <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32836319&amp;c=852252&amp;h=IVmM5Ww-CsijUI95zUevpcnV7xeZFzd8TYGx5Ry7rZm3HjoM&amp;_xt=.doc" target="_blank" class="attachment-link">ESBD_495937_1773349846974_Advertisement -RFP 26-003 -Other.docx</a>
+        </div>
+
+      <div class="match-details">
+        <em>Matched: Basement: &quot;crawlspace&quot; in description; Concrete: &quot;concrete&quot; in description, &quot;cement&quot; in description, &quot;concrete repair&quot; in description; Electrical: &quot;electrical&quot; in description, &quot;electrical repair&quot; in description; HVAC: &quot;ventilation&quot; in description, &quot;rtu&quot; in description; Interior Maintenance: &quot;building maintenance&quot; in nigpCodes; Metalwork: &quot;structural steel&quot; in description; Plumbing: &quot;plumbing&quot; in description, &quot;piping&quot; in description, &quot;sanitary&quot; in description; Structural Work: &quot;structural&quot; in title, &quot;structural&quot; in description, &quot;structural repair&quot; in title, &quot;structural repair&quot; in description, &quot;structural steel&quot; in description; General Contractors: &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description, &quot;building construction&quot; in nigpCodes</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="rank">#6</span>
+        <span class="score">Score: 44.0</span>
+        <div class="badges"><span class="badge" style="background:hsl(60,55%,92%);color:hsl(60,60%,30%)">Architecture and Design</span> <span class="badge" style="background:hsl(277,55%,92%);color:hsl(277,60%,30%)">Concrete</span> <span class="badge" style="background:hsl(120,55%,92%);color:hsl(120,60%,30%)">Electrical</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">Excavating</span> <span class="badge" style="background:hsl(158,55%,92%);color:hsl(158,60%,30%)">Fencing</span> <span class="badge" style="background:hsl(112,55%,92%);color:hsl(112,60%,30%)">Interior Decoration</span> <span class="badge" style="background:hsl(12,55%,92%);color:hsl(12,60%,30%)">Structural Work</span> <span class="badge" style="background:hsl(150,55%,92%);color:hsl(150,60%,30%)">Wall-Making</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">General Contractors</span></div>
+      </div>
+
+      <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/#/esbd/RFP26-19454-KM" target="_blank">Bell Farms Public Improvement District (PID) Playa Lake Retaining Wall Construction</a>
+      </h2>
+
+      <div class="card-meta">
+        <div class="meta-row">
+          <span><strong>ID:</strong> RFP26-19454-KM</span>
+          <span><strong>Agency:</strong> City of Lubbock - M0007</span>
+        </div>
+        <div class="meta-row">
+          <span><strong>Posted:</strong> 3/20/2026</span>
+          <span class="due soon"><strong>Due:</strong> 4/9/2026 3:00 PM <em>(4 days left)</em></span>
+        </div>
+        <div class="meta-row"><span><strong>Value:</strong> $180,000.00</span></div>
+      </div>
+
+      <div class="card-description">
+        <p>The Work, under this Contract, consists of furnishing all labor, supervision, equipment, tools, materials, transportation, services, and related items necessary for the construction and completions, start-up and placing in service the Project. The...</p>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Kiara Morgan</span>
+        <span><strong>Phone:</strong> (806) 775-2167</span>
+        <span><strong>Email:</strong> <a href="mailto:KMorgan@mylubbock.us">KMorgan@mylubbock.us</a></span>
+      </div>
+
+      <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32860260&amp;c=852252&amp;h=IfneJFtTF3gSBqixl8WwLciWh_ebz6NaZOZn9BqDY5j2TJqH&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_498577_1774015900699_01 - RFP 26-19454-KM.pdf</a>
+        </div>
+
+      <div class="match-details">
+        <em>Matched: Architecture and Design: &quot;architect&quot; in nigpCodes, &quot;architectural&quot; in nigpCodes; Concrete: &quot;sidewalk&quot; in description; Electrical: &quot;lighting&quot; in description; Excavating: &quot;site work&quot; in nigpCodes; Fencing: &quot;fence&quot; in nigpCodes, &quot;fence installation&quot; in nigpCodes; Interior Decoration: &quot;furnishing&quot; in description; Structural Work: &quot;retaining wall&quot; in title, &quot;retaining wall&quot; in description; Wall-Making: &quot;wall construction&quot; in title, &quot;retaining wall&quot; in title, &quot;retaining wall&quot; in description; General Contractors: &quot;construction&quot; in title, &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description, &quot;building construction&quot; in nigpCodes, &quot;general construction&quot; in nigpCodes</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="rank">#7</span>
+        <span class="score">Score: 43.0</span>
+        <div class="badges"><span class="badge" style="background:hsl(273,55%,92%);color:hsl(273,60%,30%)">Asphalt</span> <span class="badge" style="background:hsl(220,55%,92%);color:hsl(220,60%,30%)">Carpentry / Glaziery</span> <span class="badge" style="background:hsl(277,55%,92%);color:hsl(277,60%,30%)">Concrete</span> <span class="badge" style="background:hsl(46,55%,92%);color:hsl(46,60%,30%)">Equipment Rental</span> <span class="badge" style="background:hsl(153,55%,92%);color:hsl(153,60%,30%)">Garage</span> <span class="badge" style="background:hsl(200,55%,92%);color:hsl(200,60%,30%)">HVAC</span> <span class="badge" style="background:hsl(297,55%,92%);color:hsl(297,60%,30%)">Interior Cleaning</span> <span class="badge" style="background:hsl(88,55%,92%);color:hsl(88,60%,30%)">Security</span> <span class="badge" style="background:hsl(219,55%,92%);color:hsl(219,60%,30%)">Windows</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">General Contractors</span></div>
+      </div>
+
+      <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/#/esbd/24005C28" target="_blank">Operational Support Contracted Services</a>
+      </h2>
+
+      <div class="card-meta">
+        <div class="meta-row">
+          <span><strong>ID:</strong> 24005C28</span>
+          <span><strong>Agency:</strong> Leander ISD - S2464</span>
+        </div>
+        <div class="meta-row">
+          <span><strong>Posted:</strong> 3/7/2023</span>
+          <span class="due normal"><strong>Due:</strong> 5/30/2028 2:00 PM <em>(786 days left)</em></span>
+        </div>
+        <div class="meta-row"><span><strong>Value:</strong> $1.00</span></div>
+      </div>
+
+      <div class="card-description">
+        <p>Leander Independent School District (known herein as &quot;LISD&quot; or &quot;District&quot;) is accepting proposal responses from vendors interested in providing the following products or services: Operational Support Contracted Services Leander ISD is accepting...</p>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Cassandra Holmes</span>
+        <span><strong>Phone:</strong> 512-570-0614</span>
+        <span><strong>Email:</strong> <a href="mailto:cassandra.holmes@leanderisd.org">cassandra.holmes@leanderisd.org</a></span>
+      </div>
+
+      <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=24979773&amp;c=852252&amp;h=p4PUM4a4fpGRdxFqJCBUl3Q5i7JcNqemrvg7Na0voo8LiEsV&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_File_318439_LISD 24005C28 Operational Support Contracted Services.pdf</a> <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=24979774&amp;c=852252&amp;h=ZlnU7tQrOtch_oSiruXO5qfX4L5SeZwNaxaaUhVJ1D4ORiTV&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_File_318439_LISD General Terms FINAL rev2 20221118.pdf</a>
+        </div>
+
+      <div class="match-details">
+        <em>Matched: Asphalt: &quot;parking lot&quot; in description; Carpentry / Glaziery: &quot;door&quot; in nigpCodes, &quot;door&quot; in description, &quot;door installation&quot; in nigpCodes; Concrete: &quot;cement&quot; in nigpCodes; Equipment Rental: &quot;equipment rental&quot; in description; Garage: &quot;overhead door&quot; in nigpCodes, &quot;overhead door&quot; in description; HVAC: &quot;rtu&quot; in description; Interior Cleaning: &quot;janitorial&quot; in nigpCodes, &quot;custodial&quot; in description, &quot;janitor&quot; in nigpCodes; Security: &quot;access control&quot; in description; Windows: &quot;window&quot; in nigpCodes, &quot;glass&quot; in nigpCodes, &quot;glass&quot; in description, &quot;window tint&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="rank">#8</span>
+        <span class="score">Score: 42.5</span>
+        <div class="badges"><span class="badge" style="background:hsl(277,55%,92%);color:hsl(277,60%,30%)">Concrete</span> <span class="badge" style="background:hsl(48,55%,92%);color:hsl(48,60%,30%)">Insulation</span> <span class="badge" style="background:hsl(358,55%,92%);color:hsl(358,60%,30%)">Paint</span> <span class="badge" style="background:hsl(302,55%,92%);color:hsl(302,60%,30%)">Roofing</span></div>
+      </div>
+
+      <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/#/esbd/FM2026-007" target="_blank">RFP FOR BLANKET ORDER FOR MASONRY RESTORATION, BRICK &amp; PAVER REPAIRS &amp; INSTALLATION, AND FACILITIES WATERPROOFING</a>
+      </h2>
+
+      <div class="card-meta">
+        <div class="meta-row">
+          <span><strong>ID:</strong> FM2026-007</span>
+          <span><strong>Agency:</strong> Univ Of Texas At Arlington - 714</span>
+        </div>
+        <div class="meta-row">
+          <span><strong>Posted:</strong> 4/3/2026</span>
+          <span class="due normal"><strong>Due:</strong> 4/30/2026 2:00 PM <em>(25 days left)</em></span>
+        </div>
+        <div class="meta-row"><span><strong>Value:</strong> $2,500,000.00</span></div>
+      </div>
+
+      <div class="card-description">
+        <p>Furnish all labor, materials, tools, and equipment to perform work on blanket order for masonry restoration, brick &amp; paver repairs and installation, and facilities waterproofing.</p>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Nohemi Sanchez</span>
+        <span><strong>Phone:</strong> (817) 272-4995</span>
+        <span><strong>Email:</strong> <a href="mailto:Nohemi.Sanchez@uta.edu">Nohemi.Sanchez@uta.edu</a></span>
+      </div>
+
+      <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32927818&amp;c=852252&amp;h=a8V3TB9PoByNjXUz7GuVAJRnIIED32Kd0ZISKyodRMdjnf-_&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_503811_1775233618883_FINAL_RFP FM2026-007 BOC for Masonry Restore-Brick &amp;Paver Repair Install-Facilities Waterproofing.pdf</a>
+        </div>
+
+      <div class="match-details">
+        <em>Matched: Concrete: &quot;concrete&quot; in nigpCodes, &quot;masonry&quot; in title, &quot;masonry&quot; in nigpCodes, &quot;masonry&quot; in description, &quot;brick&quot; in title, &quot;brick&quot; in nigpCodes, &quot;brick&quot; in description, &quot;block&quot; in nigpCodes; Insulation: &quot;weatherization&quot; in nigpCodes; Paint: &quot;paint&quot; in nigpCodes, &quot;coating&quot; in nigpCodes; Roofing: &quot;roof&quot; in title, &quot;roof&quot; in nigpCodes, &quot;roof&quot; in description, &quot;roofing&quot; in title, &quot;roofing&quot; in nigpCodes, &quot;roofing&quot; in description</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="rank">#9</span>
+        <span class="score">Score: 42.5</span>
+        <div class="badges"><span class="badge" style="background:hsl(60,55%,92%);color:hsl(60,60%,30%)">Architecture and Design</span> <span class="badge" style="background:hsl(120,55%,92%);color:hsl(120,60%,30%)">Electrical</span> <span class="badge" style="background:hsl(200,55%,92%);color:hsl(200,60%,30%)">HVAC</span> <span class="badge" style="background:hsl(334,55%,92%);color:hsl(334,60%,30%)">Life Safety</span> <span class="badge" style="background:hsl(302,55%,92%);color:hsl(302,60%,30%)">Roofing</span> <span class="badge" style="background:hsl(12,55%,92%);color:hsl(12,60%,30%)">Structural Work</span> <span class="badge" style="background:hsl(333,55%,92%);color:hsl(333,60%,30%)">Surveys and Appraisal</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">General Contractors</span></div>
+      </div>
+
+      <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/#/esbd/26RFSQ28" target="_blank">26RFSQ28 Planner, Landscape Architecture, Architecture &amp; Engineer (PLAE) Pool</a>
+      </h2>
+
+      <div class="card-meta">
+        <div class="meta-row">
+          <span><strong>ID:</strong> 26RFSQ28</span>
+          <span><strong>Agency:</strong> Williamson County - C2460</span>
+        </div>
+        <div class="meta-row">
+          <span><strong>Posted:</strong> 3/17/2026</span>
+          <span class="due normal"><strong>Due:</strong> 4/17/2026 3:00 PM <em>(12 days left)</em></span>
+        </div>
+        <div class="meta-row"><span><strong>Value:</strong> $0.01</span></div>
+      </div>
+
+      <div class="card-description">
+        <p>Williamson County is seeking qualifications from experienced firms to provide professional planning, landscape architectural, architectural, or engineering (PLAE) services to support the County with various projects.</p>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Michelle McKinney</span>
+        <span><strong>Phone:</strong> (512) 943-3878</span>
+        <span><strong>Email:</strong> <a href="mailto:michelle.mckinney@wilcotx.gov">michelle.mckinney@wilcotx.gov</a></span>
+      </div>
+
+      <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32847860&amp;c=852252&amp;h=7ucppx1UYRdStQRaEfkonYi1qUYywiE0WdqnMY5389xs9jI1&amp;_xt=.doc" target="_blank" class="attachment-link">ESBD_497205_1773767499415_ESBD 26RFSQ28 Planner, Landscape Architecture, Architecture &amp; Engineer (PLAE) Pool.docx</a>
+        </div>
+
+      <div class="match-details">
+        <em>Matched: Architecture and Design: &quot;architect&quot; in title, &quot;architect&quot; in nigpCodes, &quot;architect&quot; in description, &quot;architecture&quot; in title, &quot;architectural&quot; in nigpCodes, &quot;architectural&quot; in description; Electrical: &quot;electrical&quot; in nigpCodes; HVAC: &quot;heating&quot; in nigpCodes, &quot;air conditioning&quot; in nigpCodes; Life Safety: &quot;fire protection&quot; in nigpCodes; Roofing: &quot;roof&quot; in nigpCodes, &quot;roofing&quot; in nigpCodes; Structural Work: &quot;structural&quot; in nigpCodes, &quot;structural engineer&quot; in nigpCodes; Surveys and Appraisal: &quot;survey&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes, &quot;general construction&quot; in nigpCodes</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="rank">#10</span>
+        <span class="score">Score: 40.0</span>
+        <div class="badges"><span class="badge" style="background:hsl(273,55%,92%);color:hsl(273,60%,30%)">Asphalt</span> <span class="badge" style="background:hsl(277,55%,92%);color:hsl(277,60%,30%)">Concrete</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">Excavating</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">General Contractors</span></div>
+      </div>
+
+      <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/#/esbd/756-SRSU-2026-RFP-031-813000" target="_blank">Sul Ross RFP for Unit Price Contract For As-Needed Concrete , Asphalt &amp; Dirt Work</a>
+      </h2>
+
+      <div class="card-meta">
+        <div class="meta-row">
+          <span><strong>ID:</strong> 756-SRSU-2026-RFP-031-813000</span>
+          <span><strong>Agency:</strong> Sul Ross State University - 756</span>
+        </div>
+        <div class="meta-row">
+          <span><strong>Posted:</strong> 3/11/2026</span>
+          <span class="due soon"><strong>Due:</strong> 4/10/2026 10:00 AM <em>(5 days left)</em></span>
+        </div>
+        <div class="meta-row"><span><strong>Value:</strong> $500,000.00</span></div>
+      </div>
+
+      <div class="card-description">
+        <p>SRSU is seeking vendors to provide concrete, asphalt, and dirt work services under a Unit Price Contract.</p>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Clifton Brayshaw</span>
+        <span><strong>Phone:</strong> (936) 294-1906</span>
+        <span><strong>Email:</strong> <a href="mailto:Clifton.Brayshaw@sulross.edu">Clifton.Brayshaw@sulross.edu</a></span>
+      </div>
+
+      <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32832270&amp;c=852252&amp;h=a7Q0JRy3yTd9LXnnVOdphAwiv44zfB_lyFHJDHvLQTTswYQQ&amp;_xt=.doc" target="_blank" class="attachment-link">ESBD_495616_1773262837576_ESBD Posting -RFP Concrete Services.docx</a>
+        </div>
+
+      <div class="match-details">
+        <em>Matched: Asphalt: &quot;asphalt&quot; in title, &quot;asphalt&quot; in description, &quot;paving&quot; in nigpCodes, &quot;resurfacing&quot; in nigpCodes, &quot;parking lot&quot; in nigpCodes; Concrete: &quot;concrete&quot; in title, &quot;concrete&quot; in nigpCodes, &quot;concrete&quot; in description, &quot;masonry&quot; in nigpCodes; Excavating: &quot;excavat&quot; in nigpCodes, &quot;grading&quot; in nigpCodes, &quot;backfill&quot; in nigpCodes, &quot;dirt work&quot; in title, &quot;dirt work&quot; in description, &quot;excavation&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="rank">#11</span>
+        <span class="score">Score: 39.5</span>
+        <div class="badges"><span class="badge" style="background:hsl(60,55%,92%);color:hsl(60,60%,30%)">Architecture and Design</span> <span class="badge" style="background:hsl(120,55%,92%);color:hsl(120,60%,30%)">Electrical</span> <span class="badge" style="background:hsl(112,55%,92%);color:hsl(112,60%,30%)">Interior Decoration</span> <span class="badge" style="background:hsl(12,55%,92%);color:hsl(12,60%,30%)">Structural Work</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">General Contractors</span></div>
+      </div>
+
+      <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/#/esbd/TAMUS-RFQ-24-3445" target="_blank">Design-Build RFQ - Student Housing - Texas A&amp;M University Central Texas</a>
+      </h2>
+
+      <div class="card-meta">
+        <div class="meta-row">
+          <span><strong>ID:</strong> TAMUS-RFQ-24-3445</span>
+          <span><strong>Agency:</strong> Texas A&amp;M University System - 710</span>
+        </div>
+        <div class="meta-row">
+          <span><strong>Posted:</strong> 4/2/2026</span>
+          <span class="due normal"><strong>Due:</strong> 4/28/2026 2:00 PM <em>(23 days left)</em></span>
+        </div>
+        <div class="meta-row"><span><strong>Value:</strong> $0.01</span></div>
+      </div>
+
+      <div class="card-description">
+        <p>The Texas A&amp;M University System Office of Facilities Planning &amp; Construction (FP&amp;C) on behalf of the Board of Regents of The Texas A&amp;M University System (Owner) and Texas A&amp;M University-Central Texas are soliciting statements of qualifications for...</p>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Ashley Valka</span>
+        <span><strong>Phone:</strong> (979) 458-7062</span>
+        <span><strong>Email:</strong> <a href="mailto:avalka@tamus.edu">avalka@tamus.edu</a></span>
+      </div>
+
+      <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32926275&amp;c=852252&amp;h=UinOk48jEzLi8e9SgOeM9jRw90ELrD_CAd4wkm4coOCFvEP9&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_503604_1775167381027_24-3445 DB RFQ Information Sheet.pdf</a>
+        </div>
+
+      <div class="match-details">
+        <em>Matched: Architecture and Design: &quot;architect&quot; in nigpCodes, &quot;architectural&quot; in nigpCodes, &quot;design services&quot; in nigpCodes, &quot;space planning&quot; in nigpCodes, &quot;design-build&quot; in title, &quot;design-build&quot; in description; Electrical: &quot;electrical&quot; in nigpCodes; Interior Decoration: &quot;interior design&quot; in nigpCodes; Structural Work: &quot;structural&quot; in nigpCodes, &quot;structural engineer&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description, &quot;building construction&quot; in nigpCodes, &quot;construction management&quot; in nigpCodes, &quot;design-build&quot; in title, &quot;design-build&quot; in description</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="rank">#12</span>
+        <span class="score">Score: 38.0</span>
+        <div class="badges"><span class="badge" style="background:hsl(60,55%,92%);color:hsl(60,60%,30%)">Architecture and Design</span> <span class="badge" style="background:hsl(210,55%,92%);color:hsl(210,60%,30%)">Flooring</span> <span class="badge" style="background:hsl(240,55%,92%);color:hsl(240,60%,30%)">Gutters</span> <span class="badge" style="background:hsl(48,55%,92%);color:hsl(48,60%,30%)">Insulation</span> <span class="badge" style="background:hsl(302,55%,92%);color:hsl(302,60%,30%)">Roofing</span> <span class="badge" style="background:hsl(88,55%,92%);color:hsl(88,60%,30%)">Security</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">General Contractors</span></div>
+      </div>
+
+      <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/#/esbd/IFB26021MR" target="_blank">Roofing Renovations for Jefferson County Courthouse</a>
+      </h2>
+
+      <div class="card-meta">
+        <div class="meta-row">
+          <span><strong>ID:</strong> IFB26021MR</span>
+          <span><strong>Agency:</strong> Jefferson County - C1230</span>
+        </div>
+        <div class="meta-row">
+          <span><strong>Posted:</strong> 3/31/2026</span>
+          <span class="due normal"><strong>Due:</strong> 5/6/2026 11:00 AM <em>(31 days left)</em></span>
+        </div>
+        <div class="meta-row"><span><strong>Value:</strong> $0.01</span></div>
+      </div>
+
+      <div class="card-description">
+        <p>LEGAL NOTICE Advertisement for Invitation for Bids March 31, 2026 Notice is hereby given that sealed bids will be accepted by the Jefferson County Purchasing Department for Invitation for Bid (IFB 26-021/MR) Roofing Renovations to Jefferson County...</p>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Mistey Reeves</span>
+        <span><strong>Phone:</strong> (409) 835-8693</span>
+        <span><strong>Email:</strong> <a href="mailto:mistey.reeves@jeffersoncountytx.gov">mistey.reeves@jeffersoncountytx.gov</a></span>
+      </div>
+
+      <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32908787&amp;c=852252&amp;h=mmcicn28LydrTkarleD-_7vlKLKM-8oLB0Uk2T8fMFiktaBP&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_502649_1774982894703_Specifications (IFB 26-021 MR) Roofing Renovatrions to Jefferson County Courthouse.pdf</a>
+        </div>
+
+      <div class="match-details">
+        <em>Matched: Architecture and Design: &quot;architect&quot; in description, &quot;architectural&quot; in description; Flooring: &quot;floor&quot; in description; Gutters: &quot;gutter&quot; in nigpCodes, &quot;downspout&quot; in nigpCodes; Insulation: &quot;weatherization&quot; in nigpCodes; Roofing: &quot;roof&quot; in title, &quot;roof&quot; in nigpCodes, &quot;roof&quot; in description, &quot;roofing&quot; in title, &quot;roofing&quot; in nigpCodes, &quot;roofing&quot; in description, &quot;membrane&quot; in nigpCodes; Security: &quot;security&quot; in description; General Contractors: &quot;renovation&quot; in title, &quot;renovation&quot; in description</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="rank">#13</span>
+        <span class="score">Score: 35.0</span>
+        <div class="badges"><span class="badge" style="background:hsl(220,55%,92%);color:hsl(220,60%,30%)">Carpentry / Glaziery</span> <span class="badge" style="background:hsl(277,55%,92%);color:hsl(277,60%,30%)">Concrete</span> <span class="badge" style="background:hsl(120,55%,92%);color:hsl(120,60%,30%)">Electrical</span> <span class="badge" style="background:hsl(348,55%,92%);color:hsl(348,60%,30%)">Exterior Installation</span> <span class="badge" style="background:hsl(358,55%,92%);color:hsl(358,60%,30%)">Paint</span> <span class="badge" style="background:hsl(156,55%,92%);color:hsl(156,60%,30%)">Plumbing</span> <span class="badge" style="background:hsl(302,55%,92%);color:hsl(302,60%,30%)">Roofing</span> <span class="badge" style="background:hsl(12,55%,92%);color:hsl(12,60%,30%)">Structural Work</span> <span class="badge" style="background:hsl(266,55%,92%);color:hsl(266,60%,30%)">Wallpaper</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">General Contractors</span></div>
+      </div>
+
+      <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/#/esbd/NO.26-13" target="_blank">Bid NO. 26-13 A.J. Brown WWTP – Chlorine Storage Building Rehabilitation</a>
+      </h2>
+
+      <div class="card-meta">
+        <div class="meta-row">
+          <span><strong>ID:</strong> NO.26-13</span>
+          <span><strong>Agency:</strong> City of Huntsville - M2360</span>
+        </div>
+        <div class="meta-row">
+          <span><strong>Posted:</strong> 3/12/2026</span>
+          <span class="due urgent"><strong>Due:</strong> 4/7/2026 2:00 PM <em>(2 days left)</em></span>
+        </div>
+        <div class="meta-row"><span><strong>Value:</strong> $250,000.00</span></div>
+      </div>
+
+      <div class="card-description">
+        <p>A.J. Brown WWTP – Chlorine Storage Building Rehabilitation</p>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Lucy Gonzalez</span>
+        <span><strong>Phone:</strong> (936) 291-5495</span>
+        <span><strong>Email:</strong> <a href="mailto:lgonzalez@huntsvilletx.gov">lgonzalez@huntsvilletx.gov</a></span>
+      </div>
+
+      <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32836426&amp;c=852252&amp;h=77ayUKjzTRjwoCh-ZsWDw04EeqsozLi3FNPJIqa4Du76zwBv&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_495939_1773351259100_Bid NO. 26-13 A.J. Brown WWTP Chlorine Storage Building Rehabilitation.pdf</a> <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32906315&amp;c=852252&amp;h=C3si79UvdnuWu2qB4iCPlV9jckgS-kfU0cv3sRHrltXgLXmy&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_495939_1774969660453_Addendum NO. 1 - Bid NO. 26-13 Chlorine Storage Building Rehabilitation.pdf</a>
+        </div>
+
+      <div class="match-details">
+        <em>Matched: Carpentry / Glaziery: &quot;carpentry&quot; in nigpCodes; Concrete: &quot;concrete&quot; in nigpCodes, &quot;cement&quot; in nigpCodes, &quot;masonry&quot; in nigpCodes; Electrical: &quot;electrical&quot; in nigpCodes; Exterior Installation: &quot;siding&quot; in nigpCodes; Paint: &quot;paint&quot; in nigpCodes, &quot;painting&quot; in nigpCodes; Plumbing: &quot;plumbing&quot; in nigpCodes; Roofing: &quot;roof&quot; in nigpCodes, &quot;roofing&quot; in nigpCodes; Structural Work: &quot;structural&quot; in nigpCodes; Wallpaper: &quot;wallpaper&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="rank">#14</span>
+        <span class="score">Score: 35.0</span>
+        <div class="badges"><span class="badge" style="background:hsl(60,55%,92%);color:hsl(60,60%,30%)">Architecture and Design</span> <span class="badge" style="background:hsl(120,55%,92%);color:hsl(120,60%,30%)">Electrical</span> <span class="badge" style="background:hsl(200,55%,92%);color:hsl(200,60%,30%)">HVAC</span> <span class="badge" style="background:hsl(334,55%,92%);color:hsl(334,60%,30%)">Life Safety</span> <span class="badge" style="background:hsl(156,55%,92%);color:hsl(156,60%,30%)">Plumbing</span> <span class="badge" style="background:hsl(88,55%,92%);color:hsl(88,60%,30%)">Security</span></div>
+      </div>
+
+      <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/#/esbd/MELE0426" target="_blank">Maintenance Electronic Services</a>
+      </h2>
+
+      <div class="card-meta">
+        <div class="meta-row">
+          <span><strong>ID:</strong> MELE0426</span>
+          <span><strong>Agency:</strong> Harlingen CISD - S0315</span>
+        </div>
+        <div class="meta-row">
+          <span><strong>Posted:</strong> 3/28/2026</span>
+          <span class="due normal"><strong>Due:</strong> 4/14/2026 2:00 PM <em>(9 days left)</em></span>
+        </div>
+        <div class="meta-row"><span><strong>Value:</strong> $100,000.00</span></div>
+      </div>
+
+      <div class="card-description">
+        <p>Proposal Specifications are available at: https://hcisdbid.ionwave.net/Login.aspx Proposals are to reach the Purchasing Department ON OR BEFORE the above-mentioned due date &amp; time. Harlingen Consolidated Independent School District Purchasing...</p>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Sylvia Deleon</span>
+        <span><strong>Phone:</strong> (956) 430-9740</span>
+        <span><strong>Email:</strong> <a href="mailto:sylvia.deleon@hcisd.org">sylvia.deleon@hcisd.org</a></span>
+      </div>
+
+      <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32888235&amp;c=852252&amp;h=pBdZkv9eVV0Wtm4UPnCAd-uWgoxfYtBPmqBQlGlqmICtpfTK&amp;_xt=.doc" target="_blank" class="attachment-link">ESBD_501380_1774576061210_NewsMultiBid 03122026-2.docx</a>
+        </div>
+
+      <div class="match-details">
+        <em>Matched: Architecture and Design: &quot;architect&quot; in nigpCodes, &quot;architectural&quot; in nigpCodes, &quot;design services&quot; in nigpCodes; Electrical: &quot;electrical&quot; in nigpCodes, &quot;wiring&quot; in nigpCodes, &quot;lighting&quot; in nigpCodes; HVAC: &quot;air conditioning&quot; in nigpCodes, &quot;boiler&quot; in nigpCodes; Life Safety: &quot;fire alarm&quot; in nigpCodes; Plumbing: &quot;fixture&quot; in nigpCodes; Security: &quot;security&quot; in nigpCodes, &quot;access control&quot; in nigpCodes, &quot;security system&quot; in nigpCodes, &quot;alarm system&quot; in nigpCodes</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="rank">#15</span>
+        <span class="score">Score: 34.5</span>
+        <div class="badges"><span class="badge" style="background:hsl(277,55%,92%);color:hsl(277,60%,30%)">Concrete</span> <span class="badge" style="background:hsl(348,55%,92%);color:hsl(348,60%,30%)">Exterior Installation</span> <span class="badge" style="background:hsl(240,55%,92%);color:hsl(240,60%,30%)">Gutters</span> <span class="badge" style="background:hsl(200,55%,92%);color:hsl(200,60%,30%)">HVAC</span> <span class="badge" style="background:hsl(302,55%,92%);color:hsl(302,60%,30%)">Roofing</span> <span class="badge" style="background:hsl(219,55%,92%);color:hsl(219,60%,30%)">Windows</span></div>
+      </div>
+
+      <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/#/esbd/RFPCSP-730-UofH-3113" target="_blank">RFPCSP-730-UofH-3113 UH Clear Lake Delta Building Roof Replacement and Arbor Building Skylight Repair FY26</a>
+      </h2>
+
+      <div class="card-meta">
+        <div class="meta-row">
+          <span><strong>ID:</strong> RFPCSP-730-UofH-3113</span>
+          <span><strong>Agency:</strong> University Of Houston - 730</span>
+        </div>
+        <div class="meta-row">
+          <span><strong>Posted:</strong> 4/1/2026</span>
+          <span class="due normal"><strong>Due:</strong> 4/23/2026 10:00 AM <em>(18 days left)</em></span>
+        </div>
+        <div class="meta-row"><span><strong>Value:</strong> $0.01</span></div>
+      </div>
+
+      <div class="card-description">
+        <p>In accordance with Texas Education Code, Section 51.783, the University of Houston (“Owner”) is soliciting competitive sealed proposals (each, a “Proposal”) from qualified firms (each a “Respondent”) for UHCL Delta Building Roof Replacement and...</p>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Eric Shen</span>
+        <span><strong>Phone:</strong> (713) 743-3222</span>
+        <span><strong>Email:</strong> <a href="mailto:etshen@Central.UH.EDU">etshen@Central.UH.EDU</a></span>
+      </div>
+
+      <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32923033&amp;c=852252&amp;h=-zAgtZnGtio_1BdEqi0dgMJ5Pu8QVFt3EBhBhhk62vMJw2rN&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_502971_1775074974998_ESBD Posting.pdf</a>
+        </div>
+
+      <div class="match-details">
+        <em>Matched: Concrete: &quot;cement&quot; in title, &quot;cement&quot; in description; Exterior Installation: &quot;siding&quot; in nigpCodes; Gutters: &quot;gutter&quot; in nigpCodes, &quot;downspout&quot; in nigpCodes; HVAC: &quot;rtu&quot; in description; Roofing: &quot;roof&quot; in title, &quot;roof&quot; in nigpCodes, &quot;roof&quot; in description, &quot;roofing&quot; in nigpCodes, &quot;roof replacement&quot; in title, &quot;roof replacement&quot; in description; Windows: &quot;skylight&quot; in title, &quot;skylight&quot; in description</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="rank">#16</span>
+        <span class="score">Score: 34.0</span>
+        <div class="badges"><span class="badge" style="background:hsl(273,55%,92%);color:hsl(273,60%,30%)">Asphalt</span> <span class="badge" style="background:hsl(220,55%,92%);color:hsl(220,60%,30%)">Carpentry / Glaziery</span> <span class="badge" style="background:hsl(120,55%,92%);color:hsl(120,60%,30%)">Electrical</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">Excavating</span> <span class="badge" style="background:hsl(158,55%,92%);color:hsl(158,60%,30%)">Fencing</span> <span class="badge" style="background:hsl(200,55%,92%);color:hsl(200,60%,30%)">HVAC</span> <span class="badge" style="background:hsl(91,55%,92%);color:hsl(91,60%,30%)">Lawn and Landscaping</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">General Contractors</span></div>
+      </div>
+
+      <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/#/esbd/1112549" target="_blank">1112549 Centennial Project - North Rock Initial Public Day Use at Enchanted Rock State Natural Area</a>
+      </h2>
+
+      <div class="card-meta">
+        <div class="meta-row">
+          <span><strong>ID:</strong> 1112549</span>
+          <span><strong>Agency:</strong> Parks &amp; Wildlife Department - 802</span>
+        </div>
+        <div class="meta-row">
+          <span><strong>Posted:</strong> 3/16/2026</span>
+          <span class="due normal"><strong>Due:</strong> 4/28/2026 2:00 PM <em>(23 days left)</em></span>
+        </div>
+        <div class="meta-row"><span><strong>Value:</strong> $4000000</span></div>
+      </div>
+
+      <div class="card-description">
+        <p>All documents for thissolicitation are available electronically at (web link): https://tpwd.cobblestone.software/Gateway/SolicitationDetails.aspx?rid=45 PRE-PROPOSAL MEETING: There will be a non-mandatory pre-proposal meeting on March 31, 2026,...</p>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Mindi Johnson</span>
+        <span><strong>Phone:</strong> (512) 389-8282</span>
+        <span><strong>Email:</strong> <a href="mailto:Mindi.Johnson@tpwd.texas.gov">Mindi.Johnson@tpwd.texas.gov</a></span>
+      </div>
+
+      
+
+      <div class="match-details">
+        <em>Matched: Asphalt: &quot;paving&quot; in nigpCodes, &quot;resurfacing&quot; in nigpCodes; Carpentry / Glaziery: &quot;trim&quot; in nigpCodes; Electrical: &quot;electrical&quot; in nigpCodes; Excavating: &quot;grading&quot; in nigpCodes, &quot;backfill&quot; in nigpCodes, &quot;site work&quot; in nigpCodes; Fencing: &quot;gate&quot; in description; HVAC: &quot;rtu&quot; in description; Lawn and Landscaping: &quot;landscaping&quot; in nigpCodes, &quot;tree trimming&quot; in nigpCodes, &quot;grounds maintenance&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes, &quot;building construction&quot; in nigpCodes</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="rank">#17</span>
+        <span class="score">Score: 32.5</span>
+        <div class="badges"><span class="badge" style="background:hsl(273,55%,92%);color:hsl(273,60%,30%)">Asphalt</span> <span class="badge" style="background:hsl(277,55%,92%);color:hsl(277,60%,30%)">Concrete</span> <span class="badge" style="background:hsl(358,55%,92%);color:hsl(358,60%,30%)">Paint</span></div>
+      </div>
+
+      <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/#/esbd/NO.26-15" target="_blank">RFP NO. 26-15 Street Asphaltic Paving, Milling, and Restriping Services</a>
+      </h2>
+
+      <div class="card-meta">
+        <div class="meta-row">
+          <span><strong>ID:</strong> NO.26-15</span>
+          <span><strong>Agency:</strong> City of Huntsville - M2360</span>
+        </div>
+        <div class="meta-row">
+          <span><strong>Posted:</strong> 3/25/2026</span>
+          <span class="due normal"><strong>Due:</strong> 4/14/2026 2:00 PM <em>(9 days left)</em></span>
+        </div>
+        <div class="meta-row"><span><strong>Value:</strong> $250,000.00</span></div>
+      </div>
+
+      <div class="card-description">
+        <p>Street Asphaltic Paving, Milling, and Restriping Services</p>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Lucy Gonzalez</span>
+        <span><strong>Phone:</strong> (936) 291-5495</span>
+        <span><strong>Email:</strong> <a href="mailto:lgonzalez@huntsvilletx.gov">lgonzalez@huntsvilletx.gov</a></span>
+      </div>
+
+      <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32858676&amp;c=852252&amp;h=inzE_Mb-Yxn6mBImsIsAPu5GHTIilazDeiP0unpJXY9nCYMo&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_498370_1773957308789_RFP NO. 26-15 Street Asphaltic Paving, Milling, and Restriping Services.pdf</a> <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32879307&amp;c=852252&amp;h=63-446S4s8zKDLDP0gztcFq9BplTBnWYaM36hiM-iLnTSh5j&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_498370_1774453610335_Addendum NO. 1 - RFP NO. 26-15 Street Asphaltic Paving, Milling, and Restriping Services.pdf</a>
+        </div>
+
+      <div class="match-details">
+        <em>Matched: Asphalt: &quot;asphalt&quot; in title, &quot;asphalt&quot; in nigpCodes, &quot;asphalt&quot; in description, &quot;paving&quot; in title, &quot;paving&quot; in nigpCodes, &quot;paving&quot; in description, &quot;pavement&quot; in nigpCodes, &quot;resurfacing&quot; in nigpCodes, &quot;striping&quot; in title, &quot;striping&quot; in nigpCodes, &quot;striping&quot; in description; Concrete: &quot;concrete&quot; in nigpCodes; Paint: &quot;paint&quot; in nigpCodes</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="rank">#18</span>
+        <span class="score">Score: 32.5</span>
+        <div class="badges"><span class="badge" style="background:hsl(142,55%,92%);color:hsl(142,60%,30%)">Appliances</span> <span class="badge" style="background:hsl(273,55%,92%);color:hsl(273,60%,30%)">Asphalt</span> <span class="badge" style="background:hsl(190,55%,92%);color:hsl(190,60%,30%)">Bathroom</span> <span class="badge" style="background:hsl(277,55%,92%);color:hsl(277,60%,30%)">Concrete</span> <span class="badge" style="background:hsl(9,55%,92%);color:hsl(9,60%,30%)">Decks and Porches</span> <span class="badge" style="background:hsl(120,55%,92%);color:hsl(120,60%,30%)">Electrical</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">Excavating</span> <span class="badge" style="background:hsl(112,55%,92%);color:hsl(112,60%,30%)">Interior Decoration</span> <span class="badge" style="background:hsl(91,55%,92%);color:hsl(91,60%,30%)">Lawn and Landscaping</span> <span class="badge" style="background:hsl(156,55%,92%);color:hsl(156,60%,30%)">Plumbing</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">General Contractors</span></div>
+      </div>
+
+      <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/#/esbd/152-3-2026-20-1" target="_blank">RFCSP District 3 Aquatics Facility</a>
+      </h2>
+
+      <div class="card-meta">
+        <div class="meta-row">
+          <span><strong>ID:</strong> 152-3-2026-20-1</span>
+          <span><strong>Agency:</strong> City of San Antonio - M0152</span>
+        </div>
+        <div class="meta-row">
+          <span><strong>Posted:</strong> 3/20/2026</span>
+          <span class="due normal"><strong>Due:</strong> 5/8/2026 2:00 PM <em>(33 days left)</em></span>
+        </div>
+        <div class="meta-row"><span><strong>Value:</strong> $3,440,000.00</span></div>
+      </div>
+
+      <div class="card-description">
+        <p>The City of San Antonio (City), Public WorksDepartment (PWD) is issuing a Request for Competitive Sealed Proposals (RFCSP)for qualified firms (Respondents) to provide construction of the District 3Aquatics facility, a 2022 Bond project. This project...</p>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Gabe Hernandez</span>
+        <span><strong>Phone:</strong> (210) 207-5884</span>
+        <span><strong>Email:</strong> <a href="mailto:gabriel.hernandez2@sanantonio.gov">gabriel.hernandez2@sanantonio.gov</a></span>
+      </div>
+
+      <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32862181&amp;c=852252&amp;h=bA2ETCwA2zolbwHy0jNwg0SAfEDhYWawuxI0Mx54K1lB9x10&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_498788_1774035605728_RFCSP District 3 Aquatics Facility_Final.pdf</a> <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32862182&amp;c=852252&amp;h=UEPw8cevLup2BEIuJYizxqTLlR3wd_A6ZofvOQiRNdN-TA5k&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_498788_1774035663961_Solicitation Synopsis Discretionary - District 3 Aquatics.pdf</a>
+        </div>
+
+      <div class="match-details">
+        <em>Matched: Appliances: &quot;appliance&quot; in description, &quot;appliances&quot; in description; Asphalt: &quot;parking lot&quot; in description; Bathroom: &quot;restroom&quot; in description; Concrete: &quot;concrete&quot; in description, &quot;masonry&quot; in description, &quot;flatwork&quot; in description; Decks and Porches: &quot;deck&quot; in description; Electrical: &quot;lighting&quot; in description; Excavating: &quot;grading&quot; in description; Interior Decoration: &quot;furnishing&quot; in description; Lawn and Landscaping: &quot;landscaping&quot; in description, &quot;irrigation&quot; in description; Plumbing: &quot;drain&quot; in description; General Contractors: &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="rank">#19</span>
+        <span class="score">Score: 32.0</span>
+        <div class="badges"><span class="badge" style="background:hsl(220,55%,92%);color:hsl(220,60%,30%)">Carpentry / Glaziery</span> <span class="badge" style="background:hsl(277,55%,92%);color:hsl(277,60%,30%)">Concrete</span> <span class="badge" style="background:hsl(120,55%,92%);color:hsl(120,60%,30%)">Electrical</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">Excavating</span> <span class="badge" style="background:hsl(91,55%,92%);color:hsl(91,60%,30%)">Lawn and Landscaping</span> <span class="badge" style="background:hsl(156,55%,92%);color:hsl(156,60%,30%)">Plumbing</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">General Contractors</span></div>
+      </div>
+
+      <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/#/esbd/23-03966" target="_blank">Cuellar Park Improvements</a>
+      </h2>
+
+      <div class="card-meta">
+        <div class="meta-row">
+          <span><strong>ID:</strong> 23-03966</span>
+          <span><strong>Agency:</strong> City of San Antonio - M0152</span>
+        </div>
+        <div class="meta-row">
+          <span><strong>Posted:</strong> 2/27/2026</span>
+          <span class="due urgent"><strong>Due:</strong> 4/7/2026 2:00 PM <em>(2 days left)</em></span>
+        </div>
+        <div class="meta-row"><span><strong>Value:</strong> $850,000.00</span></div>
+      </div>
+
+      <div class="card-description">
+        <p>Online bidding is utilized via CivCast at https://www.civcastusa.com/bids. Online bid services will open for bidding on Friday, February 27, 2026, and close on Friday, April 7, 2026, at 2:00 P.M. CT. Follow submittal instructions on...</p>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Desiree Alderete</span>
+        <span><strong>Phone:</strong> (210) 207-8688</span>
+        <span><strong>Email:</strong> <a href="mailto:Desiree.Alderete@sanantonio.gov">Desiree.Alderete@sanantonio.gov</a></span>
+      </div>
+
+      <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32797028&amp;c=852252&amp;h=pPdncp7N3E6Qeg4DOdqKIzWVmb2_6h4GIuwMKkHUyGGVDb8L&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_492851_1772205175005_010 LQIFB.pdf</a>
+        </div>
+
+      <div class="match-details">
+        <em>Matched: Carpentry / Glaziery: &quot;trim&quot; in nigpCodes; Concrete: &quot;concrete&quot; in nigpCodes; Electrical: &quot;electrical&quot; in nigpCodes; Excavating: &quot;demolition&quot; in nigpCodes, &quot;site work&quot; in nigpCodes; Lawn and Landscaping: &quot;landscaping&quot; in nigpCodes, &quot;irrigation&quot; in nigpCodes, &quot;tree trimming&quot; in nigpCodes, &quot;grounds maintenance&quot; in nigpCodes; Plumbing: &quot;plumbing&quot; in nigpCodes, &quot;sewer&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description</em>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span class="rank">#20</span>
+        <span class="score">Score: 32.0</span>
+        <div class="badges"><span class="badge" style="background:hsl(273,55%,92%);color:hsl(273,60%,30%)">Asphalt</span> <span class="badge" style="background:hsl(277,55%,92%);color:hsl(277,60%,30%)">Concrete</span> <span class="badge" style="background:hsl(91,55%,92%);color:hsl(91,60%,30%)">Lawn and Landscaping</span> <span class="badge" style="background:hsl(12,55%,92%);color:hsl(12,60%,30%)">Structural Work</span> <span class="badge" style="background:hsl(150,55%,92%);color:hsl(150,60%,30%)">Wall-Making</span> <span class="badge" style="background:hsl(102,55%,92%);color:hsl(102,60%,30%)">General Contractors</span></div>
+      </div>
+
+      <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/#/esbd/23-04203-08" target="_blank">2026 Task Order Contract for the Street Rehabilitation Package 8</a>
+      </h2>
+
+      <div class="card-meta">
+        <div class="meta-row">
+          <span><strong>ID:</strong> 23-04203-08</span>
+          <span><strong>Agency:</strong> City of San Antonio - M0152</span>
+        </div>
+        <div class="meta-row">
+          <span><strong>Posted:</strong> 3/20/2026</span>
+          <span class="due normal"><strong>Due:</strong> 4/21/2026 2:00 PM <em>(16 days left)</em></span>
+        </div>
+        <div class="meta-row"><span><strong>Value:</strong> $4,950,000.00</span></div>
+      </div>
+
+      <div class="card-description">
+        <p>Solicitation Type and Name: Formal Invitation for Bids for 2026 Task Order Contract for the Street Rehabilitation Package 8 Solicitation Number: 23-04203-08 Description: Project construction may include but is not limited to: asphalt milling and...</p>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Michelle Birch</span>
+        <span><strong>Phone:</strong> (210) 207-8642</span>
+        <span><strong>Email:</strong> <a href="mailto:michelle.birch@sanantonio.gov">michelle.birch@sanantonio.gov</a></span>
+      </div>
+
+      <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32861834&amp;c=852252&amp;h=vvMn4_UXjcZvtmXSbk2Sfb5duoPMVszY7myz93Z_0ieUCHcI&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_498781_1774030906671_Solicitation Synopsis Non-Discretionary.pdf</a>
+        </div>
+
+      <div class="match-details">
+        <em>Matched: Asphalt: &quot;asphalt&quot; in nigpCodes, &quot;asphalt&quot; in description, &quot;pavement&quot; in description, &quot;seal coat&quot; in description; Concrete: &quot;concrete&quot; in nigpCodes, &quot;concrete&quot; in description, &quot;cement&quot; in description, &quot;sidewalk&quot; in nigpCodes, &quot;sidewalk&quot; in description, &quot;curb&quot; in description; Lawn and Landscaping: &quot;sod&quot; in description; Structural Work: &quot;retaining wall&quot; in description; Wall-Making: &quot;retaining wall&quot; in description; General Contractors: &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description</em>
+      </div>
+    </div>
+
+    
+    <section class="methodology" id="methodology">
+      <h2>Methodology</h2>
+
+      <h3>Data Source Discovery</h3>
+      <p>
+        I explored the Texas ESBD portal (<a href="https://www.txsmartbuy.gov/esbd">txsmartbuy.gov/esbd</a>)
+        using Chrome DevTools. The site is a JavaScript SPA built on Oracle NetSuite SuiteCommerce Advanced.
+        By monitoring network traffic in the Network tab, I discovered a JSON API endpoint that the frontend
+        uses to fetch solicitation data — specifically a POST endpoint at
+        <code>ESBD.Service.ss</code> for listings and a GET endpoint at
+        <code>ESBD.Details.Service.ss</code> for full solicitation details.
+      </p>
+
+      <h3>Approach: Direct API Integration</h3>
+      <p>I chose to query the JSON API directly rather than scraping rendered HTML because:</p>
+      <ul>
+        <li>Structured JSON data is more reliable than HTML parsing</li>
+        <li>Faster execution — no browser rendering overhead (no Playwright/Selenium needed)</li>
+        <li>Less fragile — API contracts change less often than HTML layout</li>
+        <li>Allows efficient pagination and server-side filtering</li>
+      </ul>
+
+      <h3>Relevance Filtering</h3>
+      <p>
+        I built a weighted keyword scoring engine that maps each of the 50 vendor categories to a curated
+        list of relevant keywords and subcategories. Each RFP is scored across multiple fields:
+      </p>
+      <ul>
+        <li><strong>Title</strong> (weight 3.0) — strongest signal for what the RFP is about</li>
+        <li><strong>NIGP codes</strong> (weight 2.5) — official commodity classification codes</li>
+        <li><strong>Description</strong> (weight 2.0) — full context from the detail page</li>
+        <li><strong>Agency name</strong> (weight 0.5) — weak but sometimes helpful signal</li>
+      </ul>
+      <p>
+        A pre-filter runs on listing data (title + NIGP codes) to skip obviously irrelevant RFPs
+        before making detail API calls, reducing network requests significantly.
+      </p>
+
+      <h3>Limitations &amp; Trade-offs</h3>
+      <ul>
+        <li>Keyword matching may miss RFPs that use unusual or highly specific terminology</li>
+        <li>Some RFP details exist only inside attached PDF documents, which are not analyzed in the base version</li>
+        <li>The relevance scoring is heuristic (keyword-based), not ML/semantic-based</li>
+        <li>Self-imposed rate limiting (1.2s between requests) means full scrape takes several minutes</li>
+        <li>API session cookies may expire during very long runs</li>
+      </ul>
+    </section>
+
+    <footer>
+      LightRFP Scraper &mdash; Data sourced from
+      <a href="https://www.txsmartbuy.gov/esbd" style="color:#6b7280">Texas ESBD</a>
+    </footer>
+  </div>
+</body>
+</html>
