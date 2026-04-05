@@ -5,6 +5,7 @@ import type {
   RFPDetail,
   RFPListing,
 } from "./types.js";
+import { delay, withRetry } from "./utils.js";
 
 const BASE_URL = "https://www.txsmartbuy.gov";
 const SERVICES_PATH = "/app/extensions/CPA/CPAMain/1.0.0/services";
@@ -16,31 +17,6 @@ const DEFAULT_HEADERS = {
   Accept: "application/json, text/plain, */*",
   Referer: `${BASE_URL}/esbd`,
 };
-
-function delay(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-async function withRetry<T>(
-  fn: () => Promise<T>,
-  maxRetries: number = 3,
-  baseDelay: number = 2000,
-): Promise<T> {
-  for (let attempt = 0; attempt <= maxRetries; attempt++) {
-    try {
-      return await fn();
-    } catch (err) {
-      if (attempt === maxRetries) throw err;
-      const wait = baseDelay * Math.pow(2, attempt);
-      const msg = err instanceof Error ? err.message : String(err);
-      console.warn(
-        `  Retry ${attempt + 1}/${maxRetries} in ${wait}ms... (${msg})`,
-      );
-      await delay(wait);
-    }
-  }
-  throw new Error("unreachable");
-}
 
 export class ESBDClient {
   private client: AxiosInstance;

@@ -1,59 +1,8 @@
 import type { ScoredRFP, RunMetadata } from "./types.js";
+import { categoryHue, daysUntil, stripHtml, truncate, esc, urgencyClass } from "./utils.js";
 
 const ESBD_DETAIL_URL = "https://www.txsmartbuy.gov/esbd/#/esbd";
 const ESBD_FILE_BASE = "https://www.txsmartbuy.gov";
-
-function categoryHue(name: string): number {
-  let hash = 0;
-  for (let i = 0; i < name.length; i++) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  return Math.abs(hash) % 360;
-}
-
-function daysUntil(dateStr: string): number {
-  const parts = dateStr.split("/");
-  if (parts.length !== 3) return 999;
-  const [month, day, year] = parts;
-  const due = new Date(Number(year), Number(month) - 1, Number(day));
-  const now = new Date();
-  now.setHours(0, 0, 0, 0);
-  return Math.ceil((due.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-}
-
-function stripHtml(html: string): string {
-  return html
-    .replace(/<[^>]*>/g, " ")
-    .replace(/&nbsp;/gi, " ")
-    .replace(/&amp;/gi, "&")
-    .replace(/&lt;/gi, "<")
-    .replace(/&gt;/gi, ">")
-    .replace(/&#\d+;/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-function truncate(text: string, maxLen: number = 250): string {
-  if (text.length <= maxLen) return text;
-  const cut = text.slice(0, maxLen);
-  const last = cut.lastIndexOf(" ");
-  return (last > 0 ? cut.slice(0, last) : cut) + "...";
-}
-
-function esc(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
-function urgencyClass(days: number): string {
-  if (days < 0) return "overdue";
-  if (days <= 3) return "urgent";
-  if (days <= 7) return "soon";
-  return "normal";
-}
 
 function renderBadge(category: string): string {
   const hue = categoryHue(category);

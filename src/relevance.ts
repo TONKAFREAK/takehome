@@ -1,17 +1,6 @@
 import type { RFPListing, RFPDetail, ScoredRFP } from "./types.js";
 import { VENDOR_CATEGORIES } from "./categories.js";
-
-function stripHtml(html: string): string {
-  return html
-    .replace(/<[^>]*>/g, " ")
-    .replace(/&nbsp;/gi, " ")
-    .replace(/&amp;/gi, "&")
-    .replace(/&lt;/gi, "<")
-    .replace(/&gt;/gi, ">")
-    .replace(/&#\d+;/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
+import { stripHtml } from "./utils.js";
 
 interface FieldWeight {
   text: string;
