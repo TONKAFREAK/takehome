@@ -164,58 +164,88 @@ function renderMethodology(): string {
     <section class="methodology" id="methodology">
       <h2>How This Works</h2>
 
-      <h3>Where the data comes from</h3>
+      <h3>Finding the data</h3>
       <p>
-        Everything here comes from the
-        <a href="https://www.txsmartbuy.gov/esbd">Texas ESBD portal</a> (txsmartbuy.gov/esbd).
-        I opened Firefox DevTools, watched the network traffic, and found the JSON API
-        the site's frontend talks to. There are two endpoints:
-        <code>ESBD.Service.ss</code> for paginated listings and
-        <code>ESBD.Details.Service.ss</code> for individual solicitation details.
-        The site itself runs on Oracle NetSuite SuiteCommerce.
+        All of this comes from the
+        <a href="https://www.txsmartbuy.gov/esbd">Texas ESBD portal</a>.
+        I opened DevTools, watched the network requests, and found two JSON endpoints
+        the site's frontend uses behind the scenes: one for paginated listings, one for
+        full solicitation details. The site runs on NetSuite SuiteCommerce, everything
+        is a JavaScript SPA talking to these APIs. So rather than spinning up a headless
+        browser to scrape rendered HTML, I just hit the API directly. Faster, cleaner, and
+        doesn't break when they change their CSS.
       </p>
 
-      <h3>Why hit the API directly?</h3>
+      <h3>Speed</h3>
       <p>
-        Scraping the rendered HTML would mean spinning up a headless browser, dealing with
-        JavaScript rendering, and parsing fragile DOM structures. The JSON API skips all of that.
-        It's faster, gives clean structured data, and won't break when they tweak a CSS class.
-        All pages are fetched concurrently with retry logic and session cookie management.
+        There are hundreds of listings across dozens of pages. Going one at a time would be
+        painfully slow, so everything runs concurrently, all listing pages fetch at
+        once, detail requests go out in batches of 10, attachment downloads fire off in
+        parallel too. Retries with backoff handle any flaky responses. Both "Open" and
+        "Addendum Posted" statuses are pulled simultaneously and deduplicated.
       </p>
 
-      <h3>Filtering and scoring</h3>
+      <h3>Scoring: keywords + embeddings</h3>
       <p>
-        There are 50 vendor categories (HVAC, roofing, electrical, plumbing, etc.), each mapped
-        to a curated keyword list. Every RFP gets scored across four fields with different weights:
+        Relevance scoring happens in two layers.
+      </p>
+      <p>
+        <strong>Layer 1: keyword matching.</strong>
+        50 vendor categories (HVAC, roofing, electrical, plumbing, painting, etc.) each have
+        a curated keyword list. Every solicitation is checked against those keywords across
+        four fields:
       </p>
       <table class="weight-table">
-        <tr><td>Title</td><td>3.0x</td><td>Best signal for what the RFP actually is</td></tr>
-        <tr><td>NIGP codes</td><td>2.5x</td><td>Official commodity classification</td></tr>
-        <tr><td>Description</td><td>2.0x</td><td>Full detail text from the API</td></tr>
-        <tr><td>Agency</td><td>0.5x</td><td>Sometimes helpful, mostly noise</td></tr>
+        <tr><td>Title</td><td>3.0x</td><td>Usually the clearest indicator of what the RFP is</td></tr>
+        <tr><td>NIGP codes</td><td>2.5x</td><td>Standardized commodity codes from the state</td></tr>
+        <tr><td>Description</td><td>2.0x</td><td>Full detail text, lots of signal but also noise</td></tr>
+        <tr><td>Agency name</td><td>0.5x</td><td>Occasionally useful, often not</td></tr>
       </table>
       <p>
-        On top of that, rare/specific keywords score higher than generic ones (IDF-style weighting),
-        and there are bonuses for: deadline proximity (3-30 days out), stated contract value,
-        having attachments, and matching across multiple categories.
-        A quick pre-filter on title + NIGP codes skips obviously irrelevant listings before
-        we bother fetching their full details.
+        <strong>Layer 2: semantic embeddings.</strong>
+        Keywords only go so far. An RFP about "climate control system upgrades" should match
+        HVAC, but there's no keyword overlap. So after keyword scoring, the tool converts each
+        RFP's text and each category description into vector embeddings (using OpenAI embeddings, costs less than a cent per whole run). Cosine similarity between those vectors measures
+        how close they are <em>in meaning</em>, not just in shared words.
       </p>
-
-      <h3>Document extraction and AI summaries</h3>
       <p>
-        For the top results, all attachments (PDFs, DOCX files) are downloaded and their text
-        is extracted. That extracted text, along with the solicitation metadata, gets fed to an
-        LLM which produces a short description and a detailed breakdown (scope, bid requirements,
-        timeline, recommendation). This runs in parallel to keep things fast.
+        The two scores get normalized to the same 0&ndash;1 scale and blended:
+        <strong>40% keyword + 60% semantic = final score</strong>.
+        This way, exact keyword matches still count, but the ranking is mostly driven by
+        actual meaning. Category embeddings are cached to disk so subsequent runs don't
+        recompute them.
+      </p>
+      <p>
+        Before any of this, a quick pre-filter on title and NIGP codes skips obviously
+        irrelevant listings so we don't waste time fetching details for things like
+        office supply contracts.
       </p>
 
-      <h3>What this won't catch</h3>
+      <h3>Document extraction</h3>
+      <p>
+        For the top results, every attachment gets downloaded. PDFs are parsed with pdf-parse,
+        Word docs go through mammoth, and plain text files are read as-is. The extracted text
+        is saved alongside the originals and fed into the AI step.
+      </p>
+
+      <h3>AI summaries</h3>
+      <p>
+        Each solicitation's metadata plus all its extracted document text gets sent to an LLM.
+        It comes back with a short one-liner (what you see on the card) and a detailed
+        breakdown: scope, bid requirements, timeline, estimated value, and a recommendation
+        on whether it's worth pursuing. All requests fire in parallel.
+        The AI step is optional, <code>--noai</code> skips it entirely and you get
+        keyword-only scoring with no external API calls beyond the embeddings.
+      </p>
+
+      <h3>limitations</h3>
       <ul>
-        <li>RFPs that use unusual terminology the keyword lists don't cover</li>
-        <li>Scanned/image PDFs where text extraction fails</li>
-        <li>Details buried in Excel spreadsheets or other non-PDF/DOCX attachments</li>
-        <li>The scoring is keyword-based, not semantic &mdash; it can't "understand" context</li>
+        <li>If an RFP uses terminology that's not in the keyword lists <em>and</em> is too
+            far from the category descriptions for the embedding model to pick up, it won't
+            show up here</li>
+        <li>Scanned PDFs (images, not selectable text) come back empty from extraction</li>
+        <li>Excel files, zip archives, and anything that isn't PDF/DOCX/TXT gets ignored</li>
+        <li>Embeddings are good at catching meaning but not perfect, edge cases exist</li>
       </ul>
     </section>`;
 }
