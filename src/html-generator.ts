@@ -6,6 +6,7 @@ import {
   truncate,
   esc,
   urgencyClass,
+  formatCurrency,
 } from "./utils.js";
 
 const ESBD_DETAIL_URL = "https://www.txsmartbuy.gov/esbd";
@@ -118,7 +119,7 @@ function renderCard(rfp: ScoredRFP, rank: number): string {
         <span><strong>Agency:</strong> ${esc(rfp.agencyName)}</span>
         <span><strong>Posted:</strong> ${esc(rfp.postingDate)}</span>
         <span class="due ${dueClass}"><strong>Due:</strong> ${esc(rfp.responseDue)} ${esc(rfp.responseTime)} <em>(${dueLabel})</em></span>
-        ${rfp.value && parseFloat(rfp.value) >= 1 ? `<span><strong>Value:</strong> $${esc(rfp.value)}</span>` : ""}
+        ${rfp.value && parseFloat(rfp.value.replace(/,/g, "")) >= 1 ? `<span><strong>Value:</strong> $${esc(formatCurrency(rfp.value))}</span>` : ""}
       </div>
 
       <div class="card-contact">
@@ -131,15 +132,23 @@ function renderCard(rfp: ScoredRFP, rank: number): string {
         <p>${rfp.aiShortSummary ? esc(rfp.aiShortSummary) : esc(description)}</p>
       </div>
 
-      ${rfp.aiShortSummary && description ? `<details class="card-dropdown">
+      ${
+        rfp.aiShortSummary && description
+          ? `<details class="card-dropdown">
         <summary>Original description</summary>
         <p>${esc(description)}</p>
-      </details>` : ""}
+      </details>`
+          : ""
+      }
 
-      ${rfp.aiSummary ? `<details class="card-dropdown">
+      ${
+        rfp.aiSummary
+          ? `<details class="card-dropdown">
         <summary>AI Summary</summary>
         <div class="ai-summary-content">${renderMarkdown(rfp.aiSummary)}</div>
-      </details>` : ""}
+      </details>`
+          : ""
+      }
 
       <details class="card-dropdown">
         <summary>Matched tags</summary>
@@ -153,49 +162,60 @@ function renderCard(rfp: ScoredRFP, rank: number): string {
 function renderMethodology(): string {
   return `
     <section class="methodology" id="methodology">
-      <h2>Methodology</h2>
+      <h2>How This Works</h2>
 
-      <h3>Data Source Discovery</h3>
+      <h3>Where the data comes from</h3>
       <p>
-        I explored the Texas ESBD portal (<a href="https://www.txsmartbuy.gov/esbd">txsmartbuy.gov/esbd</a>)
-        using Firefox DevTools. The site is a JavaScript SPA built on Oracle NetSuite SuiteCommerce Advanced.
-        By monitoring network traffic in the Network tab, I discovered a JSON API endpoint that the frontend
-        uses to fetch solicitation data, specifically a POST endpoint at
-        <code>ESBD.Service.ss</code> for listings and a GET endpoint at
-        <code>ESBD.Details.Service.ss</code> for full solicitation details.
+        Everything here comes from the
+        <a href="https://www.txsmartbuy.gov/esbd">Texas ESBD portal</a> (txsmartbuy.gov/esbd).
+        I opened Firefox DevTools, watched the network traffic, and found the JSON API
+        the site's frontend talks to. There are two endpoints:
+        <code>ESBD.Service.ss</code> for paginated listings and
+        <code>ESBD.Details.Service.ss</code> for individual solicitation details.
+        The site itself runs on Oracle NetSuite SuiteCommerce.
       </p>
 
-      <h3>Approach: Direct API Integration</h3>
-      <p>I chose to query the JSON API directly rather than scraping rendered HTML because:</p>
-      <ul>
-        <li>Structured JSON data is more reliable than HTML parsing</li>
-        <li>Faster execution, no browser rendering overhead (no Playwright/Selenium needed)</li>
-        <li>Less fragile, API contracts change less often than HTML layout</li>
-        <li>Allows efficient pagination and server-side filtering</li>
-      </ul>
-
-      <h3>Relevance Filtering</h3>
+      <h3>Why hit the API directly?</h3>
       <p>
-        I built a weighted keyword scoring engine that maps each of the 50 vendor categories to a curated
-        list of relevant keywords and subcategories. Each RFP is scored across multiple fields:
-      </p>
-      <ul>
-        <li><strong>Title</strong> (weight 3.0) : strongest signal for what the RFP is about</li>
-        <li><strong>NIGP codes</strong> (weight 2.5) : official commodity classification codes</li>
-        <li><strong>Description</strong> (weight 2.0) : full context from the detail page</li>
-        <li><strong>Agency name</strong> (weight 0.5) : weak but sometimes helpful signal</li>
-      </ul>
-      <p>
-        A pre-filter runs on listing data (title + NIGP codes) to skip obviously irrelevant RFPs
-        before making detail API calls, reducing network requests significantly.
+        Scraping the rendered HTML would mean spinning up a headless browser, dealing with
+        JavaScript rendering, and parsing fragile DOM structures. The JSON API skips all of that.
+        It's faster, gives clean structured data, and won't break when they tweak a CSS class.
+        All pages are fetched concurrently with retry logic and session cookie management.
       </p>
 
-      <h3>Limitations &amp; Trade-offs</h3>
+      <h3>Filtering and scoring</h3>
+      <p>
+        There are 50 vendor categories (HVAC, roofing, electrical, plumbing, etc.), each mapped
+        to a curated keyword list. Every RFP gets scored across four fields with different weights:
+      </p>
+      <table class="weight-table">
+        <tr><td>Title</td><td>3.0x</td><td>Best signal for what the RFP actually is</td></tr>
+        <tr><td>NIGP codes</td><td>2.5x</td><td>Official commodity classification</td></tr>
+        <tr><td>Description</td><td>2.0x</td><td>Full detail text from the API</td></tr>
+        <tr><td>Agency</td><td>0.5x</td><td>Sometimes helpful, mostly noise</td></tr>
+      </table>
+      <p>
+        On top of that, rare/specific keywords score higher than generic ones (IDF-style weighting),
+        and there are bonuses for: deadline proximity (3-30 days out), stated contract value,
+        having attachments, and matching across multiple categories.
+        A quick pre-filter on title + NIGP codes skips obviously irrelevant listings before
+        we bother fetching their full details.
+      </p>
+
+      <h3>Document extraction and AI summaries</h3>
+      <p>
+        For the top results, all attachments (PDFs, DOCX files) are downloaded and their text
+        is extracted. That extracted text, along with the solicitation metadata, gets fed to an
+        LLM which produces a short description and a detailed breakdown (scope, bid requirements,
+        timeline, recommendation). This runs in parallel to keep things fast.
+      </p>
+
+      <h3>What this won't catch</h3>
       <ul>
-        <li>Keyword matching may miss RFPs that use unusual or highly specific terminology</li>
-        <li>Some RFP details exist only inside attached PDF documents, which are not analyzed in the base version</li>
-        <li>The relevance scoring is heuristic (keyword-based), not ML/semantic-based</li>
-        <li>API session cookies may expire during very long runs</li>
+        <li>RFPs that use unusual terminology the keyword lists don't cover</li>
+        <li>Scanned/image PDFs where text extraction fails</li>
+        <li>Details buried in Excel spreadsheets or other non-PDF/DOCX attachments</li>
+        <li>The scoring is keyword-based, not semantic &mdash; it can't "understand" context</li>
       </ul>
     </section>`;
 }
@@ -465,6 +485,28 @@ function getCSS(): string {
       padding: 0.1rem 0.4rem;
       border-radius: 3px;
       font-size: 0.85rem;
+    }
+
+    .weight-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin: 0.5rem 0 0.75rem;
+    }
+
+    .weight-table td {
+      padding: 0.3rem 0.6rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .weight-table td:nth-child(2) {
+      font-weight: 600;
+      color: #1a56db;
+      white-space: nowrap;
+    }
+
+    .weight-table td:nth-child(3) {
+      color: #6b7280;
     }
 
     .top-categories {
