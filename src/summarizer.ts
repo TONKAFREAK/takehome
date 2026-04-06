@@ -62,14 +62,30 @@ FULL_SUMMARY:
 }
 
 function loadExtractedTexts(rfpDir: string): string[] {
-  const extractedDir = join(rfpDir, "extracted");
-  let files: string[];
+  const texts: string[] = [];
+
   try {
-    files = readdirSync(extractedDir).filter((f) => f.endsWith(".txt"));
+    const rootFiles = readdirSync(rfpDir).filter((f) => f.endsWith(".txt"));
+    for (const f of rootFiles) {
+      texts.push(readFileSync(join(rfpDir, f), "utf-8"));
+    }
   } catch {
-    return [];
+    /* folder may not exist yet */
   }
-  return files.map((f) => readFileSync(join(extractedDir, f), "utf-8"));
+
+  try {
+    const extractedDir = join(rfpDir, "extracted");
+    const extractedFiles = readdirSync(extractedDir).filter((f) =>
+      f.endsWith(".txt"),
+    );
+    for (const f of extractedFiles) {
+      texts.push(readFileSync(join(extractedDir, f), "utf-8"));
+    }
+  } catch {
+    /* no extracted folder */
+  }
+
+  return texts;
 }
 
 interface SummaryResult {
@@ -78,7 +94,9 @@ interface SummaryResult {
 }
 
 function parseSummaryResponse(raw: string): SummaryResult {
-  const shortMatch = raw.match(/SHORT_SUMMARY:\s*(.+?)(?:\n\n|\nFULL_SUMMARY:)/s);
+  const shortMatch = raw.match(
+    /SHORT_SUMMARY:\s*(.+?)(?:\n\n|\nFULL_SUMMARY:)/s,
+  );
   const fullMatch = raw.match(/FULL_SUMMARY:\s*([\s\S]+)$/);
 
   return {
@@ -119,11 +137,16 @@ export async function summarizeRfps(
 
   for (const r of results) {
     if (r.status === "fulfilled") {
-      summaries.set(r.value.id, { summary: r.value.summary, shortSummary: r.value.shortSummary });
+      summaries.set(r.value.id, {
+        summary: r.value.summary,
+        shortSummary: r.value.shortSummary,
+      });
     } else {
       failed++;
       const msg =
-        r.reason instanceof Error ? r.reason.message : String(r.reason);
+        r.reason instanceof Error
+          ? r.reason.message
+          : String(r.reason ?? "unknown error");
       console.warn(`  Summary failed: ${msg}`);
     }
   }
