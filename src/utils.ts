@@ -130,6 +130,13 @@ export async function runConcurrent<T>(
   return results;
 }
 
+/** Format a number string as $1,234,567.00 */
+export function formatCurrency(value: string): string {
+  const num = parseFloat(value.replace(/,/g, ""));
+  if (isNaN(num)) return value;
+  return num.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
 /** Map days-until-due to a CSS urgency class */
 export function urgencyClass(days: number): string {
   if (days < 0) return "overdue";
