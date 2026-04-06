@@ -1,9 +1,9 @@
 import "dotenv/config";
-import { writeFileSync } from "fs";
+import { writeFileSync, rmSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import { ESBDClient, extractDocuments } from "./api.js";
-import { isLikelyRelevant, selectTopResults } from "./relevance.js";
+import { isLikelyRelevant, selectTopResults, selectTopResultsSemantic } from "./relevance.js";
 import { generateHTML } from "./html-generator.js";
 import { summarizeRfps } from "./summarizer.js";
 import { ensureDir, formatElapsed, deduplicateByField } from "./utils.js";
@@ -46,10 +46,17 @@ async function main(): Promise<void> {
   console.log(`\nFetched ${details.length} detail records`);
 
   // 5. Score and rank
-  console.log("\nScoring and ranking...");
-  const topResults = selectTopResults(details, TOP_COUNT);
+  let topResults;
+  if (SKIP_AI) {
+    console.log("\nScoring with keyword matching...");
+    topResults = selectTopResults(details, TOP_COUNT);
+  } else {
+    console.log("\nScoring with keyword + semantic matching...");
+    topResults = await selectTopResultsSemantic(details, TOP_COUNT);
+  }
 
-  // 6. Download attachments for top results
+  // 6. Wipe data folder and download attachments for top results
+  rmSync(DATA_DIR, { recursive: true, force: true });
   const totalAttachments = topResults.reduce((n, r) => n + r.attachments.length, 0);
   console.log(`\nDownloading ${totalAttachments} attachments for top ${topResults.length} results...`);
   await client.downloadAttachments(topResults, DATA_DIR);
