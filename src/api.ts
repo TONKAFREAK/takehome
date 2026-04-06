@@ -22,6 +22,7 @@ const DEFAULT_HEADERS = {
   Referer: `${BASE_URL}/esbd`,
 };
 
+/** Client for the Texas ESBD (Electronic State Business Daily) API. */
 export class ESBDClient {
   private client: AxiosInstance;
   private cookies: string = "";
@@ -34,6 +35,9 @@ export class ESBDClient {
     });
   }
 
+  /**
+   * Initialize a session by visiting the ESBD page and capturing cookies.
+   */
   async initSession(): Promise<void> {
     const res = await this.client.get("/esbd", {
       maxRedirects: 5,
@@ -52,6 +56,12 @@ export class ESBDClient {
     }
   }
 
+  /**
+   * Fetch a single page of solicitation listings.
+   * @param page - Page number (default 1)
+   * @param filters - Optional filters (status, keyword, agency, etc.)
+   * @returns Paginated listing response
+   */
   async fetchListings(
     page: number = 1,
     filters: Partial<ESBDListRequest> = {},
@@ -76,6 +86,12 @@ export class ESBDClient {
     return res.data;
   }
 
+  /**
+   * Fetch all listing pages concurrently.
+   * @param filters - Optional filters (status, keyword, agency, etc.)
+   * @param concurrency - Max concurrent page requests (default 6)
+   * @returns All listings across all pages
+   */
   async fetchAllListings(
     filters: Partial<ESBDListRequest> = {},
     concurrency: number = 6,
@@ -112,6 +128,11 @@ export class ESBDClient {
     return allListings;
   }
 
+  /**
+   * Fetch full details for a single solicitation.
+   * @param solicitationId - The solicitation ID to look up
+   * @returns Full solicitation detail record
+   */
   async fetchDetail(solicitationId: string): Promise<RFPDetail> {
     const res = await withRetry(() =>
       this.client.get<RFPDetail>(`${SERVICES_PATH}/ESBD.Details.Service.ss`, {
@@ -126,6 +147,12 @@ export class ESBDClient {
     return res.data;
   }
 
+  /**
+   * Fetch details for multiple listings concurrently.
+   * @param listings - Array of listings to fetch details for
+   * @param concurrency - Max concurrent detail requests (default 10)
+   * @returns Array of successfully fetched detail records
+   */
   async fetchDetails(
     listings: RFPListing[],
     concurrency: number = 10,
@@ -155,6 +182,13 @@ export class ESBDClient {
     return details;
   }
 
+  /**
+   * Download all attachments for the given RFPs to data/{solicitationId}/.
+   * @param rfps - Array of RFP details with attachments
+   * @param dataDir - Root data directory path
+   * @param concurrency - Max concurrent downloads (default 10)
+   * @returns Number of successfully downloaded files
+   */
   async downloadAttachments(
     rfps: RFPDetail[],
     dataDir: string,
@@ -193,6 +227,12 @@ export class ESBDClient {
     return downloaded;
   }
 
+  /**
+   * Download a single file and write it to disk.
+   * @param fileURL - Relative URL on the ESBD server
+   * @param filePath - Local path to save the file
+   * @returns The local file path on success
+   */
   private async downloadFile(fileURL: string, filePath: string): Promise<string> {
     const res = await withRetry(() =>
       this.client.get(fileURL, {
@@ -207,6 +247,13 @@ export class ESBDClient {
   }
 }
 
+/**
+ * Extract text from downloaded PDFs and DOCX files into data/{id}/extracted/.
+ * @param rfps - Array of RFP details whose attachments have been downloaded
+ * @param dataDir - Root data directory path
+ * @param concurrency - Max concurrent extractions (default 10)
+ * @returns Number of successfully extracted documents
+ */
 export async function extractDocuments(
   rfps: RFPDetail[],
   dataDir: string,

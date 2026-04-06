@@ -105,6 +105,13 @@ function parseSummaryResponse(raw: string): SummaryResult {
   };
 }
 
+/**
+ * Generate AI summaries for each RFP using extracted document text and metadata.
+ * @param rfps - Array of RFP details to summarize
+ * @param dataDir - Root data directory containing downloaded/extracted files
+ * @param concurrency - Max concurrent LLM requests (default 20)
+ * @returns Map of solicitationId to { summary, shortSummary }
+ */
 export async function summarizeRfps(
   rfps: RFPDetail[],
   dataDir: string,

@@ -14,6 +14,11 @@ interface FieldWeight {
  *   description = 2.0
  *   agency = 0.5
  */
+/**
+ * Score a single RFP against all vendor categories using keyword matching.
+ * @param rfp - Full RFP detail record
+ * @returns ScoredRFP with relevanceScore, matchedCategories, and matchDetails
+ */
 export function scoreRFP(rfp: RFPDetail): ScoredRFP {
   const fields: Record<string, FieldWeight> = {
     title: { text: rfp.title.toLowerCase(), weight: 3.0 },
@@ -57,6 +62,11 @@ export function scoreRFP(rfp: RFPDetail): ScoredRFP {
   };
 }
 
+/**
+ * Quick pre-filter to check if a listing is potentially relevant based on title/NIGP/agency.
+ * @param listing - Basic listing record (no full description)
+ * @returns true if any vendor category keyword matches
+ */
 export function isLikelyRelevant(listing: RFPListing): boolean {
   const text = [listing.title, listing.nigpCodes, listing.agencyName]
     .join(" ")
@@ -71,7 +81,12 @@ export function isLikelyRelevant(listing: RFPListing): boolean {
   return false;
 }
 
-/** Keyword-only scoring (used with --noai) */
+/**
+ * Select top results using keyword-only scoring (used with --noai).
+ * @param rfps - Array of full RFP details
+ * @param count - Number of top results to return (default 20)
+ * @returns Sorted array of top scored RFPs
+ */
 export function selectTopResults(
   rfps: RFPDetail[],
   count: number = 20,
@@ -81,7 +96,12 @@ export function selectTopResults(
   return scored.slice(0, count);
 }
 
-/** Blended keyword + semantic scoring */
+/**
+ * Select top results using blended keyword (40%) + semantic embedding (60%) scoring.
+ * @param rfps - Array of full RFP details
+ * @param count - Number of top results to return (default 20)
+ * @returns Sorted array of top scored RFPs with blended scores
+ */
 export async function selectTopResultsSemantic(
   rfps: RFPDetail[],
   count: number = 20,

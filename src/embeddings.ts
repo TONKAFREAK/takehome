@@ -87,6 +87,12 @@ export interface SemanticScore {
   topCategories: string[];
 }
 
+/**
+ * Compute semantic similarity scores for RFP texts against all vendor categories.
+ * Uses cached category embeddings when available.
+ * @param texts - Array of RFP text strings to score
+ * @returns Array of SemanticScore with score and top matching categories per RFP
+ */
 export async function computeSemanticScores(
   texts: string[],
 ): Promise<SemanticScore[]> {

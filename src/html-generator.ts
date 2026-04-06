@@ -590,6 +590,12 @@ function getCSS(): string {
   `;
 }
 
+/**
+ * Generate the full HTML results page.
+ * @param results - Array of scored and optionally AI-summarized RFPs
+ * @param metadata - Run metadata (timestamps, counts, category stats)
+ * @returns Complete HTML document string
+ */
 export function generateHTML(
   results: ScoredRFP[],
   metadata: RunMetadata,
