@@ -146,6 +146,25 @@
       padding-left: 0.75rem;
     }
 
+    .card-dropdown {
+      font-size: 0.82rem;
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-dropdown summary {
+      cursor: pointer;
+      user-select: none;
+      color: #9ca3af;
+      font-size: 0.78rem;
+    }
+
+    .card-dropdown > p {
+      margin-top: 0.35rem;
+      border-left: 2px solid #e5e7eb;
+      padding-left: 0.75rem;
+    }
+
     .card-contact {
       display: flex;
       flex-wrap: wrap;
@@ -185,20 +204,30 @@
       background: #e5e7eb;
     }
 
-    .match-details {
-      font-size: 0.78rem;
-      color: #9ca3af;
-      border-top: 1px solid #f3f4f6;
-      padding-top: 0.5rem;
+    .ai-summary-content {
+      margin-top: 0.5rem;
+      padding-left: 0.75rem;
+      line-height: 1.6;
     }
 
-    .match-details summary {
-      cursor: pointer;
-      user-select: none;
+    .ai-summary-content p {
+      margin-bottom: 0.4rem;
     }
 
-    .match-details p {
-      margin-top: 0.35rem;
+    .ai-summary-content ul {
+      padding-left: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .ai-summary-content li {
+      margin-bottom: 0.2rem;
+    }
+
+    .ai-summary-content h3,
+    .ai-summary-content h4 {
+      margin-top: 0.6rem;
+      margin-bottom: 0.25rem;
+      color: #1f2937;
     }
 
     .methodology {
@@ -239,6 +268,28 @@
       padding: 0.1rem 0.4rem;
       border-radius: 3px;
       font-size: 0.85rem;
+    }
+
+    .weight-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin: 0.5rem 0 0.75rem;
+    }
+
+    .weight-table td {
+      padding: 0.3rem 0.6rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .weight-table td:nth-child(2) {
+      font-weight: 600;
+      color: #1a56db;
+      white-space: nowrap;
+    }
+
+    .weight-table td:nth-child(3) {
+      color: #6b7280;
     }
 
     .top-categories {
@@ -293,10 +344,10 @@
 </head>
 <body>
   <div class="container">
-    <p class="top-categories"><strong>Top categories:</strong> <button class="cat-link" data-category="General Contractors">General Contractors (15)</button>, <button class="cat-link" data-category="Concrete">Concrete (14)</button>, <button class="cat-link" data-category="Electrical">Electrical (11)</button>, <button class="cat-link" data-category="Asphalt">Asphalt (8)</button>, <button class="cat-link" data-category="Carpentry / Glaziery">Carpentry / Glaziery (8)</button>, <button class="cat-link" data-category="Plumbing">Plumbing (8)</button>, <button class="cat-link" data-category="Architecture and Design">Architecture and Design (7)</button>, <button class="cat-link" data-category="Excavating">Excavating (7)</button></p>
+    <p class="top-categories"><strong>Top categories:</strong> <button class="cat-link" data-category="Interior Maintenance">Interior Maintenance (16)</button>, <button class="cat-link" data-category="Exterior Maintenance">Exterior Maintenance (14)</button>, <button class="cat-link" data-category="Concrete">Concrete (13)</button>, <button class="cat-link" data-category="General Contractors">General Contractors (13)</button>, <button class="cat-link" data-category="Lawn and Landscaping">Lawn and Landscaping (11)</button>, <button class="cat-link" data-category="Plumbing">Plumbing (9)</button>, <button class="cat-link" data-category="Structural Work">Structural Work (9)</button>, <button class="cat-link" data-category="Architecture and Design">Architecture and Design (7)</button></p>
 
     
-    <div class="card" data-categories="Architecture and Design,Asphalt,Bathroom,Cabinets,Carpentry / Glaziery,Concrete,Electrical,Excavating,Exterior Maintenance,Flooring,Interior Installation,Lawn and Landscaping,Life Safety,Moving,Paint,Plumbing,Security,Surveys and Appraisal,Wallpaper,Windows,General Contractors">
+    <div class="card" data-categories="Architecture and Design,Asphalt,Bathroom,Cabinets,Carpentry / Glaziery,Concrete,Electrical,Excavating,Exterior Maintenance,Flooring,Interior Installation,Lawn and Landscaping,Life Safety,Moving,Paint,Plumbing,Security,Surveys and Appraisal,Wallpaper,Windows,General Contractors,Interior Maintenance,Equipment Rental">
       <div class="card-header">
         
 
@@ -313,261 +364,58 @@
         <span><strong>Value:</strong> $3,000,000.00</span>
       </div>
 
-      <div class="card-description">
-        <p>The University of Texas at Tyler is soliciting proposals for supervision,materials, equipment and labor for renovations and improvements to the LongviewUniversity Center, to include all related work as described in the constructiondocuments issued as a part of this RFP.</p>
-      </div>
-
       <div class="card-contact">
         <span><strong>Contact:</strong> Demi Beckham</span>
         <span><strong>Phone:</strong> (903) 565-6407</span>
         <span><strong>Email:</strong> <a href="mailto:Demi.Beckham@uttyler.edu">Demi.Beckham@uttyler.edu</a></span>
       </div>
 
-      <div class="attachments">
-          <strong>Attachments:</strong>
-          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32851848&amp;c=852252&amp;h=61nN5ibj3puCJfmKoPtMfkMuPvCJGRURpwCgxhP90pw0cgrT&amp;_xt=.doc" target="_blank" class="attachment-link">ESBD_497431_1773847030023_RFP 750-25-26-008 Longview University Center Renovation.docx</a>
-        </div>
+      <div class="card-description">
+        <p>This solicitation is for a comprehensive renovation of the Longview University Center at the University of Texas at Tyler, with an estimated project value of $3,000,000. Vendors should consider bidding if they have strong general contracting capabilities and experience with university renovations, as the selection emphasizes &quot;best value&quot; and requires detailed qualifications.</p>
+      </div>
 
-      <details class="match-details">
+      <details class="card-dropdown">
+        <summary>Original description</summary>
+        <p>The University of Texas at Tyler is soliciting proposals for supervision,materials, equipment and labor for renovations and improvements to the LongviewUniversity Center, to include all related work as described in the constructiondocuments issued as a part of this RFP.</p>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content"><ul>
+<li><strong>Overview</strong>: The University of Texas at Tyler is seeking a General Contractor to perform renovations and improvements to the Longview University Center. This project requires supervision, materials, equipment, and labor as detailed in the provided construction documents.</li>
+<li><strong>Scope of Work</strong>: The project involves a broad range of construction and maintenance activities, including demolition, concrete work, electrical, mechanical, plumbing, HVAC, fire alarm systems, flooring, painting, drywall, windows, doors, and potentially landscaping. The scope is extensive and covers all aspects of a significant building renovation.</li>
+<li><strong>Bid Requirements</strong>: Vendors must submit comprehensive proposals detailing their ability to provide construction services, qualifications of their team, past performance on similar projects (especially UT System projects), project planning and scheduling, execution plan, quality control, safety program, and warranty support. A detailed pricing proposal is required, along with a HUB (Historically Underutilized Businesses) Subcontracting Plan, as subcontracting opportunities are deemed probable. Bonding capacity and a letter of intent from a surety are mandatory. Various certifications and compliance with Texas state laws regarding taxes, child support, and government contracting are also required.</li>
+<li><strong>Timeline</strong>:</li>
+<li>RFP Issued: March 18, 2026</li>
+<li>Pre-Submittal Conference: March 24, 2026</li>
+<li>Deadline for RFP Questions: March 30, 2026</li>
+<li>Proposal Submission Deadline: April 14, 2026, 3:00 PM</li>
+<li>Estimated Agreement Execution: April 24, 2026</li>
+<li>Estimated Notice to Proceed: May 4, 2026</li>
+<li>Substantial Completion (Base Bid): August 7, 2026</li>
+<li>Final Completion: August 21, 2026</li>
+<li><strong>Estimated Value</strong>: The estimated value of this solicitation is $3,000,000.00.</li>
+<li><strong>Recommendation</strong>: A mid-size building maintenance and construction vendor with a strong track record in general contracting and university renovation projects should strongly consider bidding on this solicitation. The project value is substantial, offering significant revenue potential. The extensive scope requires a capable general contractor with robust project management, safety, and quality control programs. The &quot;best value&quot; selection criteria means that while price is a factor (30%), qualifications and past performance (70%) are heavily weighted, rewarding experienced and well-qualified firms. The requirement for a HUB Subcontracting Plan is also a critical consideration for bidders. The tight timeline for completion (Substantial Completion within approximately 4 months of Notice to Proceed) will require efficient planning and execution.</li>
+</ul></div>
+      </details>
+
+      <details class="card-dropdown">
         <summary>Matched tags</summary>
         <p>Architecture and Design: &quot;architect&quot; in nigpCodes, &quot;architectural&quot; in nigpCodes; Asphalt: &quot;asphalt&quot; in nigpCodes, &quot;striping&quot; in nigpCodes; Bathroom: &quot;toilet&quot; in nigpCodes, &quot;shower&quot; in nigpCodes; Cabinets: &quot;cabinet&quot; in nigpCodes, &quot;millwork&quot; in nigpCodes; Carpentry / Glaziery: &quot;glazing&quot; in nigpCodes, &quot;trim&quot; in nigpCodes, &quot;door&quot; in nigpCodes; Concrete: &quot;concrete&quot; in nigpCodes, &quot;cement&quot; in nigpCodes; Electrical: &quot;electrical&quot; in nigpCodes, &quot;wiring&quot; in nigpCodes; Excavating: &quot;demolition&quot; in nigpCodes; Exterior Maintenance: &quot;caulking&quot; in nigpCodes; Flooring: &quot;flooring&quot; in nigpCodes, &quot;floor&quot; in nigpCodes; Interior Installation: &quot;drywall&quot; in nigpCodes, &quot;ceiling&quot; in nigpCodes; Lawn and Landscaping: &quot;landscaping&quot; in nigpCodes, &quot;tree trimming&quot; in nigpCodes, &quot;grounds maintenance&quot; in nigpCodes; Life Safety: &quot;fire alarm&quot; in nigpCodes, &quot;fire suppression&quot; in nigpCodes; Moving: &quot;moving&quot; in nigpCodes; Paint: &quot;paint&quot; in nigpCodes, &quot;painting&quot; in nigpCodes; Plumbing: &quot;plumbing&quot; in nigpCodes, &quot;fixture&quot; in nigpCodes, &quot;plumbing fixture&quot; in nigpCodes; Security: &quot;security&quot; in nigpCodes, &quot;alarm system&quot; in nigpCodes; Surveys and Appraisal: &quot;survey&quot; in nigpCodes, &quot;surveying&quot; in nigpCodes, &quot;land survey&quot; in nigpCodes; Wallpaper: &quot;wallpaper&quot; in nigpCodes; Windows: &quot;window&quot; in nigpCodes, &quot;glass&quot; in nigpCodes, &quot;glazing&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description, &quot;renovation&quot; in title, &quot;renovation&quot; in description, &quot;general construction&quot; in nigpCodes</p>
       </details>
-    </div>
 
-    <div class="card" data-categories="Bathroom,Carpentry / Glaziery,Concrete,Electrical,Excavating,Exterior Installation,Flooring,Insulation,Interior Installation,Paint,Plumbing,Roofing,Wallpaper,Windows,General Contractors">
-      <div class="card-header">
-        
-
-        <h2 class="card-title">
-        <a href="https://www.txsmartbuy.gov/esbd/SSC-CSP-2025-06767" target="_blank"><span class="rank">#2</span> SSC - RELLIS Hangars 8 &amp; 9 and Restroom Building - Bryan, TX</a>
-      </h2>
-      </div>
-
-      <div class="card-meta">
-        <span><strong>ID:</strong> SSC-CSP-2025-06767</span>
-        <span><strong>Agency:</strong> Texas A&amp;M University System - 710</span>
-        <span><strong>Posted:</strong> 3/31/2026</span>
-        <span class="due normal"><strong>Due:</strong> 4/23/2026 2:00 PM <em>(18 days left)</em></span>
-        
-      </div>
-
-      <div class="card-description">
-        <p>SSC Services for Education (SSC) as Owner Designated Representative (ODR) for Texas A&amp;M University RELLIS Campus is requesting Competitive Sealed Proposals (CSP) from general construction contractors for the construction of two PEMB hangars and a CMU restroom building. See attached Notice of Project for a link to access all CSP RFP documents and information about the scheduled pre-proposal meeting.</p>
-      </div>
-
-      <div class="card-contact">
-        <span><strong>Contact:</strong> David Ritter</span>
-        <span><strong>Phone:</strong> (979) 219-0774</span>
-        <span><strong>Email:</strong> <a href="mailto:david.ritter@sscserv.com">david.ritter@sscserv.com</a></span>
-      </div>
-
-      <div class="attachments">
+       <div class="attachments">
           <strong>Attachments:</strong>
-          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32908783&amp;c=852252&amp;h=GRUondqO7GAL-5Q2hxHOOTrMd4K7b39956DDc_jeBr_LQk8L&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_502534_1774982001854_2025-06767_Notice of Project-CS_26.03.20.pdf</a>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32851848&amp;c=852252&amp;h=61nN5ibj3puCJfmKoPtMfkMuPvCJGRURpwCgxhP90pw0cgrT&amp;_xt=.doc" target="_blank" class="attachment-link">ESBD_497431_1773847030023_RFP 750-25-26-008 Longview University Center Renovation.docx</a>
         </div>
-
-      <details class="match-details">
-        <summary>Matched tags</summary>
-        <p>Bathroom: &quot;restroom&quot; in title, &quot;restroom&quot; in description; Carpentry / Glaziery: &quot;glazing&quot; in nigpCodes; Concrete: &quot;concrete&quot; in nigpCodes, &quot;masonry&quot; in nigpCodes, &quot;cmu&quot; in description; Electrical: &quot;electrical&quot; in nigpCodes; Excavating: &quot;site work&quot; in nigpCodes; Exterior Installation: &quot;siding&quot; in nigpCodes; Flooring: &quot;flooring&quot; in nigpCodes, &quot;floor&quot; in nigpCodes; Insulation: &quot;insulation&quot; in nigpCodes; Interior Installation: &quot;ceiling&quot; in nigpCodes; Paint: &quot;paint&quot; in nigpCodes, &quot;painting&quot; in nigpCodes; Plumbing: &quot;plumbing&quot; in nigpCodes; Roofing: &quot;roof&quot; in nigpCodes, &quot;roofing&quot; in nigpCodes; Wallpaper: &quot;wallpaper&quot; in nigpCodes; Windows: &quot;glass&quot; in nigpCodes, &quot;glazing&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description, &quot;building construction&quot; in nigpCodes, &quot;general construction&quot; in description</p>
-      </details>
     </div>
 
-    <div class="card" data-categories="Architecture and Design,Bathroom,Carpentry / Glaziery,Lawn and Landscaping,Life Safety,Plumbing">
+    <div class="card" data-categories="Concrete,Insulation,Paint,Roofing,Exterior Maintenance,Exterior Installation,Plaster,Interior Maintenance">
       <div class="card-header">
         
 
         <h2 class="card-title">
-        <a href="https://www.txsmartbuy.gov/esbd/MSIR0426" target="_blank"><span class="rank">#3</span> Maintenance Sprinkler System Installation &amp; Repair Services</a>
-      </h2>
-      </div>
-
-      <div class="card-meta">
-        <span><strong>ID:</strong> MSIR0426</span>
-        <span><strong>Agency:</strong> Harlingen CISD - S0315</span>
-        <span><strong>Posted:</strong> 3/28/2026</span>
-        <span class="due normal"><strong>Due:</strong> 4/14/2026 2:00 PM <em>(9 days left)</em></span>
-        <span><strong>Value:</strong> $75,000.00</span>
-      </div>
-
-      <div class="card-description">
-        <p>Proposal Specifications are available at: https://hcisdbid.ionwave.net/Login.aspx Proposals are to reach the Purchasing Department ON OR BEFORE the above-mentioned due date &amp; time. Harlingen Consolidated Independent School District Purchasing Department 407 N 77 Sunshine Strip, Harlingen, Texas 78550 HCISD will be closed April 3 &amp; 6, 2026.</p>
-      </div>
-
-      <div class="card-contact">
-        <span><strong>Contact:</strong> Sylvia Deleon</span>
-        <span><strong>Phone:</strong> (956) 430-9740</span>
-        <span><strong>Email:</strong> <a href="mailto:sylvia.deleon@hcisd.org">sylvia.deleon@hcisd.org</a></span>
-      </div>
-
-      <div class="attachments">
-          <strong>Attachments:</strong>
-          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32888232&amp;c=852252&amp;h=TIe44vEQVwiaPuMbTkL6YzEuOC5eYRWY_GwVNlkSo7hoK_jD&amp;_xt=.doc" target="_blank" class="attachment-link">ESBD_501379_1774574146424_NewsMultiBid 03122026-2.docx</a>
-        </div>
-
-      <details class="match-details">
-        <summary>Matched tags</summary>
-        <p>Architecture and Design: &quot;architect&quot; in nigpCodes, &quot;architectural&quot; in nigpCodes; Bathroom: &quot;toilet&quot; in nigpCodes; Carpentry / Glaziery: &quot;trim&quot; in nigpCodes; Lawn and Landscaping: &quot;landscaping&quot; in nigpCodes, &quot;lawn&quot; in nigpCodes, &quot;irrigation&quot; in nigpCodes, &quot;sprinkler&quot; in title, &quot;sprinkler&quot; in nigpCodes, &quot;tree trimming&quot; in nigpCodes, &quot;turf&quot; in nigpCodes, &quot;grounds maintenance&quot; in nigpCodes; Life Safety: &quot;fire protection&quot; in nigpCodes, &quot;sprinkler system&quot; in title, &quot;sprinkler system&quot; in nigpCodes, &quot;smoke detector&quot; in nigpCodes, &quot;fire sprinkler&quot; in nigpCodes; Plumbing: &quot;plumbing&quot; in nigpCodes, &quot;pipe&quot; in nigpCodes, &quot;fixture&quot; in nigpCodes</p>
-      </details>
-    </div>
-
-    <div class="card" data-categories="Asphalt,Carpentry / Glaziery,Concrete,Fencing,Lawn and Landscaping,Moving,Structural Work,Wall-Making,General Contractors">
-      <div class="card-header">
-        
-
-        <h2 class="card-title">
-        <a href="https://www.txsmartbuy.gov/esbd/23-04203-10" target="_blank"><span class="rank">#4</span> 2026 Task Order Contract for the Street Rehabilitation Package 10 Flatwork</a>
-      </h2>
-      </div>
-
-      <div class="card-meta">
-        <span><strong>ID:</strong> 23-04203-10</span>
-        <span><strong>Agency:</strong> City of San Antonio - M0152</span>
-        <span><strong>Posted:</strong> 3/20/2026</span>
-        <span class="due normal"><strong>Due:</strong> 4/28/2026 2:00 PM <em>(23 days left)</em></span>
-        <span><strong>Value:</strong> $1,000,000.00</span>
-      </div>
-
-      <div class="card-description">
-        <p>Solicitation Type and Name: Formal Invitation for Bids for 2026 Task Order Contract for the Street Rehabilitation Package 10 Flatwork Solicitation Number: 23-04203-10 Description: Project construction may include but is not limited to: removal and replacement or installation of concrete curbs, sidewalks, driveways, concrete retaining walls combination type, and curb ramps, concrete pavement for minor street reconstruction, minor asphalt replacement, removing and relocating mail boxes, topsoil, sodding, tree pruning, removal and/or replacement, sign relocation, door hangers, adjusting meter boxes, valve boxes and manholes, and any other items required due to the site conditions to accomplish the project scope. Applicable Product Categories: -57076 – Steel, Reinforcing, Bars and Rods -75070 – Ready-Mix Concrete -91347 – Construction, Sidewalk and Driveway, Including Pedestrian and Handicap Ramps -79050 – Sod, Grass -96880 – Traffic Sign Installation and Removal Services -98815 – Fence Installation, Maintenance, and Repair Date Issued: March 20, 2026 Due Date &amp; Time: April 28, 2:00 p.m. Central Time Pre-Bid Conference: Pre-Bid Conference will be held at 10:00 a.m., Central Time, on March 26, 2026, via WebEx. Attendance at the Pre-Bid Conference is optional, but highly encouraged. Respondents may call the toll-free number listed below and enter access code to participate the day of the conference. Dial-In Number: 1-415-655-0001 | Access Code: 2331 931 6407 | Meeting Password: xtQ257KJVyf Join from the meeting link: https://sanantonio.webex.com/sanantonio/j.php?MTID=m9b58d9b3d9e208d356acc952f0f7cfc1 To view this solicitation, go to https://www.civcastusa.com/bids and search under SAP Project ID number or project name.</p>
-      </div>
-
-      <div class="card-contact">
-        <span><strong>Contact:</strong> Michelle Birch</span>
-        <span><strong>Phone:</strong> (210) 207-8642</span>
-        <span><strong>Email:</strong> <a href="mailto:michelle.birch@sanantonio.gov">michelle.birch@sanantonio.gov</a></span>
-      </div>
-
-      <div class="attachments">
-          <strong>Attachments:</strong>
-          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32861837&amp;c=852252&amp;h=RH10YLcNw-5ypBpAnYhi8uwRuKCEs13DteCJM99tJpVlF8b9&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_498782_1774031248894_Solicitation Synopsis Non-Discretionary.pdf</a>
-        </div>
-
-      <details class="match-details">
-        <summary>Matched tags</summary>
-        <p>Asphalt: &quot;asphalt&quot; in description, &quot;pavement&quot; in description; Carpentry / Glaziery: &quot;door&quot; in description; Concrete: &quot;concrete&quot; in nigpCodes, &quot;concrete&quot; in description, &quot;cement&quot; in description, &quot;sidewalk&quot; in nigpCodes, &quot;sidewalk&quot; in description, &quot;curb&quot; in description, &quot;flatwork&quot; in title, &quot;flatwork&quot; in description; Fencing: &quot;fence&quot; in nigpCodes, &quot;fence&quot; in description, &quot;fence installation&quot; in nigpCodes, &quot;fence installation&quot; in description; Lawn and Landscaping: &quot;sod&quot; in nigpCodes, &quot;sod&quot; in description; Moving: &quot;moving&quot; in description, &quot;relocation&quot; in description; Structural Work: &quot;retaining wall&quot; in description; Wall-Making: &quot;retaining wall&quot; in description; General Contractors: &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description</p>
-      </details>
-    </div>
-
-    <div class="card" data-categories="Basement,Concrete,Electrical,HVAC,Interior Maintenance,Metalwork,Plumbing,Structural Work,General Contractors">
-      <div class="card-header">
-        
-
-        <h2 class="card-title">
-        <a href="https://www.txsmartbuy.gov/esbd/RFP_26-003" target="_blank"><span class="rank">#5</span> SE Campus SE-02 Structural Repairs &amp; Improvements</a>
-      </h2>
-      </div>
-
-      <div class="card-meta">
-        <span><strong>ID:</strong> RFP_26-003</span>
-        <span><strong>Agency:</strong> Tarrant County College - J2201</span>
-        <span><strong>Posted:</strong> 3/12/2026</span>
-        <span class="due normal"><strong>Due:</strong> 4/17/2026 2:00 PM <em>(12 days left)</em></span>
-        <span><strong>Value:</strong> $800,000.00</span>
-      </div>
-
-      <div class="card-description">
-        <p>Tarrant County College District (TCCD) announces RFP #26-003: SE CampusSE-02 Structural Repairs &amp; Improvements. The RFP proposal submission deadline is Friday, April 17, 2026, at 2:00PM local time. A virtual initial publicconference is scheduled for Tuesday, March 31, 2026, at 10:00 AM localtime. A non-mandatory walk-through isscheduled for Wednesday, April 01, 2026, at 2:00 PM local time. See our bid portal for more specificinformation, Bonfire: https://tccd.bonfirehub.com/. Darren King, Construction Purchasing Manager,darren.king@tccd.edu. Tarrant County College District (TCCD) is soliciting proposals from qualifiedcontractors to perform structural, plumbing, mechanical, and electrical repairsat the Southeast Campus SE-02 facility located at 2100 Southeast Parkway inArlington, Texas. The project generally consists of structural steel andconcrete repairs, replacement of deteriorated below-slab sanitary piping,installation of crawlspace ventilation fans, and associated electricalconnections. Work will require coordination with existing building conditionsand may occur in or around occupied areas. The selected contractor shallprovide all labor, materials, equipment, supervision, permits, and incidentalsnecessary to complete the work in accordance with the construction documentsdated March 6, 2026 and all applicable codes and standards. Estimated budget:$800,000.00 to $1,100,000.00</p>
-      </div>
-
-      <div class="card-contact">
-        <span><strong>Contact:</strong> Darren King</span>
-        <span><strong>Phone:</strong> (817) 515-1508</span>
-        <span><strong>Email:</strong> <a href="mailto:darren.king@tccd.edu">darren.king@tccd.edu</a></span>
-      </div>
-
-      <div class="attachments">
-          <strong>Attachments:</strong>
-          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32836319&amp;c=852252&amp;h=IVmM5Ww-CsijUI95zUevpcnV7xeZFzd8TYGx5Ry7rZm3HjoM&amp;_xt=.doc" target="_blank" class="attachment-link">ESBD_495937_1773349846974_Advertisement -RFP 26-003 -Other.docx</a>
-        </div>
-
-      <details class="match-details">
-        <summary>Matched tags</summary>
-        <p>Basement: &quot;crawlspace&quot; in description; Concrete: &quot;concrete&quot; in description, &quot;cement&quot; in description, &quot;concrete repair&quot; in description; Electrical: &quot;electrical&quot; in description, &quot;electrical repair&quot; in description; HVAC: &quot;ventilation&quot; in description, &quot;rtu&quot; in description; Interior Maintenance: &quot;building maintenance&quot; in nigpCodes; Metalwork: &quot;structural steel&quot; in description; Plumbing: &quot;plumbing&quot; in description, &quot;piping&quot; in description, &quot;sanitary&quot; in description; Structural Work: &quot;structural&quot; in title, &quot;structural&quot; in description, &quot;structural repair&quot; in title, &quot;structural repair&quot; in description, &quot;structural steel&quot; in description; General Contractors: &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description, &quot;building construction&quot; in nigpCodes</p>
-      </details>
-    </div>
-
-    <div class="card" data-categories="Architecture and Design,Concrete,Electrical,Excavating,Fencing,Interior Decoration,Structural Work,Wall-Making,General Contractors">
-      <div class="card-header">
-        
-
-        <h2 class="card-title">
-        <a href="https://www.txsmartbuy.gov/esbd/RFP26-19454-KM" target="_blank"><span class="rank">#6</span> Bell Farms Public Improvement District (PID) Playa Lake Retaining Wall Construction</a>
-      </h2>
-      </div>
-
-      <div class="card-meta">
-        <span><strong>ID:</strong> RFP26-19454-KM</span>
-        <span><strong>Agency:</strong> City of Lubbock - M0007</span>
-        <span><strong>Posted:</strong> 3/20/2026</span>
-        <span class="due soon"><strong>Due:</strong> 4/9/2026 3:00 PM <em>(4 days left)</em></span>
-        <span><strong>Value:</strong> $180,000.00</span>
-      </div>
-
-      <div class="card-description">
-        <p>The Work, under this Contract, consists of furnishing all labor, supervision, equipment, tools, materials, transportation, services, and related items necessary for the construction and completions, start-up and placing in service the Project. The Projects involves the removal of a retaining wall, construction of a new sidewalk, pedestrian lighting, and landscape improvements within the limits of Bell Farms Playa Park, Tract A</p>
-      </div>
-
-      <div class="card-contact">
-        <span><strong>Contact:</strong> Kiara Morgan</span>
-        <span><strong>Phone:</strong> (806) 775-2167</span>
-        <span><strong>Email:</strong> <a href="mailto:KMorgan@mylubbock.us">KMorgan@mylubbock.us</a></span>
-      </div>
-
-      <div class="attachments">
-          <strong>Attachments:</strong>
-          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32860260&amp;c=852252&amp;h=IfneJFtTF3gSBqixl8WwLciWh_ebz6NaZOZn9BqDY5j2TJqH&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_498577_1774015900699_01 - RFP 26-19454-KM.pdf</a>
-        </div>
-
-      <details class="match-details">
-        <summary>Matched tags</summary>
-        <p>Architecture and Design: &quot;architect&quot; in nigpCodes, &quot;architectural&quot; in nigpCodes; Concrete: &quot;sidewalk&quot; in description; Electrical: &quot;lighting&quot; in description; Excavating: &quot;site work&quot; in nigpCodes; Fencing: &quot;fence&quot; in nigpCodes, &quot;fence installation&quot; in nigpCodes; Interior Decoration: &quot;furnishing&quot; in description; Structural Work: &quot;retaining wall&quot; in title, &quot;retaining wall&quot; in description; Wall-Making: &quot;wall construction&quot; in title, &quot;retaining wall&quot; in title, &quot;retaining wall&quot; in description; General Contractors: &quot;construction&quot; in title, &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description, &quot;building construction&quot; in nigpCodes, &quot;general construction&quot; in nigpCodes</p>
-      </details>
-    </div>
-
-    <div class="card" data-categories="Asphalt,Carpentry / Glaziery,Concrete,Equipment Rental,Garage,HVAC,Interior Cleaning,Security,Windows,General Contractors">
-      <div class="card-header">
-        
-
-        <h2 class="card-title">
-        <a href="https://www.txsmartbuy.gov/esbd/24005C28" target="_blank"><span class="rank">#7</span> Operational Support Contracted Services</a>
-      </h2>
-      </div>
-
-      <div class="card-meta">
-        <span><strong>ID:</strong> 24005C28</span>
-        <span><strong>Agency:</strong> Leander ISD - S2464</span>
-        <span><strong>Posted:</strong> 3/7/2023</span>
-        <span class="due normal"><strong>Due:</strong> 5/30/2028 2:00 PM <em>(786 days left)</em></span>
-        <span><strong>Value:</strong> $1.00</span>
-      </div>
-
-      <div class="card-description">
-        <p>Leander Independent School District (known herein as &quot;LISD&quot; or &quot;District&quot;) is accepting proposal responses from vendors interested in providing the following products or services: Operational Support Contracted Services Leander ISD is accepting proposals from vendors to provide operational support contracted services in accordance with the instructions, terms and conditions and requirements/specifications contained in this solicitation. This solicitation is issued per Texas Education Code Chapter 44, Sub Chapter B. NOTE: The services included in this solicitation do not include construction-related services that qualify under Texas Government Code 2269. NOTE TO INTERESTED VENDORS: Leander ISD seeks to create a list of awarded Contractors to provide a varied list of services. Examples of contracted services the District is requesting proposals for are, but are not limited to: Access Control Services Arbor Tree Services Custodial Equipment Maintenance and Repair Equipment Rentals Glass Services Industrial Equipment Maintenance and Repair Landscape Services Locksmith Services Maintenance Equipment Maintenance and Repair Material Handling Equipment Maintenance and Repair Overhead Door Maintenance and Repair Parking Lot Maintenance Towing Services Transportation Ride Share Services Other services identified to be operational support that are not listed above When LISD has a need for these services, LISD may use the list of vendors as a primary source to obtain the services. There is no obligation upon LISD to use any particular Contractor and there is no guarantee of any quantity of orders. LISD will choose the Contractor that best meets its needs. Vendors are able to view more about this opportunity by visiting https://leanderisd.ionwave.net/CurrentSourcingEvents.aspx.</p>
-      </div>
-
-      <div class="card-contact">
-        <span><strong>Contact:</strong> Cassandra Holmes</span>
-        <span><strong>Phone:</strong> 512-570-0614</span>
-        <span><strong>Email:</strong> <a href="mailto:cassandra.holmes@leanderisd.org">cassandra.holmes@leanderisd.org</a></span>
-      </div>
-
-      <div class="attachments">
-          <strong>Attachments:</strong>
-          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=24979773&amp;c=852252&amp;h=p4PUM4a4fpGRdxFqJCBUl3Q5i7JcNqemrvg7Na0voo8LiEsV&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_File_318439_LISD 24005C28 Operational Support Contracted Services.pdf</a> <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=24979774&amp;c=852252&amp;h=ZlnU7tQrOtch_oSiruXO5qfX4L5SeZwNaxaaUhVJ1D4ORiTV&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_File_318439_LISD General Terms FINAL rev2 20221118.pdf</a>
-        </div>
-
-      <details class="match-details">
-        <summary>Matched tags</summary>
-        <p>Asphalt: &quot;parking lot&quot; in description; Carpentry / Glaziery: &quot;door&quot; in nigpCodes, &quot;door&quot; in description, &quot;door installation&quot; in nigpCodes; Concrete: &quot;cement&quot; in nigpCodes; Equipment Rental: &quot;equipment rental&quot; in description; Garage: &quot;overhead door&quot; in nigpCodes, &quot;overhead door&quot; in description; HVAC: &quot;rtu&quot; in description; Interior Cleaning: &quot;janitorial&quot; in nigpCodes, &quot;custodial&quot; in description, &quot;janitor&quot; in nigpCodes; Security: &quot;access control&quot; in description; Windows: &quot;window&quot; in nigpCodes, &quot;glass&quot; in nigpCodes, &quot;glass&quot; in description, &quot;window tint&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description</p>
-      </details>
-    </div>
-
-    <div class="card" data-categories="Concrete,Insulation,Paint,Roofing">
-      <div class="card-header">
-        
-
-        <h2 class="card-title">
-        <a href="https://www.txsmartbuy.gov/esbd/FM2026-007" target="_blank"><span class="rank">#8</span> RFP FOR BLANKET ORDER FOR MASONRY RESTORATION, BRICK &amp; PAVER REPAIRS &amp; INSTALLATION, AND FACILITIES WATERPROOFING</a>
+        <a href="https://www.txsmartbuy.gov/esbd/FM2026-007" target="_blank"><span class="rank">#2</span> RFP FOR BLANKET ORDER FOR MASONRY RESTORATION, BRICK &amp; PAVER REPAIRS &amp; INSTALLATION, AND FACILITIES WATERPROOFING</a>
       </h2>
       </div>
 
@@ -579,33 +427,122 @@
         <span><strong>Value:</strong> $2,500,000.00</span>
       </div>
 
-      <div class="card-description">
-        <p>Furnish all labor, materials, tools, and equipment to perform work on blanket order for masonry restoration, brick &amp; paver repairs and installation, and facilities waterproofing.</p>
-      </div>
-
       <div class="card-contact">
         <span><strong>Contact:</strong> Nohemi Sanchez</span>
         <span><strong>Phone:</strong> (817) 272-4995</span>
         <span><strong>Email:</strong> <a href="mailto:Nohemi.Sanchez@uta.edu">Nohemi.Sanchez@uta.edu</a></span>
       </div>
 
-      <div class="attachments">
-          <strong>Attachments:</strong>
-          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32927818&amp;c=852252&amp;h=a8V3TB9PoByNjXUz7GuVAJRnIIED32Kd0ZISKyodRMdjnf-_&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_503811_1775233618883_FINAL_RFP FM2026-007 BOC for Masonry Restore-Brick &amp;Paver Repair Install-Facilities Waterproofing.pdf</a>
-        </div>
+      <div class="card-description">
+        <p>The University of Texas at Arlington is seeking a vendor for a blanket order contract to perform masonry restoration, brick and paver repairs/installation, and facility waterproofing services. This is a significant opportunity with a substantial estimated value, requiring a strong track record in these specific trades.</p>
+      </div>
 
-      <details class="match-details">
+      <details class="card-dropdown">
+        <summary>Original description</summary>
+        <p>Furnish all labor, materials, tools, and equipment to perform work on blanket order for masonry restoration, brick &amp; paver repairs and installation, and facilities waterproofing.</p>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content"><ul>
+<li><strong>Overview</strong>: The University of Texas at Arlington (UTA) is soliciting competitive sealed proposals for a blanket order contract to provide masonry restoration, brick and paver repairs and installation, and facilities waterproofing services. This contract will be awarded on a task-order basis as needed by the university.</li>
+</ul>
+<ul>
+<li><strong>Scope of Work</strong>: The selected vendor will be responsible for furnishing all labor, materials, tools, and equipment to perform various maintenance and repair tasks related to masonry, brick, pavers, and waterproofing across UTA's facilities. Work will be initiated through individual task orders, each requiring a detailed proposal from the contractor.</li>
+</ul>
+<ul>
+<li><strong>Bid Requirements</strong>: Bidders must demonstrate a strong safety management program, ability to provide construction services (including financial capacity and bonding), qualifications of their construction team, and a proven track record in Texas for similar projects. Specific requirements include detailed responses to evaluation criteria covering safety, financial stability, team qualifications, past performance, project planning, quality control, and warranty support. A mandatory pre-submittal conference is scheduled. Historically Underutilized Businesses (HUB) participation is a significant factor, requiring a HUB Subcontracting Plan. Insurance requirements are substantial, including General Liability, Auto Liability, and Workers' Compensation. Payment and Performance Bonds will be required for task orders exceeding certain thresholds.</li>
+</ul>
+<ul>
+<li><strong>Timeline</strong>:</li>
+<li>RFP Issue Date: April 3, 2026</li>
+<li>Mandatory Pre-Proposal Meeting: April 16, 2026, at 9:30 AM</li>
+<li>Proposal Submission Deadline: April 30, 2026, at 2:00 PM</li>
+<li>Contract Term: Initial 2-year term with four 2-year renewal options, for a potential total of 6 years.</li>
+</ul>
+<ul>
+<li><strong>Estimated Value</strong>: The estimated total value for this solicitation is $2,500,000.00. The university anticipates issuing task orders with a cumulative value of at least $100,000.00 for the base period and $100,000.00 for each of the four option periods.</li>
+</ul>
+<ul>
+<li><strong>Recommendation</strong>: Yes, a mid-size building maintenance and construction vendor with specialized expertise in masonry restoration, brick/paver work, and waterproofing should strongly consider bidding on this solicitation. The substantial contract value, long potential term, and clear scope of work present a significant opportunity. However, vendors must be prepared to meet stringent requirements regarding safety, qualifications, financial stability, and HUB participation, as well as adhere to all university campus policies and procedures. The mandatory pre-bid conference and the detailed proposal requirements necessitate thorough preparation.</li>
+</ul></div>
+      </details>
+
+      <details class="card-dropdown">
         <summary>Matched tags</summary>
         <p>Concrete: &quot;concrete&quot; in nigpCodes, &quot;masonry&quot; in title, &quot;masonry&quot; in nigpCodes, &quot;masonry&quot; in description, &quot;brick&quot; in title, &quot;brick&quot; in nigpCodes, &quot;brick&quot; in description, &quot;block&quot; in nigpCodes; Insulation: &quot;weatherization&quot; in nigpCodes; Paint: &quot;paint&quot; in nigpCodes, &quot;coating&quot; in nigpCodes; Roofing: &quot;roof&quot; in title, &quot;roof&quot; in nigpCodes, &quot;roof&quot; in description, &quot;roofing&quot; in title, &quot;roofing&quot; in nigpCodes, &quot;roofing&quot; in description</p>
       </details>
+
+       <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32927818&amp;c=852252&amp;h=a8V3TB9PoByNjXUz7GuVAJRnIIED32Kd0ZISKyodRMdjnf-_&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_503811_1775233618883_FINAL_RFP FM2026-007 BOC for Masonry Restore-Brick &amp;Paver Repair Install-Facilities Waterproofing.pdf</a>
+        </div>
     </div>
 
-    <div class="card" data-categories="Architecture and Design,Electrical,HVAC,Life Safety,Roofing,Structural Work,Surveys and Appraisal,General Contractors">
+    <div class="card" data-categories="Asphalt,Carpentry / Glaziery,Concrete,Fencing,Lawn and Landscaping,Moving,Structural Work,Wall-Making,General Contractors,Exterior Maintenance">
       <div class="card-header">
         
 
         <h2 class="card-title">
-        <a href="https://www.txsmartbuy.gov/esbd/26RFSQ28" target="_blank"><span class="rank">#9</span> 26RFSQ28 Planner, Landscape Architecture, Architecture &amp; Engineer (PLAE) Pool</a>
+        <a href="https://www.txsmartbuy.gov/esbd/23-04203-10" target="_blank"><span class="rank">#3</span> 2026 Task Order Contract for the Street Rehabilitation Package 10 Flatwork</a>
+      </h2>
+      </div>
+
+      <div class="card-meta">
+        <span><strong>ID:</strong> 23-04203-10</span>
+        <span><strong>Agency:</strong> City of San Antonio - M0152</span>
+        <span><strong>Posted:</strong> 3/20/2026</span>
+        <span class="due normal"><strong>Due:</strong> 4/28/2026 2:00 PM <em>(23 days left)</em></span>
+        <span><strong>Value:</strong> $1,000,000.00</span>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Michelle Birch</span>
+        <span><strong>Phone:</strong> (210) 207-8642</span>
+        <span><strong>Email:</strong> <a href="mailto:michelle.birch@sanantonio.gov">michelle.birch@sanantonio.gov</a></span>
+      </div>
+
+      <div class="card-description">
+        <p>This solicitation is for a one-year task order contract to perform street rehabilitation flatwork, including concrete and asphalt work, for the City of San Antonio. Vendors should consider bidding if they have experience in concrete, sidewalk, and minor street reconstruction projects.</p>
+      </div>
+
+      <details class="card-dropdown">
+        <summary>Original description</summary>
+        <p>Solicitation Type and Name: Formal Invitation for Bids for 2026 Task Order Contract for the Street Rehabilitation Package 10 Flatwork Solicitation Number: 23-04203-10 Description: Project construction may include but is not limited to: removal and replacement or installation of concrete curbs, sidewalks, driveways, concrete retaining walls combination type, and curb ramps, concrete pavement for minor street reconstruction, minor asphalt replacement, removing and relocating mail boxes, topsoil, sodding, tree pruning, removal and/or replacement, sign relocation, door hangers, adjusting meter boxes, valve boxes and manholes, and any other items required due to the site conditions to accomplish the project scope. Applicable Product Categories: -57076 – Steel, Reinforcing, Bars and Rods -75070 – Ready-Mix Concrete -91347 – Construction, Sidewalk and Driveway, Including Pedestrian and Handicap Ramps -79050 – Sod, Grass -96880 – Traffic Sign Installation and Removal Services -98815 – Fence Installation, Maintenance, and Repair Date Issued: March 20, 2026 Due Date &amp; Time: April 28, 2:00 p.m. Central Time Pre-Bid Conference: Pre-Bid Conference will be held at 10:00 a.m., Central Time, on March 26, 2026, via WebEx. Attendance at the Pre-Bid Conference is optional, but highly encouraged. Respondents may call the toll-free number listed below and enter access code to participate the day of the conference. Dial-In Number: 1-415-655-0001 | Access Code: 2331 931 6407 | Meeting Password: xtQ257KJVyf Join from the meeting link: https://sanantonio.webex.com/sanantonio/j.php?MTID=m9b58d9b3d9e208d356acc952f0f7cfc1 To view this solicitation, go to https://www.civcastusa.com/bids and search under SAP Project ID number or project name.</p>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content"><ul>
+<li><strong>Overview</strong>: The City of San Antonio is seeking bids for a 2026 Task Order Contract for Street Rehabilitation Package 10 Flatwork. This contract will cover various construction tasks related to street and sidewalk improvements.</li>
+<li><strong>Scope of Work</strong>: The project may include removal and replacement or installation of concrete curbs, sidewalks, driveways, concrete retaining walls, curb ramps, minor concrete pavement reconstruction, minor asphalt replacement, mailbox relocation, topsoil, sodding, tree pruning, sign relocation, door hanger installation, and adjustments to utility boxes (meter, valve, manholes).</li>
+<li><strong>Bid Requirements</strong>: Specific bid requirements such as qualifications, certifications, bonds, or insurance are not detailed in this advertisement. Vendors will need to review the full solicitation documents on CivcastUSA for these details.</li>
+<li><strong>Timeline</strong>:</li>
+<li>Issued: March 20, 2026</li>
+<li>Pre-Bid Conference: March 26, 2026, 10:00 a.m. Central Time (Optional but encouraged)</li>
+<li>Bid Due Date &amp; Time: April 28, 2026, 2:00 p.m. Central Time</li>
+<li><strong>Estimated Value</strong>: The estimated value of this contract is $1,000,000.00.</li>
+<li><strong>Recommendation</strong>: A mid-size building maintenance and construction vendor with demonstrated experience in concrete work, sidewalk construction, minor street reconstruction, and related flatwork should consider pursuing this bid. The scope aligns well with typical services offered by such companies, and the contract value is substantial. However, vendors must carefully review the full solicitation for specific requirements and ensure they meet all qualifications.</li>
+</ul></div>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>Matched tags</summary>
+        <p>Asphalt: &quot;asphalt&quot; in description, &quot;pavement&quot; in description; Carpentry / Glaziery: &quot;door&quot; in description; Concrete: &quot;concrete&quot; in nigpCodes, &quot;concrete&quot; in description, &quot;cement&quot; in description, &quot;sidewalk&quot; in nigpCodes, &quot;sidewalk&quot; in description, &quot;curb&quot; in description, &quot;flatwork&quot; in title, &quot;flatwork&quot; in description; Fencing: &quot;fence&quot; in nigpCodes, &quot;fence&quot; in description, &quot;fence installation&quot; in nigpCodes, &quot;fence installation&quot; in description; Lawn and Landscaping: &quot;sod&quot; in nigpCodes, &quot;sod&quot; in description; Moving: &quot;moving&quot; in description, &quot;relocation&quot; in description; Structural Work: &quot;retaining wall&quot; in description; Wall-Making: &quot;retaining wall&quot; in description; General Contractors: &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description</p>
+      </details>
+
+       <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32861837&amp;c=852252&amp;h=RH10YLcNw-5ypBpAnYhi8uwRuKCEs13DteCJM99tJpVlF8b9&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_498782_1774031248894_Solicitation Synopsis Non-Discretionary.pdf</a>
+        </div>
+    </div>
+
+    <div class="card" data-categories="Architecture and Design,Electrical,HVAC,Life Safety,Roofing,Structural Work,Surveys and Appraisal,General Contractors,Lawn and Landscaping,Exterior Maintenance,Interior Maintenance">
+      <div class="card-header">
+        
+
+        <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/26RFSQ28" target="_blank"><span class="rank">#4</span> 26RFSQ28 Planner, Landscape Architecture, Architecture &amp; Engineer (PLAE) Pool</a>
       </h2>
       </div>
 
@@ -617,147 +554,283 @@
         
       </div>
 
-      <div class="card-description">
-        <p>Williamson County is seeking qualifications from experienced firms to provide professional planning, landscape architectural, architectural, or engineering (PLAE) services to support the County with various projects.</p>
-      </div>
-
       <div class="card-contact">
         <span><strong>Contact:</strong> Michelle McKinney</span>
         <span><strong>Phone:</strong> (512) 943-3878</span>
         <span><strong>Email:</strong> <a href="mailto:michelle.mckinney@wilcotx.gov">michelle.mckinney@wilcotx.gov</a></span>
       </div>
 
-      <div class="attachments">
-          <strong>Attachments:</strong>
-          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32847860&amp;c=852252&amp;h=7ucppx1UYRdStQRaEfkonYi1qUYywiE0WdqnMY5389xs9jI1&amp;_xt=.doc" target="_blank" class="attachment-link">ESBD_497205_1773767499415_ESBD 26RFSQ28 Planner, Landscape Architecture, Architecture &amp; Engineer (PLAE) Pool.docx</a>
-        </div>
+      <div class="card-description">
+        <p>Williamson County is seeking qualifications from firms to provide professional planning, landscape architecture, architecture, and engineering services for various county projects. Vendors should consider this if they offer these specialized professional services and are looking for potential long-term contract opportunities with a government entity.</p>
+      </div>
 
-      <details class="match-details">
+      <details class="card-dropdown">
+        <summary>Original description</summary>
+        <p>Williamson County is seeking qualifications from experienced firms to provide professional planning, landscape architectural, architectural, or engineering (PLAE) services to support the County with various projects.</p>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content"><ul>
+<li><strong>Overview</strong>: Williamson County is issuing a Request for Qualifications (RFQ) to establish a pool of qualified firms capable of providing professional planning, landscape architecture, architecture, and engineering (PLAE) services. This pool will be used to support various projects undertaken by the County.</li>
+<li><strong>Scope of Work</strong>: The scope involves providing professional services related to planning, landscape architecture, architecture, and engineering. Specific project details will be defined as needs arise from the established pool. The NIGP codes suggest a broad range of potential services including environmental surveys, architectural and engineering design, site planning, cost estimation, and specialized engineering disciplines (civil, environmental, fire protection, mechanical, structural).</li>
+<li><strong>Bid Requirements</strong>: The solicitation requires firms to submit qualifications. Specific details on required certifications, bonds, or insurance will be found within the full solicitation documents accessible via the provided Bonfire portal. A mandatory pre-solicitation conference is scheduled, indicating the importance of attending for potential bidders.</li>
+<li><strong>Timeline</strong>:</li>
+<li>Mandatory Pre-Solicitation Conference: Thursday, April 02, 2026, at 09:00 AM CST.</li>
+<li>Response Due Date: Friday, April 17, 2026, at 3:00 PM CST.</li>
+<li>Project start and completion dates are not specified as this is for a pool of services.</li>
+<li><strong>Estimated Value</strong>: The stated value is &quot;$0.01&quot;. This is a placeholder and indicates that this is a Qualifications-Based Selection (QBS) or a requirements contract where the exact value will be determined by the specific projects awarded from the pool. It does not represent the total potential value of contracts that could be awarded.</li>
+<li><strong>Recommendation</strong>: A mid-size building maintenance and construction vendor should <strong>carefully consider</strong> pursuing this solicitation, but <strong>only if they possess strong in-house professional planning, landscape architecture, architecture, or engineering capabilities.</strong> This is not a direct construction contract but rather a solicitation for professional design and planning services. If the vendor's core business is primarily construction execution, this RFQ is likely <strong>not a good fit</strong>. However, if the vendor has a dedicated architectural, engineering, or planning division that can offer these specialized services, it could be a valuable opportunity to get on a pre-qualified list for future county projects. The &quot;pool&quot; structure suggests potential for ongoing work. Attending the mandatory pre-solicitation conference is crucial to understand the County's expectations and the potential breadth of projects.</li>
+</ul></div>
+      </details>
+
+      <details class="card-dropdown">
         <summary>Matched tags</summary>
         <p>Architecture and Design: &quot;architect&quot; in title, &quot;architect&quot; in nigpCodes, &quot;architect&quot; in description, &quot;architecture&quot; in title, &quot;architectural&quot; in nigpCodes, &quot;architectural&quot; in description; Electrical: &quot;electrical&quot; in nigpCodes; HVAC: &quot;heating&quot; in nigpCodes, &quot;air conditioning&quot; in nigpCodes; Life Safety: &quot;fire protection&quot; in nigpCodes; Roofing: &quot;roof&quot; in nigpCodes, &quot;roofing&quot; in nigpCodes; Structural Work: &quot;structural&quot; in nigpCodes, &quot;structural engineer&quot; in nigpCodes; Surveys and Appraisal: &quot;survey&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes, &quot;general construction&quot; in nigpCodes</p>
       </details>
+
+       <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32847860&amp;c=852252&amp;h=7ucppx1UYRdStQRaEfkonYi1qUYywiE0WdqnMY5389xs9jI1&amp;_xt=.doc" target="_blank" class="attachment-link">ESBD_497205_1773767499415_ESBD 26RFSQ28 Planner, Landscape Architecture, Architecture &amp; Engineer (PLAE) Pool.docx</a>
+        </div>
     </div>
 
-    <div class="card" data-categories="Asphalt,Concrete,Excavating,General Contractors">
+    <div class="card" data-categories="Carpeting,Concrete,Flooring,Interior Maintenance,General Contractors,Exterior Maintenance">
       <div class="card-header">
         
 
         <h2 class="card-title">
-        <a href="https://www.txsmartbuy.gov/esbd/756-SRSU-2026-RFP-031-813000" target="_blank"><span class="rank">#10</span> Sul Ross RFP for Unit Price Contract For As-Needed Concrete , Asphalt &amp; Dirt Work</a>
+        <a href="https://www.txsmartbuy.gov/esbd/26P-037LP" target="_blank"><span class="rank">#5</span> 26P-037LP</a>
       </h2>
       </div>
 
       <div class="card-meta">
-        <span><strong>ID:</strong> 756-SRSU-2026-RFP-031-813000</span>
-        <span><strong>Agency:</strong> Sul Ross State University - 756</span>
-        <span><strong>Posted:</strong> 3/11/2026</span>
-        <span class="due soon"><strong>Due:</strong> 4/10/2026 10:00 AM <em>(5 days left)</em></span>
+        <span><strong>ID:</strong> 26P-037LP</span>
+        <span><strong>Agency:</strong> Pasadena ISD - S1013</span>
+        <span><strong>Posted:</strong> 3/25/2026</span>
+        <span class="due normal"><strong>Due:</strong> 4/23/2026 2:00 PM <em>(18 days left)</em></span>
+        <span><strong>Value:</strong> $50,000.00</span>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> KAREN CLAYTON</span>
+        <span><strong>Phone:</strong> (713) 740-0196</span>
+        <span><strong>Email:</strong> <a href="mailto:kclayton@pasadenaisd.org">kclayton@pasadenaisd.org</a></span>
+      </div>
+
+      <div class="card-description">
+        <p>Pasadena ISD is seeking bids for flooring replacement projects funded by their 2022 bond. This is a good opportunity for vendors specializing in flooring and general construction to secure a contract with a school district.</p>
+      </div>
+
+      <details class="card-dropdown">
+        <summary>Original description</summary>
+        <p>26P-037LP 2022 Bond - Flooring Replacements Project</p>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content"><ul>
+<li><strong>Overview</strong>: Pasadena ISD is soliciting bids for the 2022 Bond - Flooring Replacements Project. This project involves the replacement of flooring across various facilities within the school district.</li>
+<li><strong>Scope of Work</strong>: The primary deliverable is the complete replacement of flooring materials. Specific details regarding the types of flooring, locations, and quantities will be provided in the full solicitation documents. The NIGP codes suggest a broad scope including general building maintenance, new construction trades, floor covering installation, and potentially athletic facility equipment.</li>
+<li><strong>Bid Requirements</strong>: Specific bid requirements such as qualifications, certifications, bonds, and insurance are not detailed in the provided text. Vendors will need to consult the full solicitation package for these critical details.</li>
+<li><strong>Timeline</strong>: The solicitation was posted on 3/25/2026 and the bid submission deadline is 4/23/2026 at 2:00 PM.</li>
+<li><strong>Estimated Value</strong>: The estimated value of this contract is $50,000.00.</li>
+<li><strong>Recommendation</strong>: A mid-size building maintenance and construction vendor specializing in flooring installation should consider pursuing this opportunity. The estimated value is modest, but it represents a clear project with a defined need within a school district, potentially leading to future work. Vendors should carefully review the full solicitation for detailed scope and specific requirements to ensure alignment with their capabilities.</li>
+</ul></div>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>Matched tags</summary>
+        <p>Carpeting: &quot;floor covering&quot; in nigpCodes; Concrete: &quot;cement&quot; in description; Flooring: &quot;flooring&quot; in description, &quot;floor&quot; in nigpCodes, &quot;floor&quot; in description; Interior Maintenance: &quot;building maintenance&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes</p>
+      </details>
+
+       <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32872118&amp;c=852252&amp;h=syYYEu9eJFg098EwSH5LMMz6VDRr98uIzGI9M4xybJg0MALR&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_500124_1774380825529_26P-037LP - 2022 Bond – Flooring Replacements Project.pdf</a>
+        </div>
+    </div>
+
+    <div class="card" data-categories="Bathroom,Insulation,Plumbing,Roofing,Interior Maintenance,Exterior Maintenance,General Contractors,Hazard Abatement">
+      <div class="card-header">
+        
+
+        <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/RFP-HS-AAA-RESREP-07-25-1" target="_blank"><span class="rank">#6</span> AAA Residential Repair FY2026</a>
+      </h2>
+      </div>
+
+      <div class="card-meta">
+        <span><strong>ID:</strong> RFP-HS-AAA-RESREP-07-25-1</span>
+        <span><strong>Agency:</strong> Houston-Galveston Area Council - G1010</span>
+        <span><strong>Posted:</strong> 10/8/2025</span>
+        <span class="due normal"><strong>Due:</strong> 5/4/2026 12:00 PM <em>(29 days left)</em></span>
+        <span><strong>Value:</strong> $1.00</span>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Allison Cruz</span>
+        <span><strong>Phone:</strong> (713) 993-2420</span>
+        <span><strong>Email:</strong> <a href="mailto:allison.cruz@h-gac.com">allison.cruz@h-gac.com</a></span>
+      </div>
+
+      <div class="card-description">
+        <p>This solicitation seeks licensed contractors for residential repair services for older persons in the Texas Gulf Coast area, focusing on plumbing, general residential maintenance, and weatherization. Vendors should consider this if they have experience with these specific services and a desire to serve a vulnerable population.</p>
+      </div>
+
+      <details class="card-dropdown">
+        <summary>Original description</summary>
+        <p>H-GAC is seeking qualified, licensed Contractors to provide residential repair services for older persons living in the Texas Gulf Coast area.</p>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content"><ul>
+<li><strong>Overview</strong>: The Houston-Galveston Area Council (H-GAC) is seeking qualified, licensed contractors to provide essential residential repair services. These services are specifically for older persons residing in the Texas Gulf Coast region. The goal is to ensure safe and habitable living conditions for this demographic.</li>
+<li><strong>Scope of Work</strong>: The scope includes general residential repair services, with specific emphasis on plumbing fixtures and parts (lavatories, showers, sinks, toilets, tubs), general residential building maintenance and repair (including single-family homes and apartments), and weatherization, weather, and waterproofing maintenance and repair services.</li>
+<li><strong>Bid Requirements</strong>: Vendors must be licensed contractors. While specific certifications, bonds, or insurance are not detailed in the provided text, it is implied that standard industry requirements will apply. Vendors are instructed to register on H-GAC's free, web-based electronic bidding system (OpenGov) to submit proposals and receive notifications.</li>
+<li><strong>Timeline</strong>:</li>
+<li>Posted: October 8, 2025</li>
+<li>Submission Due Date: May 4, 2026, 12:00 PM</li>
+<li>Project start and completion dates are not specified in the provided text.</li>
+<li><strong>Estimated Value</strong>: The stated value is &quot;1.00&quot;. This is likely a placeholder or an indication that the contract value will be determined by bids and the scope of work performed, rather than a fixed dollar amount at this stage.</li>
+<li><strong>Recommendation</strong>: A mid-size building maintenance/construction vendor with expertise in plumbing, general residential repairs, and weatherization should consider pursuing this opportunity. The solicitation targets a specific demographic (older persons) and geographic area (Texas Gulf Coast), which could be a niche market for a vendor looking to expand its service offerings or community impact. The long submission deadline provides ample time for preparation. However, the &quot;1.00&quot; value requires further investigation into the expected volume and potential revenue once the full solicitation document is reviewed. The requirement to use the OpenGov platform is a standard e-procurement process.</li>
+</ul></div>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>Matched tags</summary>
+        <p>Bathroom: &quot;toilet&quot; in nigpCodes, &quot;shower&quot; in nigpCodes; Insulation: &quot;weatherization&quot; in nigpCodes; Plumbing: &quot;plumbing&quot; in nigpCodes, &quot;fixture&quot; in nigpCodes, &quot;plumbing fixture&quot; in nigpCodes; Roofing: &quot;roof&quot; in nigpCodes, &quot;roofing&quot; in nigpCodes</p>
+      </details>
+
+       <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32033227&amp;c=852252&amp;h=TSsVoJUQDZaM5VfQKnLbuL9aO8YfqApKIP-kaJhyYP-U3jne&amp;_xt=.doc" target="_blank" class="attachment-link">ESBD_459472_1759511440941_ESBD Invite v1.31.24.docx</a>
+        </div>
+    </div>
+
+    <div class="card" data-categories="Bathroom,Plumbing,Interior Maintenance,Exterior Maintenance,Plaster,Lawn and Landscaping">
+      <div class="card-header">
+        
+
+        <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/601320000069019" target="_blank"><span class="rank">#7</span> Commercial Plumbing Maintenance and Repair Services</a>
+      </h2>
+      </div>
+
+      <div class="card-meta">
+        <span><strong>ID:</strong> 601320000069019</span>
+        <span><strong>Agency:</strong> Texas Department of Transportation</span>
+        <span><strong>Posted:</strong> 3/6/2026</span>
+        <span class="due urgent"><strong>Due:</strong> 4/6/2026 3:00 PM <em>(1 day left)</em></span>
+        <span><strong>Value:</strong> $20,437.44</span>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Sandi Jowers</span>
+        <span><strong>Phone:</strong> 512-879-8687</span>
+        <span><strong>Email:</strong> <a href="mailto:Sandra.Jowers@txdot.gov">Sandra.Jowers@txdot.gov</a></span>
+      </div>
+
+      <div class="card-description">
+        <p>This solicitation is for commercial plumbing maintenance and repair services for the Texas Department of Transportation. Vendors should care if they specialize in plumbing services and are registered on the Texas CMBL, as this is a government contract opportunity.</p>
+      </div>
+
+      <details class="card-dropdown">
+        <summary>Original description</summary>
+        <p>Commercial plumbing maintenance and repair services. NOTE: ALL INFORMATION OR CHANGES RELATED TO THIS SOLICITATION WILL BE POSTED ON THIS WEBSITE. RESPONDENTS SHOULD MONITOR THIS WEBSITE FOR ANY ADDENDUMS, ADDITIONAL DOCUMENTS, QUESTIONS AND ANSWERS, OR CHANGES. THE OPENING DATE SPECIFIED ON THIS POSTING IS THE DUE DATE FOR SUBMITTAL OF RESPONSES. RESPONSE SUBMITTALS WILL NOT BE ACCEPTED AFTER THE OPENING DATE AND TIME.</p>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content"><ul>
+<li><strong>Overview</strong>: The Texas Department of Transportation (TxDOT) is seeking bids for commercial plumbing maintenance and repair services. This includes a range of plumbing tasks such as pipe work, fixture repair, and potentially more specialized services.</li>
+<li><strong>Scope of Work</strong>: The solicitation covers general commercial plumbing maintenance and repair. Specific services mentioned include pressure tapping, pipe freezes, and work on toilets, indicating a need for a broad range of plumbing expertise.</li>
+<li><strong>Bid Requirements</strong>: Vendors must be registered on the Texas Comptroller of Public Accounts (CPA) Centralized Master Bidders List (CMBL) and have the appropriate NIGP code (91060) selected. All communication and submission of documents will be handled through the TxDOT Procurement Portal on the Euna Procurement website. Respondents are responsible for monitoring the portal for any addenda or changes.</li>
+<li><strong>Timeline</strong>: The solicitation was posted on March 6, 2026, and the submission deadline is April 6, 2026, at 3:00 PM. No responses will be accepted after this date and time.</li>
+<li><strong>Estimated Value</strong>: The estimated value of this contract is $20,437.44.</li>
+<li><strong>Recommendation</strong>: A mid-size building maintenance and construction vendor specializing in plumbing should consider pursuing this opportunity. While the contract value is relatively small, it represents a government contract with the TxDOT, which can be a valuable stepping stone for future, larger contracts. The primary requirement is ensuring proper registration on the CMBL and familiarity with the NIGP coding system. The limited scope and value suggest it may be suitable for a vendor looking to gain experience with government procurement or to supplement existing work.</li>
+</ul></div>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>Matched tags</summary>
+        <p>Bathroom: &quot;toilet&quot; in nigpCodes; Plumbing: &quot;plumbing&quot; in title, &quot;plumbing&quot; in nigpCodes, &quot;plumbing&quot; in description, &quot;pipe&quot; in nigpCodes</p>
+      </details>
+
+       <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32817796&amp;c=852252&amp;h=_hjsCF7zata7zOJlehCPe60FOKmHZHYhvZFGQfDLNR4eV--u&amp;_xt=.txt" target="_blank" class="attachment-link">Bid_notify_601320000069019.txt</a> <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32836737&amp;c=852252&amp;h=Gx8Oh8rlkjPVgt5OVhGfQxbcyLmgoAVDAcKVrgfIT1JL-qfW&amp;_xt=.txt" target="_blank" class="attachment-link">Amend_1_601320000069019.txt</a> <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32873052&amp;c=852252&amp;h=l92EwGqjgBRGXEaqfFd1h52RV0BzGJI9ROkAg3-gx1HsyDZU&amp;_xt=.txt" target="_blank" class="attachment-link">Amend_2_601320000069019.txt</a>
+        </div>
+    </div>
+
+    <div class="card" data-categories="Concrete,Decks and Porches,Fencing,Gutters,Insulation,Plumbing,Roofing,Structural Work,Exterior Maintenance,Exterior Installation,Basement">
+      <div class="card-header">
+        
+
+        <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/CSP26-11" target="_blank"><span class="rank">#8</span> CSP #26-11 Roof Drain Repairs, Building S12</a>
+      </h2>
+      </div>
+
+      <div class="card-meta">
+        <span><strong>ID:</strong> CSP26-11</span>
+        <span><strong>Agency:</strong> San Jacinto College District - J1017</span>
+        <span><strong>Posted:</strong> 3/19/2026</span>
+        <span class="due normal"><strong>Due:</strong> 4/13/2026 2:00 PM <em>(8 days left)</em></span>
         <span><strong>Value:</strong> $500,000.00</span>
       </div>
 
-      <div class="card-description">
-        <p>SRSU is seeking vendors to provide concrete, asphalt, and dirt work services under a Unit Price Contract.</p>
-      </div>
-
       <div class="card-contact">
-        <span><strong>Contact:</strong> Clifton Brayshaw</span>
-        <span><strong>Phone:</strong> (936) 294-1906</span>
-        <span><strong>Email:</strong> <a href="mailto:Clifton.Brayshaw@sulross.edu">Clifton.Brayshaw@sulross.edu</a></span>
+        <span><strong>Contact:</strong> Genevieve Freeman-Scholes</span>
+        <span><strong>Phone:</strong> (281) 998-6349</span>
+        <span><strong>Email:</strong> <a href="mailto:genevieve.scholes@sjcd.edu">genevieve.scholes@sjcd.edu</a></span>
       </div>
 
-      <div class="attachments">
-          <strong>Attachments:</strong>
-          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32832270&amp;c=852252&amp;h=a7Q0JRy3yTd9LXnnVOdphAwiv44zfB_lyFHJDHvLQTTswYQQ&amp;_xt=.doc" target="_blank" class="attachment-link">ESBD_495616_1773262837576_ESBD Posting -RFP Concrete Services.docx</a>
-        </div>
+      <div class="card-description">
+        <p>This solicitation is for roof drain repairs and rerouting at San Jacinto College District's Building S12, with an estimated value of $500,000. Vendors should consider this project for its defined scope and significant budget.</p>
+      </div>
 
-      <details class="match-details">
-        <summary>Matched tags</summary>
-        <p>Asphalt: &quot;asphalt&quot; in title, &quot;asphalt&quot; in description, &quot;paving&quot; in nigpCodes, &quot;resurfacing&quot; in nigpCodes, &quot;parking lot&quot; in nigpCodes; Concrete: &quot;concrete&quot; in title, &quot;concrete&quot; in nigpCodes, &quot;concrete&quot; in description, &quot;masonry&quot; in nigpCodes; Excavating: &quot;excavat&quot; in nigpCodes, &quot;grading&quot; in nigpCodes, &quot;backfill&quot; in nigpCodes, &quot;dirt work&quot; in title, &quot;dirt work&quot; in description, &quot;excavation&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes</p>
+      <details class="card-dropdown">
+        <summary>Original description</summary>
+        <p>Existingroof drain line rerouting to new exterior discharge locations. Work includes new piping, penetrations atexterior wall, collector boxes, and downspouts with direct point to pointconnections.</p>
       </details>
+
+      <details class="card-dropdown">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content"><ul>
+<li><strong>Overview</strong>: San Jacinto College District is seeking competitive sealed proposals for roof drain repairs and rerouting at Building S12 on their South Campus. The project involves modifying existing roof drain lines to new exterior discharge points.</li>
+<li><strong>Scope of Work</strong>: The work includes the installation of new piping, creating penetrations through the exterior wall, constructing collector boxes, and installing downspouts with direct point-to-point connections for the rerouted roof drains. Detailed specifications are available in the Project Manual.</li>
+<li><strong>Bid Requirements</strong>: Proposers must submit a proposal form, proposal supplement form, and demonstrate proposer qualifications. Subcontractor qualifications must also be submitted by a specific deadline. A Certificate of Insurance is required. A Conflict of Interest Questionnaire is also listed.</li>
+<li><strong>Timeline</strong>:</li>
+<li>CSP Issued: March 19, 2026</li>
+<li>Pre-Proposal Meeting: March 27, 2026, 11:00 AM CT</li>
+<li>Questions/Clarifications Deadline: April 1, 2026, 5:00 PM CT</li>
+<li>Proposal Submission Deadline: April 13, 2026, 2:00 PM CT</li>
+<li>Subcontractor Qualifications Deadline: April 14, 2026, 2:00 PM CT</li>
+<li>Project Start: May 2026</li>
+<li>Project Completion: July 2026</li>
+<li><strong>Estimated Value</strong>: The estimated value for this project is $500,000.00.</li>
+<li><strong>Recommendation</strong>: Yes, a mid-size building maintenance and construction vendor should consider pursuing this bid. The project has a clear scope of work, a substantial estimated value, and a defined timeline, making it a good opportunity for a company with experience in roofing, drainage, and minor construction. The non-mandatory pre-proposal meeting and clear contact information suggest a well-managed procurement process.</li>
+</ul></div>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>Matched tags</summary>
+        <p>Concrete: &quot;concrete&quot; in nigpCodes; Decks and Porches: &quot;deck&quot; in nigpCodes; Fencing: &quot;bollard&quot; in nigpCodes; Gutters: &quot;downspout&quot; in description; Insulation: &quot;weatherization&quot; in nigpCodes; Plumbing: &quot;piping&quot; in description, &quot;drain&quot; in title, &quot;drain&quot; in description; Roofing: &quot;roof&quot; in title, &quot;roof&quot; in nigpCodes, &quot;roof&quot; in description, &quot;roofing&quot; in nigpCodes; Structural Work: &quot;beam&quot; in nigpCodes</p>
+      </details>
+
+       <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32855831&amp;c=852252&amp;h=wK5mD1LvvrHQnFZno0VdrM-TCIQjCFrRmCLNe_V4wWkmfUR_&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_497954_1773932172266_ESBD, CSP 26-11 Roof Drain, S12.pdf</a>
+        </div>
     </div>
 
-    <div class="card" data-categories="Architecture and Design,Electrical,Interior Decoration,Structural Work,General Contractors">
+    <div class="card" data-categories="Carpentry / Glaziery,Concrete,Electrical,Exterior Installation,Paint,Plumbing,Roofing,Structural Work,Wallpaper,General Contractors,Interior Maintenance,Hazard Abatement">
       <div class="card-header">
         
 
         <h2 class="card-title">
-        <a href="https://www.txsmartbuy.gov/esbd/TAMUS-RFQ-24-3445" target="_blank"><span class="rank">#11</span> Design-Build RFQ - Student Housing - Texas A&amp;M University Central Texas</a>
-      </h2>
-      </div>
-
-      <div class="card-meta">
-        <span><strong>ID:</strong> TAMUS-RFQ-24-3445</span>
-        <span><strong>Agency:</strong> Texas A&amp;M University System - 710</span>
-        <span><strong>Posted:</strong> 4/2/2026</span>
-        <span class="due normal"><strong>Due:</strong> 4/28/2026 2:00 PM <em>(23 days left)</em></span>
-        
-      </div>
-
-      <div class="card-description">
-        <p>The Texas A&amp;M University System Office of Facilities Planning &amp; Construction (FP&amp;C) on behalf of the Board of Regents of The Texas A&amp;M University System (Owner) and Texas A&amp;M University-Central Texas are soliciting statements of qualifications for selection of a Design-Build (DB) firm for the Student Housing project (#24-3445), in accordance with the terms, conditions, and requirements set forth in this Request for Qualifications.</p>
-      </div>
-
-      <div class="card-contact">
-        <span><strong>Contact:</strong> Ashley Valka</span>
-        <span><strong>Phone:</strong> (979) 458-7062</span>
-        <span><strong>Email:</strong> <a href="mailto:avalka@tamus.edu">avalka@tamus.edu</a></span>
-      </div>
-
-      <div class="attachments">
-          <strong>Attachments:</strong>
-          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32926275&amp;c=852252&amp;h=UinOk48jEzLi8e9SgOeM9jRw90ELrD_CAd4wkm4coOCFvEP9&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_503604_1775167381027_24-3445 DB RFQ Information Sheet.pdf</a>
-        </div>
-
-      <details class="match-details">
-        <summary>Matched tags</summary>
-        <p>Architecture and Design: &quot;architect&quot; in nigpCodes, &quot;architectural&quot; in nigpCodes, &quot;design services&quot; in nigpCodes, &quot;space planning&quot; in nigpCodes, &quot;design-build&quot; in title, &quot;design-build&quot; in description; Electrical: &quot;electrical&quot; in nigpCodes; Interior Decoration: &quot;interior design&quot; in nigpCodes; Structural Work: &quot;structural&quot; in nigpCodes, &quot;structural engineer&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description, &quot;building construction&quot; in nigpCodes, &quot;construction management&quot; in nigpCodes, &quot;design-build&quot; in title, &quot;design-build&quot; in description</p>
-      </details>
-    </div>
-
-    <div class="card" data-categories="Architecture and Design,Flooring,Gutters,Insulation,Roofing,Security,General Contractors">
-      <div class="card-header">
-        
-
-        <h2 class="card-title">
-        <a href="https://www.txsmartbuy.gov/esbd/IFB26021MR" target="_blank"><span class="rank">#12</span> Roofing Renovations for Jefferson County Courthouse</a>
-      </h2>
-      </div>
-
-      <div class="card-meta">
-        <span><strong>ID:</strong> IFB26021MR</span>
-        <span><strong>Agency:</strong> Jefferson County - C1230</span>
-        <span><strong>Posted:</strong> 3/31/2026</span>
-        <span class="due normal"><strong>Due:</strong> 5/6/2026 11:00 AM <em>(31 days left)</em></span>
-        
-      </div>
-
-      <div class="card-description">
-        <p>LEGAL NOTICE Advertisement for Invitation for Bids March 31, 2026 Notice is hereby given that sealed bids will be accepted by the Jefferson County Purchasing Department for Invitation for Bid (IFB 26-021/MR) Roofing Renovations to Jefferson County Courthouse Specifications for this project may be obtained from the Jefferson County website, https://jeffersoncountytx.gov/Purchasing/ or by calling 409-835-8593. Bidders may obtain access to the drawings and project manual by contacting the office of The LaBiche Architectural Group, Inc, 7999 Gladys Ave, Suite 101, Beaumont, TX 77706 or via telephone at 409-860-0197. Bids are to be sealed and addressed to the Purchasing Agent with the bid number and name marked on the outside of the envelope or box. Bidders shall forward an original and two (2) copies of their bid to the address shown below. Jefferson County does not accept bids submitted electronically. Late bids will be rejected as non-responsive. Bids will be publicly opened and read aloud in the Jefferson County Purchasing Department (1st Floor, Historic Courthouse) 1149 Pearl Street, Beaumont, Texas 77701, at the time and date below. Bidders are invited to attend the sealed bid opening. BID NAME: Roofing Renovations to Jefferson County Courthouse BID NUMBER: IFB 26-021/MR DUE BY TIME/DATE: 11:00 AM CT, Wednesday, May 6, 2026 MAIL OR DELIVER TO: Jefferson County Purchasing Department 1149 Pearl Street, 1st Floor Beaumont, Texas 77701 There will be a MANDATORY Pre-Bid Conference and Walk-Through at 2:00 pm CT on Tuesday, April 14, 2026, at the Jefferson County Commissioners’ Courtroom (4th Floor, Historic Courthouse), 1149 Pearl Street, Beaumont, TX 77701. The County shall require the Bidder to furnish a Bid Security in the amount of five percent (5%) of the total contract cost. The bid bond must be executed with a surety company authorized to do business in the State of Texas. Within ten (10) days after the date of contract execution and prior to the issuance of Notice to Proceed and/or Purchase Order, the Bidder shall furnish the following bonds: Performance Bond to the County for the full amount of the contract if the contract exceeds fifty-thousand dollars ($50,000). Payment Bond to the County for the full amount of the contract if the contract exceeds twenty-five thousand dollars ($25,000.00). Any questions relating to these bid requirements should be directed to Mistey Reeves, Assistant Purchasing Agent at 409-835-8593 or via email at: mistey.reeves@jeffersoncountytx.gov. If no response in 72 hours, contact Deborah Clark, Purchasing Agent at 409-835-8593 or via email at deb.clark@jeffersoncountytx.gov. Jefferson County encourages Disadvantaged Business Enterprises (DBEs), Minority/Women Business Enterprises (M/WBEs), and Historically Underutilized Businesses (HUBs) to participate in the bidding process. Jefferson County does not discriminate on the basis of race, color, national origin, sex, religion, age or disability in employment, or the provisions of services. Individuals requiring special accommodations are requested to contact our office at least seven (7) days prior to the bid due date at 409-835-8593. All interested firms are invited to submit a bid in accordance with the terms and conditions stated in this bid. Bidders are strongly encouraged to carefully read the entire invitation, as failure to return and/or complete all required documentation will result in a response being declared as non-responsive. Deborah L. Clark, Purchasing Agent Jefferson County, Texas</p>
-      </div>
-
-      <div class="card-contact">
-        <span><strong>Contact:</strong> Mistey Reeves</span>
-        <span><strong>Phone:</strong> (409) 835-8693</span>
-        <span><strong>Email:</strong> <a href="mailto:mistey.reeves@jeffersoncountytx.gov">mistey.reeves@jeffersoncountytx.gov</a></span>
-      </div>
-
-      <div class="attachments">
-          <strong>Attachments:</strong>
-          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32908787&amp;c=852252&amp;h=mmcicn28LydrTkarleD-_7vlKLKM-8oLB0Uk2T8fMFiktaBP&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_502649_1774982894703_Specifications (IFB 26-021 MR) Roofing Renovatrions to Jefferson County Courthouse.pdf</a>
-        </div>
-
-      <details class="match-details">
-        <summary>Matched tags</summary>
-        <p>Architecture and Design: &quot;architect&quot; in description, &quot;architectural&quot; in description; Flooring: &quot;floor&quot; in description; Gutters: &quot;gutter&quot; in nigpCodes, &quot;downspout&quot; in nigpCodes; Insulation: &quot;weatherization&quot; in nigpCodes; Roofing: &quot;roof&quot; in title, &quot;roof&quot; in nigpCodes, &quot;roof&quot; in description, &quot;roofing&quot; in title, &quot;roofing&quot; in nigpCodes, &quot;roofing&quot; in description, &quot;membrane&quot; in nigpCodes; Security: &quot;security&quot; in description; General Contractors: &quot;renovation&quot; in title, &quot;renovation&quot; in description</p>
-      </details>
-    </div>
-
-    <div class="card" data-categories="Carpentry / Glaziery,Concrete,Electrical,Exterior Installation,Paint,Plumbing,Roofing,Structural Work,Wallpaper,General Contractors">
-      <div class="card-header">
-        
-
-        <h2 class="card-title">
-        <a href="https://www.txsmartbuy.gov/esbd/NO.26-13" target="_blank"><span class="rank">#13</span> Bid NO. 26-13 A.J. Brown WWTP – Chlorine Storage Building Rehabilitation</a>
+        <a href="https://www.txsmartbuy.gov/esbd/NO.26-13" target="_blank"><span class="rank">#9</span> Bid NO. 26-13 A.J. Brown WWTP – Chlorine Storage Building Rehabilitation</a>
       </h2>
       </div>
 
@@ -769,258 +842,56 @@
         <span><strong>Value:</strong> $250,000.00</span>
       </div>
 
-      <div class="card-description">
-        <p>A.J. Brown WWTP – Chlorine Storage Building Rehabilitation</p>
-      </div>
-
       <div class="card-contact">
         <span><strong>Contact:</strong> Lucy Gonzalez</span>
         <span><strong>Phone:</strong> (936) 291-5495</span>
         <span><strong>Email:</strong> <a href="mailto:lgonzalez@huntsvilletx.gov">lgonzalez@huntsvilletx.gov</a></span>
       </div>
 
-      <div class="attachments">
-          <strong>Attachments:</strong>
-          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32836426&amp;c=852252&amp;h=77ayUKjzTRjwoCh-ZsWDw04EeqsozLi3FNPJIqa4Du76zwBv&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_495939_1773351259100_Bid NO. 26-13 A.J. Brown WWTP Chlorine Storage Building Rehabilitation.pdf</a> <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32906315&amp;c=852252&amp;h=C3si79UvdnuWu2qB4iCPlV9jckgS-kfU0cv3sRHrltXgLXmy&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_495939_1774969660453_Addendum NO. 1 - Bid NO. 26-13 Chlorine Storage Building Rehabilitation.pdf</a>
-        </div>
+      <div class="card-description">
+        <p>The City of Huntsville is seeking bids for the rehabilitation of the A.J. Brown WWTP Chlorine Storage Building, requiring comprehensive construction and maintenance services. Vendors should consider this if they have experience with wastewater treatment plant infrastructure and can meet strict deadlines and quality standards.</p>
+      </div>
 
-      <details class="match-details">
+      <details class="card-dropdown">
+        <summary>Original description</summary>
+        <p>A.J. Brown WWTP – Chlorine Storage Building Rehabilitation</p>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content"><ul>
+<li><strong>Overview</strong>: The City of Huntsville is soliciting bids for the rehabilitation of the Chlorine Storage Building at the A.J. Brown Wastewater Treatment Plant (WWTP). This project involves replacing and upgrading existing chlorine storage and feed systems, electrical infrastructure, and building components to ensure a complete and operational chlorine disinfection system.</li>
+<li><strong>Scope of Work</strong>: The project includes furnishing and installing new chlorination equipment (regulators, feeders, ejectors, scales, piping), safety and monitoring equipment (leak detectors, control panels, emergency shutoff valves), electrical systems (panels, transformers, wiring), instrumentation and controls (PLC/RTU, programming), and performing building rehabilitation work. The contractor will also be responsible for removing existing equipment, testing, startup, commissioning, and providing operation and maintenance manuals.</li>
+<li><strong>Bid Requirements</strong>: Bidders must attend a mandatory site visit on March 24, 2026. A bid bond of 10% of the bid amount is required. A payment bond will be required upon award. The vendor must maintain adequate plant, equipment, financial status, and technical experience, with a satisfactory performance record. Proof of specific insurance (Commercial General Liability, Professional Liability, Workers' Compensation) is mandatory, with the City of Huntsville listed as an &quot;Additional Insured.&quot; Various Texas-specific verification forms (Conflict of Interest, Israel Boycott, Iran/Sudan, Firearm, Energy Company Boycott, Critical Infrastructure, Texas Public Information Act) must be completed.</li>
+<li><strong>Timeline</strong>:</li>
+<li>Solicitation Posted: March 12, 2026</li>
+<li>Mandatory Site Visit: March 24, 2026, 10:30 AM</li>
+<li>Questions Due: March 26, 2026</li>
+<li>Final Addendum Issued: March 30, 2026</li>
+<li>Bid Due Date: April 7, 2026, 2:00 PM</li>
+<li>Project Completion: Within 90 days from the date of award/notice to proceed.</li>
+<li><strong>Estimated Value</strong>: The estimated contract value is $250,000.00.</li>
+<li><strong>Recommendation</strong>: A mid-size building maintenance and construction vendor with proven experience in wastewater treatment plant infrastructure, particularly with chlorine systems and electrical/instrumentation controls, should strongly consider bidding. The mandatory site visit, strict adherence to specifications, and comprehensive documentation requirements indicate a need for a detail-oriented contractor. The project's value and scope are suitable for a capable mid-size firm, but thorough review of all technical specifications and compliance requirements is essential.</li>
+</ul></div>
+      </details>
+
+      <details class="card-dropdown">
         <summary>Matched tags</summary>
         <p>Carpentry / Glaziery: &quot;carpentry&quot; in nigpCodes; Concrete: &quot;concrete&quot; in nigpCodes, &quot;cement&quot; in nigpCodes, &quot;masonry&quot; in nigpCodes; Electrical: &quot;electrical&quot; in nigpCodes; Exterior Installation: &quot;siding&quot; in nigpCodes; Paint: &quot;paint&quot; in nigpCodes, &quot;painting&quot; in nigpCodes; Plumbing: &quot;plumbing&quot; in nigpCodes; Roofing: &quot;roof&quot; in nigpCodes, &quot;roofing&quot; in nigpCodes; Structural Work: &quot;structural&quot; in nigpCodes; Wallpaper: &quot;wallpaper&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes</p>
       </details>
-    </div>
 
-    <div class="card" data-categories="Architecture and Design,Electrical,HVAC,Life Safety,Plumbing,Security">
-      <div class="card-header">
-        
-
-        <h2 class="card-title">
-        <a href="https://www.txsmartbuy.gov/esbd/MELE0426" target="_blank"><span class="rank">#14</span> Maintenance Electronic Services</a>
-      </h2>
-      </div>
-
-      <div class="card-meta">
-        <span><strong>ID:</strong> MELE0426</span>
-        <span><strong>Agency:</strong> Harlingen CISD - S0315</span>
-        <span><strong>Posted:</strong> 3/28/2026</span>
-        <span class="due normal"><strong>Due:</strong> 4/14/2026 2:00 PM <em>(9 days left)</em></span>
-        <span><strong>Value:</strong> $100,000.00</span>
-      </div>
-
-      <div class="card-description">
-        <p>Proposal Specifications are available at: https://hcisdbid.ionwave.net/Login.aspx Proposals are to reach the Purchasing Department ON OR BEFORE the above-mentioned due date &amp; time. Harlingen Consolidated Independent School District Purchasing Department 407 N 77 Sunshine Strip, Harlingen, Texas 78550 HCISD will be closed April 3 &amp; 6, 2026.</p>
-      </div>
-
-      <div class="card-contact">
-        <span><strong>Contact:</strong> Sylvia Deleon</span>
-        <span><strong>Phone:</strong> (956) 430-9740</span>
-        <span><strong>Email:</strong> <a href="mailto:sylvia.deleon@hcisd.org">sylvia.deleon@hcisd.org</a></span>
-      </div>
-
-      <div class="attachments">
+       <div class="attachments">
           <strong>Attachments:</strong>
-          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32888235&amp;c=852252&amp;h=pBdZkv9eVV0Wtm4UPnCAd-uWgoxfYtBPmqBQlGlqmICtpfTK&amp;_xt=.doc" target="_blank" class="attachment-link">ESBD_501380_1774576061210_NewsMultiBid 03122026-2.docx</a>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32836426&amp;c=852252&amp;h=77ayUKjzTRjwoCh-ZsWDw04EeqsozLi3FNPJIqa4Du76zwBv&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_495939_1773351259100_Bid NO. 26-13 A.J. Brown WWTP Chlorine Storage Building Rehabilitation.pdf</a> <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32906315&amp;c=852252&amp;h=C3si79UvdnuWu2qB4iCPlV9jckgS-kfU0cv3sRHrltXgLXmy&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_495939_1774969660453_Addendum NO. 1 - Bid NO. 26-13 Chlorine Storage Building Rehabilitation.pdf</a>
         </div>
-
-      <details class="match-details">
-        <summary>Matched tags</summary>
-        <p>Architecture and Design: &quot;architect&quot; in nigpCodes, &quot;architectural&quot; in nigpCodes, &quot;design services&quot; in nigpCodes; Electrical: &quot;electrical&quot; in nigpCodes, &quot;wiring&quot; in nigpCodes, &quot;lighting&quot; in nigpCodes; HVAC: &quot;air conditioning&quot; in nigpCodes, &quot;boiler&quot; in nigpCodes; Life Safety: &quot;fire alarm&quot; in nigpCodes; Plumbing: &quot;fixture&quot; in nigpCodes; Security: &quot;security&quot; in nigpCodes, &quot;access control&quot; in nigpCodes, &quot;security system&quot; in nigpCodes, &quot;alarm system&quot; in nigpCodes</p>
-      </details>
     </div>
 
-    <div class="card" data-categories="Concrete,Exterior Installation,Gutters,HVAC,Roofing,Windows">
+    <div class="card" data-categories="Asphalt,Concrete,Lawn and Landscaping,Structural Work,Wall-Making,General Contractors,Exterior Maintenance">
       <div class="card-header">
         
 
         <h2 class="card-title">
-        <a href="https://www.txsmartbuy.gov/esbd/RFPCSP-730-UofH-3113" target="_blank"><span class="rank">#15</span> RFPCSP-730-UofH-3113 UH Clear Lake Delta Building Roof Replacement and Arbor Building Skylight Repair FY26</a>
-      </h2>
-      </div>
-
-      <div class="card-meta">
-        <span><strong>ID:</strong> RFPCSP-730-UofH-3113</span>
-        <span><strong>Agency:</strong> University Of Houston - 730</span>
-        <span><strong>Posted:</strong> 4/1/2026</span>
-        <span class="due normal"><strong>Due:</strong> 4/23/2026 10:00 AM <em>(18 days left)</em></span>
-        
-      </div>
-
-      <div class="card-description">
-        <p>In accordance with Texas Education Code, Section 51.783, the University of Houston (“Owner”) is soliciting competitive sealed proposals (each, a “Proposal”) from qualified firms (each a “Respondent”) for UHCL Delta Building Roof Replacement and Arbor Building Skylight Repair (the “Project”), located at University of Houston Clear Lake in Houston, Texas. A mandatory pre-proposal conference and site visit is scheduled Tuesday, April 7, 2026 at 10:00 AM CT at University of Houston Clear Lake Delta Building - 2700 Bay Area Blvd Houston, TX 77058. Meet in classroom D241. Visitor Parking info: https://www.uhcl.edu/maps/parking/parking-on-campus/visitors == University of Houston bid openings will be reviewed and completed solely through the JAGGAER Sourcing Event Portal. To respond to Invitations and Requests posted to JAGGAER, you must first create an online account. To create an account, or to log in using an existing account, go tothe Portal. Bid &amp; RFP opportunities can be found at the following links: https://bids01.jaggaer.com/apps/Router/PublicEvent?CustomerOrg=UH Jaggaer Sourcing Event Portal –Any solicitations found within the JAGGAER Sourcing Event Portal must be submitted through this link. The event portal will include all up to date information and documents related to this solicitation. Electronic State Business Daily (ESBD)/State of Texas BidPortal - This portal includes a reference document, however, responses to bids will only be accepted via Jaggaer. Sign in to the UH Jaggaer site for the complete set of bid documents. https://bids01.jaggaer.com/apps/Router/PublicEvent?CustomerOrg=UH</p>
-      </div>
-
-      <div class="card-contact">
-        <span><strong>Contact:</strong> Eric Shen</span>
-        <span><strong>Phone:</strong> (713) 743-3222</span>
-        <span><strong>Email:</strong> <a href="mailto:etshen@Central.UH.EDU">etshen@Central.UH.EDU</a></span>
-      </div>
-
-      <div class="attachments">
-          <strong>Attachments:</strong>
-          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32923033&amp;c=852252&amp;h=-zAgtZnGtio_1BdEqi0dgMJ5Pu8QVFt3EBhBhhk62vMJw2rN&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_502971_1775074974998_ESBD Posting.pdf</a>
-        </div>
-
-      <details class="match-details">
-        <summary>Matched tags</summary>
-        <p>Concrete: &quot;cement&quot; in title, &quot;cement&quot; in description; Exterior Installation: &quot;siding&quot; in nigpCodes; Gutters: &quot;gutter&quot; in nigpCodes, &quot;downspout&quot; in nigpCodes; HVAC: &quot;rtu&quot; in description; Roofing: &quot;roof&quot; in title, &quot;roof&quot; in nigpCodes, &quot;roof&quot; in description, &quot;roofing&quot; in nigpCodes, &quot;roof replacement&quot; in title, &quot;roof replacement&quot; in description; Windows: &quot;skylight&quot; in title, &quot;skylight&quot; in description</p>
-      </details>
-    </div>
-
-    <div class="card" data-categories="Asphalt,Carpentry / Glaziery,Electrical,Excavating,Fencing,HVAC,Lawn and Landscaping,General Contractors">
-      <div class="card-header">
-        
-
-        <h2 class="card-title">
-        <a href="https://www.txsmartbuy.gov/esbd/1112549" target="_blank"><span class="rank">#16</span> 1112549 Centennial Project - North Rock Initial Public Day Use at Enchanted Rock State Natural Area</a>
-      </h2>
-      </div>
-
-      <div class="card-meta">
-        <span><strong>ID:</strong> 1112549</span>
-        <span><strong>Agency:</strong> Parks &amp; Wildlife Department - 802</span>
-        <span><strong>Posted:</strong> 3/16/2026</span>
-        <span class="due normal"><strong>Due:</strong> 4/28/2026 2:00 PM <em>(23 days left)</em></span>
-        <span><strong>Value:</strong> $4000000</span>
-      </div>
-
-      <div class="card-description">
-        <p>All documents for thissolicitation are available electronically at (web link): https://tpwd.cobblestone.software/Gateway/SolicitationDetails.aspx?rid=45 PRE-PROPOSAL MEETING: There will be a non-mandatory pre-proposal meeting on March 31, 2026, 10:30AM (CT) Register at MicrosoftVirtual Events Powered by Teams</p>
-      </div>
-
-      <div class="card-contact">
-        <span><strong>Contact:</strong> Mindi Johnson</span>
-        <span><strong>Phone:</strong> (512) 389-8282</span>
-        <span><strong>Email:</strong> <a href="mailto:Mindi.Johnson@tpwd.texas.gov">Mindi.Johnson@tpwd.texas.gov</a></span>
-      </div>
-
-      
-
-      <details class="match-details">
-        <summary>Matched tags</summary>
-        <p>Asphalt: &quot;paving&quot; in nigpCodes, &quot;resurfacing&quot; in nigpCodes; Carpentry / Glaziery: &quot;trim&quot; in nigpCodes; Electrical: &quot;electrical&quot; in nigpCodes; Excavating: &quot;grading&quot; in nigpCodes, &quot;backfill&quot; in nigpCodes, &quot;site work&quot; in nigpCodes; Fencing: &quot;gate&quot; in description; HVAC: &quot;rtu&quot; in description; Lawn and Landscaping: &quot;landscaping&quot; in nigpCodes, &quot;tree trimming&quot; in nigpCodes, &quot;grounds maintenance&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes, &quot;building construction&quot; in nigpCodes</p>
-      </details>
-    </div>
-
-    <div class="card" data-categories="Asphalt,Concrete,Paint">
-      <div class="card-header">
-        
-
-        <h2 class="card-title">
-        <a href="https://www.txsmartbuy.gov/esbd/NO.26-15" target="_blank"><span class="rank">#17</span> RFP NO. 26-15 Street Asphaltic Paving, Milling, and Restriping Services</a>
-      </h2>
-      </div>
-
-      <div class="card-meta">
-        <span><strong>ID:</strong> NO.26-15</span>
-        <span><strong>Agency:</strong> City of Huntsville - M2360</span>
-        <span><strong>Posted:</strong> 3/25/2026</span>
-        <span class="due normal"><strong>Due:</strong> 4/14/2026 2:00 PM <em>(9 days left)</em></span>
-        <span><strong>Value:</strong> $250,000.00</span>
-      </div>
-
-      <div class="card-description">
-        <p>Street Asphaltic Paving, Milling, and Restriping Services</p>
-      </div>
-
-      <div class="card-contact">
-        <span><strong>Contact:</strong> Lucy Gonzalez</span>
-        <span><strong>Phone:</strong> (936) 291-5495</span>
-        <span><strong>Email:</strong> <a href="mailto:lgonzalez@huntsvilletx.gov">lgonzalez@huntsvilletx.gov</a></span>
-      </div>
-
-      <div class="attachments">
-          <strong>Attachments:</strong>
-          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32858676&amp;c=852252&amp;h=inzE_Mb-Yxn6mBImsIsAPu5GHTIilazDeiP0unpJXY9nCYMo&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_498370_1773957308789_RFP NO. 26-15 Street Asphaltic Paving, Milling, and Restriping Services.pdf</a> <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32879307&amp;c=852252&amp;h=63-446S4s8zKDLDP0gztcFq9BplTBnWYaM36hiM-iLnTSh5j&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_498370_1774453610335_Addendum NO. 1 - RFP NO. 26-15 Street Asphaltic Paving, Milling, and Restriping Services.pdf</a>
-        </div>
-
-      <details class="match-details">
-        <summary>Matched tags</summary>
-        <p>Asphalt: &quot;asphalt&quot; in title, &quot;asphalt&quot; in nigpCodes, &quot;asphalt&quot; in description, &quot;paving&quot; in title, &quot;paving&quot; in nigpCodes, &quot;paving&quot; in description, &quot;pavement&quot; in nigpCodes, &quot;resurfacing&quot; in nigpCodes, &quot;striping&quot; in title, &quot;striping&quot; in nigpCodes, &quot;striping&quot; in description; Concrete: &quot;concrete&quot; in nigpCodes; Paint: &quot;paint&quot; in nigpCodes</p>
-      </details>
-    </div>
-
-    <div class="card" data-categories="Appliances,Asphalt,Bathroom,Concrete,Decks and Porches,Electrical,Excavating,Interior Decoration,Lawn and Landscaping,Plumbing,General Contractors">
-      <div class="card-header">
-        
-
-        <h2 class="card-title">
-        <a href="https://www.txsmartbuy.gov/esbd/152-3-2026-20-1" target="_blank"><span class="rank">#18</span> RFCSP District 3 Aquatics Facility</a>
-      </h2>
-      </div>
-
-      <div class="card-meta">
-        <span><strong>ID:</strong> 152-3-2026-20-1</span>
-        <span><strong>Agency:</strong> City of San Antonio - M0152</span>
-        <span><strong>Posted:</strong> 3/20/2026</span>
-        <span class="due normal"><strong>Due:</strong> 5/8/2026 2:00 PM <em>(33 days left)</em></span>
-        <span><strong>Value:</strong> $3,440,000.00</span>
-      </div>
-
-      <div class="card-description">
-        <p>The City of San Antonio (City), Public WorksDepartment (PWD) is issuing a Request for Competitive Sealed Proposals (RFCSP)for qualified firms (Respondents) to provide construction of the District 3Aquatics facility, a 2022 Bond project. This project is in Council District 3at 3110 Roosevelt Avenue in the Mission Drive-In IDZ Subdivision adjacent tothe Mission Marquee, Najim YMCA, and World Heritage Center. II. SCOPE OF WORK ANDGENERAL REQUIREMENTS This project consists of furnishing all labor,materials, services, equipment and appliances required with, or properlyincidental to all construction detailed in the project contract documents whichshall include, but not limited to swimming pool, swimming pool equipment,swimming pool amenities, parking, drainage, site furnishings, masonry, signage,concrete flatwork, concrete foundations, site grading, restroom building,lifeguard station, pump room building, lighting, landscaping and irrigation. Additionally, an additivealternate is also being proposed. Alternates: Lazy River Improvements Pool Deck Upgrades Shade Structures Parking Lot Addition with Lighting Facility Entrance Upgrade Tower Slide Tree Planting and Irrigation Package</p>
-      </div>
-
-      <div class="card-contact">
-        <span><strong>Contact:</strong> Gabe Hernandez</span>
-        <span><strong>Phone:</strong> (210) 207-5884</span>
-        <span><strong>Email:</strong> <a href="mailto:gabriel.hernandez2@sanantonio.gov">gabriel.hernandez2@sanantonio.gov</a></span>
-      </div>
-
-      <div class="attachments">
-          <strong>Attachments:</strong>
-          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32862181&amp;c=852252&amp;h=bA2ETCwA2zolbwHy0jNwg0SAfEDhYWawuxI0Mx54K1lB9x10&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_498788_1774035605728_RFCSP District 3 Aquatics Facility_Final.pdf</a> <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32862182&amp;c=852252&amp;h=UEPw8cevLup2BEIuJYizxqTLlR3wd_A6ZofvOQiRNdN-TA5k&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_498788_1774035663961_Solicitation Synopsis Discretionary - District 3 Aquatics.pdf</a>
-        </div>
-
-      <details class="match-details">
-        <summary>Matched tags</summary>
-        <p>Appliances: &quot;appliance&quot; in description, &quot;appliances&quot; in description; Asphalt: &quot;parking lot&quot; in description; Bathroom: &quot;restroom&quot; in description; Concrete: &quot;concrete&quot; in description, &quot;masonry&quot; in description, &quot;flatwork&quot; in description; Decks and Porches: &quot;deck&quot; in description; Electrical: &quot;lighting&quot; in description; Excavating: &quot;grading&quot; in description; Interior Decoration: &quot;furnishing&quot; in description; Lawn and Landscaping: &quot;landscaping&quot; in description, &quot;irrigation&quot; in description; Plumbing: &quot;drain&quot; in description; General Contractors: &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description</p>
-      </details>
-    </div>
-
-    <div class="card" data-categories="Carpentry / Glaziery,Concrete,Electrical,Excavating,Lawn and Landscaping,Plumbing,General Contractors">
-      <div class="card-header">
-        
-
-        <h2 class="card-title">
-        <a href="https://www.txsmartbuy.gov/esbd/23-03966" target="_blank"><span class="rank">#19</span> Cuellar Park Improvements</a>
-      </h2>
-      </div>
-
-      <div class="card-meta">
-        <span><strong>ID:</strong> 23-03966</span>
-        <span><strong>Agency:</strong> City of San Antonio - M0152</span>
-        <span><strong>Posted:</strong> 2/27/2026</span>
-        <span class="due urgent"><strong>Due:</strong> 4/7/2026 2:00 PM <em>(2 days left)</em></span>
-        <span><strong>Value:</strong> $850,000.00</span>
-      </div>
-
-      <div class="card-description">
-        <p>Online bidding is utilized via CivCast at https://www.civcastusa.com/bids. Online bid services will open for bidding on Friday, February 27, 2026, and close on Friday, April 7, 2026, at 2:00 P.M. CT. Follow submittal instructions on https://www.civcastusa.com/. Hard Copies will not be accepted for this solicitation. Bids will be opened, and the Bid Results will be posted on CivCast on the day of the bid deadline. Bid Results will be read aloud utilizing WebEx. You can access WebEx by phone at 1-415-655-0001 or https://sanantonio.webex.com/sanantonio/j.php?MTID=mc7e4d1be209b5a788596e6963fa96dc7 with Access Code: 1770 23 1452, Password: 3HrMPWvWr58. A non-mandatory Pre-bid meeting will be held through WebEx on Tuesday, March 10, 2026, at 10:00 A.M. CT. You can access WebEx by phone at 1-415-655-0001 or https://sanantonio.webex.com/sanantonio/j.php?MTID=m73a7caa0c3a4506b1a797725de5b5fb6 with Access Code: 2345 787 0709, Password: htSJfivP592. The Deadline for questions is scheduled for March 17, 2026, at 4:00 P.M. CT. The estimated construction budget for this contract is $850,000.00. There will be two (2) alternates.</p>
-      </div>
-
-      <div class="card-contact">
-        <span><strong>Contact:</strong> Desiree Alderete</span>
-        <span><strong>Phone:</strong> (210) 207-8688</span>
-        <span><strong>Email:</strong> <a href="mailto:Desiree.Alderete@sanantonio.gov">Desiree.Alderete@sanantonio.gov</a></span>
-      </div>
-
-      <div class="attachments">
-          <strong>Attachments:</strong>
-          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32797028&amp;c=852252&amp;h=pPdncp7N3E6Qeg4DOdqKIzWVmb2_6h4GIuwMKkHUyGGVDb8L&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_492851_1772205175005_010 LQIFB.pdf</a>
-        </div>
-
-      <details class="match-details">
-        <summary>Matched tags</summary>
-        <p>Carpentry / Glaziery: &quot;trim&quot; in nigpCodes; Concrete: &quot;concrete&quot; in nigpCodes; Electrical: &quot;electrical&quot; in nigpCodes; Excavating: &quot;demolition&quot; in nigpCodes, &quot;site work&quot; in nigpCodes; Lawn and Landscaping: &quot;landscaping&quot; in nigpCodes, &quot;irrigation&quot; in nigpCodes, &quot;tree trimming&quot; in nigpCodes, &quot;grounds maintenance&quot; in nigpCodes; Plumbing: &quot;plumbing&quot; in nigpCodes, &quot;sewer&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description</p>
-      </details>
-    </div>
-
-    <div class="card" data-categories="Asphalt,Concrete,Lawn and Landscaping,Structural Work,Wall-Making,General Contractors">
-      <div class="card-header">
-        
-
-        <h2 class="card-title">
-        <a href="https://www.txsmartbuy.gov/esbd/23-04203-08" target="_blank"><span class="rank">#20</span> 2026 Task Order Contract for the Street Rehabilitation Package 8</a>
+        <a href="https://www.txsmartbuy.gov/esbd/23-04203-08" target="_blank"><span class="rank">#10</span> 2026 Task Order Contract for the Street Rehabilitation Package 8</a>
       </h2>
       </div>
 
@@ -1032,77 +903,763 @@
         <span><strong>Value:</strong> $4,950,000.00</span>
       </div>
 
-      <div class="card-description">
-        <p>Solicitation Type and Name: Formal Invitation for Bids for 2026 Task Order Contract for the Street Rehabilitation Package 8 Solicitation Number: 23-04203-08 Description: Project construction may include but is not limited to: asphalt milling and overlay, seal coat, base and pavement replacement, cleaning and sealing joints and cracks, curb ramps, concrete curbs, sidewalks, driveways, concrete retaining walls-combination type, speed humps, topsoil, sodding, signage, pavement markings installation, adjusting existing valve boxes, meter boxes and manholes, and any other items required due to the site conditions to accomplish the project scope. Applicable Product Categories: - 57076 – Steel, Reinforcing, Bars and Rods - 74521 – Asphaltic Concrete, Hot Laid including Bituminous Materials - 75070 – Ready-Mix Concrete - 91350 – Construction, Street (Major &amp; Residential) (Includes Reconstruction) - 91347 – Construction, Sidewalk and Driveway, Including Pedestrian and Handicap Date Issued: March 20, 2026 Due Date &amp; Time: April 21, 2026, 2:00 p.m. Central Time Pre-Bid Conference: Pre-Bid Conference will be held at 10:00 a.m., Central Time, on March 26, 2026, via WebEx. Attendance at the Pre-Bid Conference is optional, but highly encouraged. Respondents may call the toll-free number listed below and enter access code to participate the day of the conference. Dial-In Number: 1-415-655-0001 | Access Code: 2331 931 6407 | Meeting Password: xtQ257KJVyf Join from the meeting link: https://sanantonio.webex.com/sanantonio/j.php?MTID=m9b58d9b3d9e208d356acc952f0f7cfc1 To view this solicitation, go to https://www.civcastusa.com/bids and search under SAP Project ID number or project name.</p>
-      </div>
-
       <div class="card-contact">
         <span><strong>Contact:</strong> Michelle Birch</span>
         <span><strong>Phone:</strong> (210) 207-8642</span>
         <span><strong>Email:</strong> <a href="mailto:michelle.birch@sanantonio.gov">michelle.birch@sanantonio.gov</a></span>
       </div>
 
-      <div class="attachments">
-          <strong>Attachments:</strong>
-          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32861834&amp;c=852252&amp;h=vvMn4_UXjcZvtmXSbk2Sfb5duoPMVszY7myz93Z_0ieUCHcI&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_498781_1774030906671_Solicitation Synopsis Non-Discretionary.pdf</a>
-        </div>
+      <div class="card-description">
+        <p>This solicitation is for a task order contract for street rehabilitation work in San Antonio, valued at $4.95 million. Vendors with experience in asphalt, concrete, street, and sidewalk construction should consider bidding due to the comprehensive scope and significant project value.</p>
+      </div>
 
-      <details class="match-details">
+      <details class="card-dropdown">
+        <summary>Original description</summary>
+        <p>Solicitation Type and Name: Formal Invitation for Bids for 2026 Task Order Contract for the Street Rehabilitation Package 8 Solicitation Number: 23-04203-08 Description: Project construction may include but is not limited to: asphalt milling and overlay, seal coat, base and pavement replacement, cleaning and sealing joints and cracks, curb ramps, concrete curbs, sidewalks, driveways, concrete retaining walls-combination type, speed humps, topsoil, sodding, signage, pavement markings installation, adjusting existing valve boxes, meter boxes and manholes, and any other items required due to the site conditions to accomplish the project scope. Applicable Product Categories: - 57076 – Steel, Reinforcing, Bars and Rods - 74521 – Asphaltic Concrete, Hot Laid including Bituminous Materials - 75070 – Ready-Mix Concrete - 91350 – Construction, Street (Major &amp; Residential) (Includes Reconstruction) - 91347 – Construction, Sidewalk and Driveway, Including Pedestrian and Handicap Date Issued: March 20, 2026 Due Date &amp; Time: April 21, 2026, 2:00 p.m. Central Time Pre-Bid Conference: Pre-Bid Conference will be held at 10:00 a.m., Central Time, on March 26, 2026, via WebEx. Attendance at the Pre-Bid Conference is optional, but highly encouraged. Respondents may call the toll-free number listed below and enter access code to participate the day of the conference. Dial-In Number: 1-415-655-0001 | Access Code: 2331 931 6407 | Meeting Password: xtQ257KJVyf Join from the meeting link: https://sanantonio.webex.com/sanantonio/j.php?MTID=m9b58d9b3d9e208d356acc952f0f7cfc1 To view this solicitation, go to https://www.civcastusa.com/bids and search under SAP Project ID number or project name.</p>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content"><ul>
+<li><strong>Overview</strong>: The City of San Antonio is seeking bids for a Task Order Contract for Street Rehabilitation Package 8. This formal Invitation for Bids covers a range of construction activities necessary to rehabilitate and improve city streets.</li>
+<li><strong>Scope of Work</strong>: The project scope is extensive and may include asphalt milling and overlay, seal coating, base and pavement replacement, joint and crack sealing, curb ramps, concrete curbs, sidewalks, driveways, concrete retaining walls, speed humps, topsoil, sodding, signage, pavement markings, and adjustments to underground utility boxes. The work also encompasses any other necessary tasks to complete the project based on site conditions.</li>
+<li><strong>Bid Requirements</strong>: Specific bid requirements such as qualifications, certifications, bonds, or insurance are not detailed in this advertisement. Vendors will need to review the full solicitation document on CivcastUSA.com for these details. However, the NIGP codes suggest a need for expertise in steel, asphaltic concrete, ready-mix concrete, street construction, and sidewalk/driveway construction.</li>
+<li><strong>Timeline</strong>:</li>
+<li>Date Issued: March 20, 2026</li>
+<li>Pre-Bid Conference: March 26, 2026, 10:00 a.m. Central Time (via WebEx)</li>
+<li>Bid Due Date &amp; Time: April 21, 2026, 2:00 p.m. Central Time</li>
+<li><strong>Estimated Value</strong>: The estimated value of this contract is $4,950,000.00.</li>
+<li><strong>Recommendation</strong>: Yes, a mid-size building maintenance and construction vendor with demonstrated experience in municipal street and infrastructure projects should strongly consider pursuing this bid. The project's substantial value and broad scope of work align well with the capabilities of a company experienced in asphalt, concrete, and general civil construction. The opportunity to secure a significant task order contract with the City of San Antonio is a valuable prospect.</li>
+</ul></div>
+      </details>
+
+      <details class="card-dropdown">
         <summary>Matched tags</summary>
         <p>Asphalt: &quot;asphalt&quot; in nigpCodes, &quot;asphalt&quot; in description, &quot;pavement&quot; in description, &quot;seal coat&quot; in description; Concrete: &quot;concrete&quot; in nigpCodes, &quot;concrete&quot; in description, &quot;cement&quot; in description, &quot;sidewalk&quot; in nigpCodes, &quot;sidewalk&quot; in description, &quot;curb&quot; in description; Lawn and Landscaping: &quot;sod&quot; in description; Structural Work: &quot;retaining wall&quot; in description; Wall-Making: &quot;retaining wall&quot; in description; General Contractors: &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description</p>
       </details>
+
+       <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32861834&amp;c=852252&amp;h=vvMn4_UXjcZvtmXSbk2Sfb5duoPMVszY7myz93Z_0ieUCHcI&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_498781_1774030906671_Solicitation Synopsis Non-Discretionary.pdf</a>
+        </div>
+    </div>
+
+    <div class="card" data-categories="Architecture and Design,Concrete,Electrical,Excavating,Fencing,Interior Decoration,Structural Work,Wall-Making,General Contractors,Interior Maintenance,Exterior Maintenance">
+      <div class="card-header">
+        
+
+        <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/RFP26-19454-KM" target="_blank"><span class="rank">#11</span> Bell Farms Public Improvement District (PID) Playa Lake Retaining Wall Construction</a>
+      </h2>
+      </div>
+
+      <div class="card-meta">
+        <span><strong>ID:</strong> RFP26-19454-KM</span>
+        <span><strong>Agency:</strong> City of Lubbock - M0007</span>
+        <span><strong>Posted:</strong> 3/20/2026</span>
+        <span class="due soon"><strong>Due:</strong> 4/9/2026 3:00 PM <em>(4 days left)</em></span>
+        <span><strong>Value:</strong> $180,000.00</span>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Kiara Morgan</span>
+        <span><strong>Phone:</strong> (806) 775-2167</span>
+        <span><strong>Email:</strong> <a href="mailto:KMorgan@mylubbock.us">KMorgan@mylubbock.us</a></span>
+      </div>
+
+      <div class="card-description">
+        <p>The City of Lubbock is seeking bids for the construction of a retaining wall, sidewalk, pedestrian lighting, and landscaping at Bell Farms Public Improvement District (PID) Playa Park. This project offers a moderate contract value and requires specific qualifications, making it a potential opportunity for experienced vendors.</p>
+      </div>
+
+      <details class="card-dropdown">
+        <summary>Original description</summary>
+        <p>The Work, under this Contract, consists of furnishing all labor, supervision, equipment, tools, materials, transportation, services, and related items necessary for the construction and completions, start-up and placing in service the Project. The Projects involves the removal of a retaining wall, construction of a new sidewalk, pedestrian lighting, and landscape improvements within the limits of Bell Farms Playa Park, Tract A</p>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content"><ul>
+<li><strong>Overview</strong>: The City of Lubbock is soliciting proposals for the Bell Farms Public Improvement District (PID) Playa Lake Retaining Wall Construction project. This involves the removal of an existing retaining wall and the construction of new amenities within Bell Farms Playa Park.</li>
+<li><strong>Scope of Work</strong>: The project includes the removal of an existing retaining wall, construction of a new sidewalk, installation of pedestrian lighting, and landscape improvements within Tract A of Bell Farms Playa Park. The work requires furnishing all labor, supervision, equipment, tools, materials, and transportation. The project has a substantial completion timeline of 120 consecutive calendar days from the Notice to Proceed.</li>
+<li><strong>Bid Requirements</strong>: Offerors must submit proposals electronically via Bonfire or in hard copy. A proposal bond or cashier's/certified check for at least 5% of the proposal amount is required. Performance and payment bonds (100% of contract price) will be required for contracts exceeding $100,000 and $50,000 respectively, issued by a company with a &quot;B&quot; or better Best Rating. Offerors must demonstrate contractor qualifications, including past experience and safety records, and may be interviewed. A local representative must be available during work. Insurance requirements are detailed and must be met.</li>
+<li><strong>Timeline</strong>: Proposals are due by April 9, 2026, at 3:00 PM. The City Council will consider proposals on May 26, 2026. A Notice to Proceed will be issued 30 days following contract award. The project has a 120-day substantial completion period. A non-mandatory pre-proposal conference is scheduled for April 1, 2026.</li>
+<li><strong>Estimated Value</strong>: The estimated budget for the construction phase is $180,000.00.</li>
+<li><strong>Recommendation</strong>: A mid-size building maintenance and construction vendor should consider pursuing this bid. The project scope is manageable, and the estimated value of $180,000 is within the range for such businesses. The selection criteria emphasize price (60%), contractor qualifications (30%), and construction time (10%), suggesting that a vendor with a strong track record, good qualifications, and competitive pricing has a good chance of winning. However, vendors must be prepared for the bonding requirements, detailed insurance stipulations, and the need for a local representative. The tight submission deadline requires prompt action.</li>
+</ul></div>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>Matched tags</summary>
+        <p>Architecture and Design: &quot;architect&quot; in nigpCodes, &quot;architectural&quot; in nigpCodes; Concrete: &quot;sidewalk&quot; in description; Electrical: &quot;lighting&quot; in description; Excavating: &quot;site work&quot; in nigpCodes; Fencing: &quot;fence&quot; in nigpCodes, &quot;fence installation&quot; in nigpCodes; Interior Decoration: &quot;furnishing&quot; in description; Structural Work: &quot;retaining wall&quot; in title, &quot;retaining wall&quot; in description; Wall-Making: &quot;wall construction&quot; in title, &quot;retaining wall&quot; in title, &quot;retaining wall&quot; in description; General Contractors: &quot;construction&quot; in title, &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description, &quot;building construction&quot; in nigpCodes, &quot;general construction&quot; in nigpCodes</p>
+      </details>
+
+       <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32860260&amp;c=852252&amp;h=IfneJFtTF3gSBqixl8WwLciWh_ebz6NaZOZn9BqDY5j2TJqH&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_498577_1774015900699_01 - RFP 26-19454-KM.pdf</a>
+        </div>
+    </div>
+
+    <div class="card" data-categories="Concrete,Electrical,Plumbing,Structural Work,General Contractors,Interior Maintenance,Waste Management,Lawn and Landscaping">
+      <div class="card-header">
+        
+
+        <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/NO.26-14" target="_blank"><span class="rank">#12</span> RFP Bid NO. 26-14 Wastewater Treatment Plant Modifications</a>
+      </h2>
+      </div>
+
+      <div class="card-meta">
+        <span><strong>ID:</strong> NO.26-14</span>
+        <span><strong>Agency:</strong> City of Huntsville - M2360</span>
+        <span><strong>Posted:</strong> 3/12/2026</span>
+        <span class="due urgent"><strong>Due:</strong> 4/7/2026 2:30 PM <em>(2 days left)</em></span>
+        <span><strong>Value:</strong> $250,000.00</span>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Lucy Gonzalez</span>
+        <span><strong>Phone:</strong> (936) 291-5495</span>
+        <span><strong>Email:</strong> <a href="mailto:lgonzalez@huntsvilletx.gov">lgonzalez@huntsvilletx.gov</a></span>
+      </div>
+
+      <div class="card-description">
+        <p>This solicitation is for modifications to the AJ Brown Wastewater Treatment Facility in Huntsville, TX, specifically focusing on upgrading the existing lift station with new screening and compacting equipment. Vendors with experience in wastewater treatment plant construction and maintenance should consider this opportunity.</p>
+      </div>
+
+      <details class="card-dropdown">
+        <summary>Original description</summary>
+        <p>Wastewater Treatment Plant Modifications</p>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content"><ul>
+<li><strong>Overview</strong>: The City of Huntsville is seeking proposals for modifications to its AJ Brown Wastewater Treatment Facility. The primary goal is to enhance the operational efficiency and reliability of the existing lift station through the installation of new wastewater screening and compacting equipment. This project aims to upgrade municipal infrastructure for effective wastewater management.</li>
+</ul>
+<ul>
+<li><strong>Scope of Work</strong>: The project involves the removal of the existing secondary manual bar screen and the installation of a new 1/8” opening, mechanically cleaned bar screen assembly with auxiliary equipment. Additionally, a dual auger washer compactor assembly will be furnished and installed. The vendor will be responsible for the design, fabrication, delivery, installation, and testing of these components, ensuring compatibility with existing systems and performing any necessary structural alterations. The scope also includes providing operation and maintenance manuals, spare parts lists, and ensuring a one-year standard warranty on the equipment, with a five-year warranty on specific rotating parts of the bar screen.</li>
+</ul>
+<ul>
+<li><strong>Bid Requirements</strong>: Vendors must submit a comprehensive proposal including:</li>
+<li>Signed solicitation document and addenda acknowledgments.</li>
+<li>Completed required forms (Vendor Information, Conflict of Interest, Certificate of Interested Parties Form 1295, Israel Verification, Iran/Sudan/Foreign Terrorist Organizations Verification, Firearm Verification, Energy Company Boycott Verification, Critical Infrastructure Verification, Texas Public Information Act Verification, Insurance Requirements, Non-Collusion Affidavit, Certification Regarding Lobbying, Proposal Terms and Conditions Acknowledgement, No Response Statement).</li>
+<li>Current Certificate of Insurance.</li>
+<li>Demonstrated experience in wastewater treatment plant upgrades, lift station modifications, or similar municipal infrastructure projects.</li>
+<li>Detailed technical approach, project understanding, and methodology.</li>
+<li>Proposed approach and timeline.</li>
+<li>A detailed cost proposal (hourly rates or lump sum).</li>
+<li>At least three references for similar projects completed within the last three years.</li>
+<li>A 10% bid bond is required with the proposal. Performance and payment bonds will be required upon award.</li>
+<li>Vendors must acknowledge and adhere to all special terms and conditions, including safety standards, Davis-Bacon Act prevailing wage rates, and specific insurance requirements (Commercial General Liability, Professional Liability, Workers' Compensation).</li>
+</ul>
+<ul>
+<li><strong>Timeline</strong>:</li>
+<li>Solicitation Posted: March 12, 2026</li>
+<li>Mandatory Site Visit: March 24, 2026, 11:00 AM (or March 23, 2026)</li>
+<li>Questions Due: March 26, 2026</li>
+<li>Final Addendum Issued: March 30, 2026</li>
+<li>Proposal Due Date: April 7, 2026, 2:30 PM Central Time</li>
+<li>Public Solicitation Opening: April 7, 2026</li>
+<li>Project Completion: Within 90 calendar days after Notice to Proceed.</li>
+<li>Liquidated Damages: $1,000.00 per calendar day for non-completion beyond the 90-day period.</li>
+</ul>
+<ul>
+<li><strong>Estimated Value</strong>: The solicitation lists an estimated value of $250,000.00. However, the &quot;Background&quot; section of the Scope of Services mentions an &quot;estimated budget of $375,000.&quot; This discrepancy should be clarified.</li>
+</ul>
+<ul>
+<li><strong>Recommendation</strong>: A mid-size building maintenance and construction vendor with experience in municipal infrastructure, particularly wastewater treatment facilities, should strongly consider bidding on this project. The project scope is specific and technical, requiring expertise in mechanical and electrical systems related to wastewater treatment. The estimated value is moderate, and the 90-day completion timeline is achievable for a well-organized firm. Key considerations for bidding include:</li>
+<li><strong>Mandatory Site Visit</strong>: Attendance is required for qualification.</li>
+<li><strong>Technical Specifications</strong>: The detailed requirements for the bar screen and washer compactor are critical and require careful review to ensure compliance.</li>
+<li><strong>Bonding Requirements</strong>: The 10% bid bond and subsequent performance/payment bonds are standard but must be factored into the bidding process.</li>
+<li><strong>Prevailing Wages</strong>: Compliance with Davis-Bacon Act prevailing wage rates is mandatory.</li>
+<li><strong>Experience</strong>: Demonstrating relevant wastewater treatment plant experience is crucial for evaluation.</li>
+<li><strong>Clarifications</strong>: Vendors should actively participate in the Q&amp;A process to clarify any ambiguities, especially regarding the equipment specifications and the estimated budget.</li>
+</ul></div>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>Matched tags</summary>
+        <p>Concrete: &quot;concrete&quot; in nigpCodes, &quot;cement&quot; in nigpCodes, &quot;masonry&quot; in nigpCodes; Electrical: &quot;electrical&quot; in nigpCodes; Plumbing: &quot;plumbing&quot; in nigpCodes, &quot;water supply&quot; in nigpCodes; Structural Work: &quot;structural&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes</p>
+      </details>
+
+       <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32836531&amp;c=852252&amp;h=QmcPVZV61zBTWQ5gCbTKP0ajzMfwqoewxlzgfvSL8oacX6zb&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_495940_1773354863981_RFP Bid NO. 26-14 Wastewater Treatment Plant Modifications.pdf</a> <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32906316&amp;c=852252&amp;h=011-bite0cpe3Nchu6ZkTLZigb6awP8S379Q4ZIYZBIWLZUs&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_495940_1774969786649_Addendum NO. 1 - 26-14 Wastewater Treatment Plant Modifications.pdf</a>
+        </div>
+    </div>
+
+    <div class="card" data-categories="Asphalt,Concrete,Paint,Lawn and Landscaping,Exterior Maintenance,Interior Maintenance">
+      <div class="card-header">
+        
+
+        <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/NO.26-15" target="_blank"><span class="rank">#13</span> RFP NO. 26-15 Street Asphaltic Paving, Milling, and Restriping Services</a>
+      </h2>
+      </div>
+
+      <div class="card-meta">
+        <span><strong>ID:</strong> NO.26-15</span>
+        <span><strong>Agency:</strong> City of Huntsville - M2360</span>
+        <span><strong>Posted:</strong> 3/25/2026</span>
+        <span class="due normal"><strong>Due:</strong> 4/14/2026 2:00 PM <em>(9 days left)</em></span>
+        <span><strong>Value:</strong> $250,000.00</span>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Lucy Gonzalez</span>
+        <span><strong>Phone:</strong> (936) 291-5495</span>
+        <span><strong>Email:</strong> <a href="mailto:lgonzalez@huntsvilletx.gov">lgonzalez@huntsvilletx.gov</a></span>
+      </div>
+
+      <div class="card-description">
+        <p>The City of Huntsville is seeking bids for street asphaltic paving, milling, and restriping services. This is a good opportunity for experienced paving contractors to secure a contract with an estimated value of $1.275 million.</p>
+      </div>
+
+      <details class="card-dropdown">
+        <summary>Original description</summary>
+        <p>Street Asphaltic Paving, Milling, and Restriping Services</p>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content"><ul>
+<li><strong>Overview</strong>: The City of Huntsville is soliciting proposals for comprehensive street asphaltic paving, milling, and restriping services. This includes all necessary labor, materials, and equipment to perform these tasks on various city streets and parking areas. The goal is to select a vendor that offers the best value to the City.</li>
+</ul>
+<ul>
+<li><strong>Scope of Work</strong>: The project involves approximately 61,262 square yards of full-width milling and 2&quot; HMAC overlay, and approximately 18,835 square yards of 1.5&quot; HMAC overlays. Services also include restriping of streets and parking areas using thermoplastic materials, and potentially rehabilitation of streets involving subgrade stabilization. The contractor must adhere to Texas Department of Transportation (TxDOT) and City of Huntsville specifications, manage traffic control, protect utilities, and ensure proper disposal or management of millings. Residents must be notified 24 hours in advance of work.</li>
+</ul>
+<ul>
+<li><strong>Bid Requirements</strong>: Bidders must demonstrate organizational experience, previous work on similar projects (with at least three references), technical expertise, and a proposed solution including a project management methodology and traffic control plan. A completed price table, signed RFP, and required forms (including various Texas-specific verification forms) are mandatory. A 10% bid bond is required, and upon award, payment and performance bonds will be necessary. Insurance requirements include Commercial General Liability ($1M/$2M) and Commercial Automobile Liability ($300K). All pages of the solicitation must be initialed and returned.</li>
+</ul>
+<ul>
+<li><strong>Timeline</strong>:</li>
+<li>Proposal Due Date: April 14, 2026, 2:00 PM CT</li>
+<li>Public Solicitation Opening: April 14, 2026</li>
+<li>Project Initiation Phase Completion: May 18, 2026</li>
+<li>Project Planning Phase Completion: May 26, 2026</li>
+<li>Project Completion Deadline: September 20, 2026</li>
+<li><em>Note: The mandatory site visit originally scheduled for March 31, 2026, has been canceled.</em></li>
+</ul>
+<ul>
+<li><strong>Estimated Value</strong>: The anticipated budget for this project is $1.275 Million. The solicitation also lists a &quot;Value: 250,000.00&quot; in the initial details, which may refer to a smaller portion or a different contract type, but the detailed budget indicates a significantly larger project.</li>
+</ul>
+<ul>
+<li><strong>Recommendation</strong>: Yes, a mid-size building maintenance and construction vendor with a strong paving, milling, and restriping division should consider bidding on this solicitation. The project scope is substantial, with a significant estimated budget, indicating a good potential revenue stream. The requirements for experience, technical expertise, and adherence to specifications are standard for this type of work. However, vendors must ensure they have the capacity, specialized equipment, and bonding capabilities to handle a project of this magnitude and complexity, including managing traffic control and meeting strict timelines and quality standards. The cancellation of the mandatory site visit simplifies the initial engagement but emphasizes the need for thorough review of the provided documentation.</li>
+</ul></div>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>Matched tags</summary>
+        <p>Asphalt: &quot;asphalt&quot; in title, &quot;asphalt&quot; in nigpCodes, &quot;asphalt&quot; in description, &quot;paving&quot; in title, &quot;paving&quot; in nigpCodes, &quot;paving&quot; in description, &quot;pavement&quot; in nigpCodes, &quot;resurfacing&quot; in nigpCodes, &quot;striping&quot; in title, &quot;striping&quot; in nigpCodes, &quot;striping&quot; in description; Concrete: &quot;concrete&quot; in nigpCodes; Paint: &quot;paint&quot; in nigpCodes</p>
+      </details>
+
+       <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32858676&amp;c=852252&amp;h=inzE_Mb-Yxn6mBImsIsAPu5GHTIilazDeiP0unpJXY9nCYMo&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_498370_1773957308789_RFP NO. 26-15 Street Asphaltic Paving, Milling, and Restriping Services.pdf</a> <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32879307&amp;c=852252&amp;h=63-446S4s8zKDLDP0gztcFq9BplTBnWYaM36hiM-iLnTSh5j&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_498370_1774453610335_Addendum NO. 1 - RFP NO. 26-15 Street Asphaltic Paving, Milling, and Restriping Services.pdf</a>
+        </div>
+    </div>
+
+    <div class="card" data-categories="Asphalt,Concrete,Excavating,General Contractors,Lawn and Landscaping,Exterior Maintenance">
+      <div class="card-header">
+        
+
+        <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/756-SRSU-2026-RFP-031-813000" target="_blank"><span class="rank">#14</span> Sul Ross RFP for Unit Price Contract For As-Needed Concrete , Asphalt &amp; Dirt Work</a>
+      </h2>
+      </div>
+
+      <div class="card-meta">
+        <span><strong>ID:</strong> 756-SRSU-2026-RFP-031-813000</span>
+        <span><strong>Agency:</strong> Sul Ross State University - 756</span>
+        <span><strong>Posted:</strong> 3/11/2026</span>
+        <span class="due soon"><strong>Due:</strong> 4/10/2026 10:00 AM <em>(5 days left)</em></span>
+        <span><strong>Value:</strong> $500,000.00</span>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Clifton Brayshaw</span>
+        <span><strong>Phone:</strong> (936) 294-1906</span>
+        <span><strong>Email:</strong> <a href="mailto:Clifton.Brayshaw@sulross.edu">Clifton.Brayshaw@sulross.edu</a></span>
+      </div>
+
+      <div class="card-description">
+        <p>** Sul Ross State University is seeking bids for an as-needed unit price contract for concrete, asphalt, and dirt work services. This is a good opportunity for vendors specializing in these trades to secure ongoing work with a state university.</p>
+      </div>
+
+      <details class="card-dropdown">
+        <summary>Original description</summary>
+        <p>SRSU is seeking vendors to provide concrete, asphalt, and dirt work services under a Unit Price Contract.</p>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content"><p>**</p>
+<ul>
+<li><strong>Overview</strong>: Sul Ross State University (SRSU) is issuing a Request for Proposal (RFP) for a Unit Price Contract to procure as-needed concrete, asphalt, and dirt work services. This contract will allow SRSU to efficiently obtain these services on demand for various projects.</li>
+</ul>
+<ul>
+<li><strong>Scope of Work</strong>: The contract will cover a range of services including, but not limited to, concrete work (maintenance, finishing, repair, sawing, grouting), asphalt work (paving, resurfacing), and dirt work (backfill, digging, ditching, road grading, rock stabilization). The specific projects will be awarded on an as-needed basis under the established unit prices.</li>
+</ul>
+<ul>
+<li><strong>Bid Requirements</strong>: While specific qualifications, certifications, bonds, or insurance are not detailed in the provided text, vendors are required to register on the Sam Houston State University's BearKatBuy Sourcing Director site to view and respond to the solicitation. All submissions must be electronic through this platform. It is highly recommended that vendors thoroughly review the full solicitation documents on the BearKatBuy site for detailed requirements.</li>
+</ul>
+<ul>
+<li><strong>Timeline</strong>:</li>
+<li><strong>Posted Date</strong>: March 11, 2026</li>
+<li><strong>Bid Closing Date and Time</strong>: April 10, 2026, 10:00 AM CST</li>
+<li>Project start and completion dates are not specified in this initial notification, as it's an as-needed contract.</li>
+</ul>
+<ul>
+<li><strong>Estimated Value</strong>: The estimated contract value is <strong>$500,000.00</strong>.</li>
+</ul>
+<ul>
+<li><strong>Recommendation</strong>: <strong>Yes, a mid-size building maintenance/construction vendor specializing in concrete, asphalt, and dirt work should strongly consider pursuing this solicitation.</strong> The estimated value of $500,000.00 indicates a significant potential for revenue. The &quot;as-needed unit price contract&quot; structure suggests a steady stream of work over the contract period, providing predictable business. The NIGP codes align directly with common services offered by such vendors. The primary requirement is to navigate the electronic bidding platform (BearKatBuy) and ensure all detailed requirements within the full solicitation are met.</li>
+</ul></div>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>Matched tags</summary>
+        <p>Asphalt: &quot;asphalt&quot; in title, &quot;asphalt&quot; in description, &quot;paving&quot; in nigpCodes, &quot;resurfacing&quot; in nigpCodes, &quot;parking lot&quot; in nigpCodes; Concrete: &quot;concrete&quot; in title, &quot;concrete&quot; in nigpCodes, &quot;concrete&quot; in description, &quot;masonry&quot; in nigpCodes; Excavating: &quot;excavat&quot; in nigpCodes, &quot;grading&quot; in nigpCodes, &quot;backfill&quot; in nigpCodes, &quot;dirt work&quot; in title, &quot;dirt work&quot; in description, &quot;excavation&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes</p>
+      </details>
+
+       <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32832270&amp;c=852252&amp;h=a7Q0JRy3yTd9LXnnVOdphAwiv44zfB_lyFHJDHvLQTTswYQQ&amp;_xt=.doc" target="_blank" class="attachment-link">ESBD_495616_1773262837576_ESBD Posting -RFP Concrete Services.docx</a>
+        </div>
+    </div>
+
+    <div class="card" data-categories="Architecture and Design,Electrical,HVAC,Life Safety,Plumbing,Security,Interior Maintenance,Hazard Abatement,Lawn and Landscaping">
+      <div class="card-header">
+        
+
+        <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/MELE0426" target="_blank"><span class="rank">#15</span> Maintenance Electronic Services</a>
+      </h2>
+      </div>
+
+      <div class="card-meta">
+        <span><strong>ID:</strong> MELE0426</span>
+        <span><strong>Agency:</strong> Harlingen CISD - S0315</span>
+        <span><strong>Posted:</strong> 3/28/2026</span>
+        <span class="due normal"><strong>Due:</strong> 4/14/2026 2:00 PM <em>(9 days left)</em></span>
+        <span><strong>Value:</strong> $100,000.00</span>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Sylvia Deleon</span>
+        <span><strong>Phone:</strong> (956) 430-9740</span>
+        <span><strong>Email:</strong> <a href="mailto:sylvia.deleon@hcisd.org">sylvia.deleon@hcisd.org</a></span>
+      </div>
+
+      <div class="card-description">
+        <p>This solicitation from Harlingen CISD is for Maintenance Electronic Services, primarily focused on electronic systems, fire alarms, security, and communication infrastructure within school facilities. Vendors with expertise in these specialized areas should consider bidding due to the potential for ongoing work and the established nature of the client.</p>
+      </div>
+
+      <details class="card-dropdown">
+        <summary>Original description</summary>
+        <p>Proposal Specifications are available at: https://hcisdbid.ionwave.net/Login.aspx Proposals are to reach the Purchasing Department ON OR BEFORE the above-mentioned due date &amp; time. Harlingen Consolidated Independent School District Purchasing Department 407 N 77 Sunshine Strip, Harlingen, Texas 78550 HCISD will be closed April 3 &amp; 6, 2026.</p>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content"><ul>
+<li><strong>Overview</strong>: Harlingen CISD is seeking proposals for &quot;Maintenance Electronic Services&quot; (MELE0426). This contract will cover the maintenance, repair, and potentially installation of various electronic systems critical to school operations. The solicitation appears to be part of a larger set of maintenance-related bids being released concurrently.</li>
+<li><strong>Scope of Work</strong>: The scope is broad and encompasses a wide range of electronic and communication systems. Key areas include custom electronics for building controls, fire alarm systems, access control and security systems, communication security, integrated communication systems (intercoms, clocks), and general electronic equipment services. It also includes maintenance and repair of related wiring, cables, and potentially some electrical systems.</li>
+<li><strong>Bid Requirements</strong>: Specific bid requirements such as qualifications, certifications, bonds, or insurance are not detailed in the provided text. Vendors will need to access the proposal specifications via the provided link (https://hcisdbid.ionwave.net/Login.aspx) for this crucial information.</li>
+<li><strong>Timeline</strong>:</li>
+<li><strong>Posted Date</strong>: March 28, 2026</li>
+<li><strong>Proposal Due Date</strong>: April 14, 2026, 2:00 PM</li>
+<li><strong>Important Note</strong>: Harlingen CISD will be closed on April 3 &amp; 6, 2026, which may impact proposal submission logistics.</li>
+<li><strong>Estimated Value</strong>: The stated value for this solicitation is $100,000.00.</li>
+<li><strong>Recommendation</strong>: A mid-size building maintenance/construction vendor with a strong specialization in electronic systems, fire alarms, and security infrastructure should strongly consider pursuing this bid. The $100,000 value, while not exceptionally large, suggests a potentially significant project or a contract that could lead to future opportunities with the school district. The broad range of NIGP codes indicates a need for diverse technical expertise, which could be a good fit for a company that already has or can easily acquire these capabilities. However, it is critical to review the full proposal specifications for detailed requirements, qualifications, and any potential limitations before committing to a bid.</li>
+</ul></div>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>Matched tags</summary>
+        <p>Architecture and Design: &quot;architect&quot; in nigpCodes, &quot;architectural&quot; in nigpCodes, &quot;design services&quot; in nigpCodes; Electrical: &quot;electrical&quot; in nigpCodes, &quot;wiring&quot; in nigpCodes, &quot;lighting&quot; in nigpCodes; HVAC: &quot;air conditioning&quot; in nigpCodes, &quot;boiler&quot; in nigpCodes; Life Safety: &quot;fire alarm&quot; in nigpCodes; Plumbing: &quot;fixture&quot; in nigpCodes; Security: &quot;security&quot; in nigpCodes, &quot;access control&quot; in nigpCodes, &quot;security system&quot; in nigpCodes, &quot;alarm system&quot; in nigpCodes</p>
+      </details>
+
+       <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32888235&amp;c=852252&amp;h=pBdZkv9eVV0Wtm4UPnCAd-uWgoxfYtBPmqBQlGlqmICtpfTK&amp;_xt=.doc" target="_blank" class="attachment-link">ESBD_501380_1774576061210_NewsMultiBid 03122026-2.docx</a>
+        </div>
+    </div>
+
+    <div class="card" data-categories="Architecture and Design,General Contractors,Interior Maintenance,Exterior Maintenance,Structural Work,Lawn and Landscaping">
+      <div class="card-header">
+        
+
+        <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/601CT0000006434" target="_blank"><span class="rank">#16</span> Architecture, Maintenance Division, Statewide</a>
+      </h2>
+      </div>
+
+      <div class="card-meta">
+        <span><strong>ID:</strong> 601CT0000006434</span>
+        <span><strong>Agency:</strong> Texas Department of Transportation</span>
+        <span><strong>Posted:</strong> 3/16/2026</span>
+        <span class="due urgent"><strong>Due:</strong> 4/6/2026 1:00 PM <em>(1 day left)</em></span>
+        <span><strong>Value:</strong> $60,000.00</span>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Jessica Landry</span>
+        <span><strong>Phone:</strong> 817-370-6585</span>
+        <span><strong>Email:</strong> <a href="mailto:Jessica.Cleaver@txdot.gov">Jessica.Cleaver@txdot.gov</a></span>
+      </div>
+
+      <div class="card-description">
+        <p>This solicitation seeks architectural services for the Texas Department of Transportation's Maintenance Division, focusing on safety rest areas and travel information centers. Vendors with architectural expertise in design, construction, and maintenance should consider this opportunity for a relatively small, specialized contract.</p>
+      </div>
+
+      <details class="card-dropdown">
+        <summary>Original description</summary>
+        <p>Architectural services for the Maintenance Division to support the design, construction &amp; maintenance of the safety rest areas and travel information centers.</p>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content"><ul>
+<li><strong>Overview</strong>: The Texas Department of Transportation (TxDOT) is seeking architectural services to support the design, construction, and maintenance of its statewide safety rest areas and travel information centers. This contract is for professional architectural services to assist the Maintenance Division.</li>
+<li><strong>Scope of Work</strong>: The primary deliverable is architectural expertise to support the lifecycle of safety rest areas and travel information centers, encompassing design, construction oversight, and ongoing maintenance considerations. Specific projects or detailed requirements are not elaborated upon in the provided text.</li>
+<li><strong>Bid Requirements</strong>: The solicitation lists NIGP Code 90607-Architect Services, Professional, (Not Otherwise Classified), Including Consulting, indicating a need for licensed and qualified architectural professionals. Specific certifications, bonds, or insurance requirements are not detailed in the provided text.</li>
+<li><strong>Timeline</strong>: The solicitation was posted on March 16, 2026, and the bid submission deadline is April 6, 2026, at 1:00 PM.</li>
+<li><strong>Estimated Value</strong>: The stated value of this solicitation is $60,000.</li>
+<li><strong>Recommendation</strong>: A mid-size building maintenance/construction vendor should carefully evaluate this opportunity. While the value is modest ($60,000), it specifically calls for <em>architectural services</em>, not general construction or maintenance. If the vendor has in-house architectural capabilities or strong partnerships with architectural firms, it could be a viable project. However, if the vendor's core business is solely construction and maintenance without architectural design expertise, this solicitation may not be a good fit.</li>
+</ul></div>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>Matched tags</summary>
+        <p>Architecture and Design: &quot;architect&quot; in title, &quot;architect&quot; in nigpCodes, &quot;architect&quot; in description, &quot;architecture&quot; in title, &quot;architectural&quot; in description; General Contractors: &quot;construction&quot; in description</p>
+      </details>
+
+       
+    </div>
+
+    <div class="card" data-categories="Architecture and Design,Bathroom,Carpentry / Glaziery,Lawn and Landscaping,Life Safety,Plumbing,Interior Maintenance,HVAC">
+      <div class="card-header">
+        
+
+        <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/MSIR0426" target="_blank"><span class="rank">#17</span> Maintenance Sprinkler System Installation &amp; Repair Services</a>
+      </h2>
+      </div>
+
+      <div class="card-meta">
+        <span><strong>ID:</strong> MSIR0426</span>
+        <span><strong>Agency:</strong> Harlingen CISD - S0315</span>
+        <span><strong>Posted:</strong> 3/28/2026</span>
+        <span class="due normal"><strong>Due:</strong> 4/14/2026 2:00 PM <em>(9 days left)</em></span>
+        <span><strong>Value:</strong> $75,000.00</span>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> Sylvia Deleon</span>
+        <span><strong>Phone:</strong> (956) 430-9740</span>
+        <span><strong>Email:</strong> <a href="mailto:sylvia.deleon@hcisd.org">sylvia.deleon@hcisd.org</a></span>
+      </div>
+
+      <div class="card-description">
+        <p>Harlingen CISD is seeking bids for sprinkler system installation and repair services, with an estimated contract value of $75,000. This is a good opportunity for vendors specializing in fire protection and irrigation systems to secure a contract with a school district.</p>
+      </div>
+
+      <details class="card-dropdown">
+        <summary>Original description</summary>
+        <p>Proposal Specifications are available at: https://hcisdbid.ionwave.net/Login.aspx Proposals are to reach the Purchasing Department ON OR BEFORE the above-mentioned due date &amp; time. Harlingen Consolidated Independent School District Purchasing Department 407 N 77 Sunshine Strip, Harlingen, Texas 78550 HCISD will be closed April 3 &amp; 6, 2026.</p>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content"><ul>
+<li><strong>Overview</strong>: Harlingen Consolidated Independent School District (HCISD) is issuing a Request for Proposals (RFP) for Maintenance Sprinkler System Installation &amp; Repair Services, identified by solicitation ID MSIR0426. This solicitation aims to secure a vendor capable of performing both installation and repair work on sprinkler systems within the district.</li>
+<li><strong>Scope of Work</strong>: The scope of work encompasses installation and repair services for sprinkler systems. While detailed specifications are available via the provided link, the NIGP codes suggest a broad range of services including fire sprinkler systems, lawn and turf sprinklers, and potentially irrigation systems.</li>
+<li><strong>Bid Requirements</strong>: Specific bid requirements, such as qualifications, certifications, bonds, or insurance, are not detailed in the provided text but will be outlined in the full proposal specifications available at the provided URL. Vendors should anticipate standard requirements for government contracts in the construction and maintenance sector.</li>
+<li><strong>Timeline</strong>:</li>
+<li><strong>Posted Date</strong>: March 28, 2026</li>
+<li><strong>Proposal Due Date</strong>: April 14, 2026, 2:00 PM</li>
+<li><strong>District Closure</strong>: April 3 &amp; 6, 2026 (important for proposal delivery planning).</li>
+<li><strong>Estimated Value</strong>: The estimated value for this contract is $75,000.00.</li>
+<li><strong>Recommendation</strong>: A mid-size building maintenance and construction vendor specializing in sprinkler systems (both fire protection and irrigation) should strongly consider pursuing this bid. The estimated value of $75,000 is a reasonable size for a focused project, and securing a contract with a school district like HCISD can lead to future opportunities. The broad range of NIGP codes suggests potential for varied work, and the clear deadline and contact information indicate a straightforward procurement process. Vendors should prioritize reviewing the full specifications at the provided link to assess their capabilities and ensure compliance with all requirements.</li>
+</ul></div>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>Matched tags</summary>
+        <p>Architecture and Design: &quot;architect&quot; in nigpCodes, &quot;architectural&quot; in nigpCodes; Bathroom: &quot;toilet&quot; in nigpCodes; Carpentry / Glaziery: &quot;trim&quot; in nigpCodes; Lawn and Landscaping: &quot;landscaping&quot; in nigpCodes, &quot;lawn&quot; in nigpCodes, &quot;irrigation&quot; in nigpCodes, &quot;sprinkler&quot; in title, &quot;sprinkler&quot; in nigpCodes, &quot;tree trimming&quot; in nigpCodes, &quot;turf&quot; in nigpCodes, &quot;grounds maintenance&quot; in nigpCodes; Life Safety: &quot;fire protection&quot; in nigpCodes, &quot;sprinkler system&quot; in title, &quot;sprinkler system&quot; in nigpCodes, &quot;smoke detector&quot; in nigpCodes, &quot;fire sprinkler&quot; in nigpCodes; Plumbing: &quot;plumbing&quot; in nigpCodes, &quot;pipe&quot; in nigpCodes, &quot;fixture&quot; in nigpCodes</p>
+      </details>
+
+       <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32888232&amp;c=852252&amp;h=TIe44vEQVwiaPuMbTkL6YzEuOC5eYRWY_GwVNlkSo7hoK_jD&amp;_xt=.doc" target="_blank" class="attachment-link">ESBD_501379_1774574146424_NewsMultiBid 03122026-2.docx</a>
+        </div>
+    </div>
+
+    <div class="card" data-categories="Security,General Contractors,Interior Maintenance,Exterior Maintenance,Structural Work,Concrete">
+      <div class="card-header">
+        
+
+        <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/2025-102" target="_blank"><span class="rank">#18</span> Fire Station #3 Renovation CSP</a>
+      </h2>
+      </div>
+
+      <div class="card-meta">
+        <span><strong>ID:</strong> 2025-102</span>
+        <span><strong>Agency:</strong> City of San Marcos - M1050</span>
+        <span><strong>Posted:</strong> 3/31/2026</span>
+        <span class="due normal"><strong>Due:</strong> 4/30/2026 2:00 PM <em>(25 days left)</em></span>
+        
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> VERONICA BRADSHAW</span>
+        <span><strong>Phone:</strong> (512) 393-8170</span>
+        <span><strong>Email:</strong> <a href="mailto:vbradshaw@sanmarcostx.gov">vbradshaw@sanmarcostx.gov</a></span>
+      </div>
+
+      <div class="card-description">
+        <p>The City of San Marcos is seeking competitive sealed proposals for the renovation of Fire Station #3. This project is a good opportunity for building maintenance and construction vendors with experience in public sector renovations.</p>
+      </div>
+
+      <details class="card-dropdown">
+        <summary>Original description</summary>
+        <p>Fire Station #3 Renovation CSP</p>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content"><ul>
+<li><strong>Overview</strong>: The City of San Marcos is soliciting competitive sealed proposals for the renovation of Fire Station #3. This project falls under building construction services, including maintenance and repair, and is categorized under non-residential, commercial, and institutional building construction.</li>
+<li><strong>Scope of Work</strong>: The solicitation is for the renovation of Fire Station #3. Specific details of the renovation scope are expected to be available for download on the City's e-procurement website.</li>
+<li><strong>Bid Requirements</strong>: Bidders must submit a cashier's check, certified check, or acceptable bidder's bond in the amount of 5% of the submitted bid. Vendors must register on the City's e-procurement website to download specifications and any addenda.</li>
+<li><strong>Timeline</strong>:</li>
+<li>Posted: 3/31/2026</li>
+<li>Non-mandatory Pre-Proposal Conference &amp; Site Visit: April 7, 2026, 10:00 AM Local Time</li>
+<li>Proposal Due Date: April 30, 2026, 2:00 PM Local Time</li>
+<li>Tentative Award Date: June 2, 2026, City Council meeting</li>
+<li><strong>Estimated Value</strong>: The stated value is $0.01, which is likely a placeholder and not indicative of the actual project cost. The true value will be determined by the submitted bids.</li>
+<li><strong>Recommendation</strong>: A mid-size building maintenance and construction vendor should consider pursuing this solicitation. The project involves renovation of a public facility, which aligns with typical capabilities of such vendors. The clear timeline, defined submission process, and opportunity for a pre-bid conference and site visit suggest a well-structured procurement. However, vendors should carefully review the full specifications once available to assess the project's complexity and their capacity to meet all requirements, especially the 5% bid bond.</li>
+</ul></div>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>Matched tags</summary>
+        <p>Security: &quot;security&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes, &quot;renovation&quot; in title, &quot;renovation&quot; in description, &quot;building construction&quot; in nigpCodes</p>
+      </details>
+
+       <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32906520&amp;c=852252&amp;h=PFykRxErBVQon9hUn7P1Oke8iGP7GyFwOrQ4ir5_YMoJI1aI&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_502639_1774970622148_2025-102 Proposal Notice.pdf</a>
+        </div>
+    </div>
+
+    <div class="card" data-categories="Interior Decoration,Architecture and Design,Interior Maintenance,Cabinets,Bathroom">
+      <div class="card-header">
+        
+
+        <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/260301" target="_blank"><span class="rank">#19</span> Furniture, Furnishings, and Services</a>
+      </h2>
+      </div>
+
+      <div class="card-meta">
+        <span><strong>ID:</strong> 260301</span>
+        <span><strong>Agency:</strong> ESC Region 8 - E2250</span>
+        <span><strong>Posted:</strong> 3/5/2026</span>
+        <span class="due normal"><strong>Due:</strong> 4/17/2026 3:00 PM <em>(12 days left)</em></span>
+        <span><strong>Value:</strong> $59,422,764.00</span>
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> TIPS</span>
+        <span><strong>Phone:</strong> (866) 839-8477</span>
+        <span><strong>Email:</strong> <a href="mailto:bids@tips-usa.com">bids@tips-usa.com</a></span>
+      </div>
+
+      <div class="card-description">
+        <p>This is a large, prospective use solicitation for furniture, furnishings, and related services, offering a significant opportunity for vendors to secure a multi-year contract with ESC Region 8. Vendors should care due to the substantial contract value and the broad scope of potential future needs.</p>
+      </div>
+
+      <details class="card-dropdown">
+        <summary>Original description</summary>
+        <p>This is a prospective use solicitation and not asolicitation for a specific project. Find complete solicitation documents at https://www.tips-usa.com/rfp.cfm</p>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content"><ul>
+<li><strong>Overview</strong>: This solicitation is for a prospective use contract, meaning it establishes a pre-approved vendor list for future furniture, furnishings, and related services for ESC Region 8. It is not for a specific project but rather to identify qualified vendors for ongoing needs.</li>
+<li><strong>Scope of Work</strong>: The scope encompasses the provision of various types of furniture, including but not limited to healthcare, cafeteria, dormitory, library, lounge, school, and office furniture. Services related to these furnishings are also included.</li>
+<li><strong>Bid Requirements</strong>: Specific bid requirements are not detailed in the provided text but will be found in the complete solicitation documents available at the provided TIPS-USA link. Vendors should anticipate standard requirements for government contracts, potentially including financial stability, experience, and relevant certifications.</li>
+<li><strong>Timeline</strong>: The solicitation was posted on March 5, 2026, and the submission deadline is April 17, 2026, at 3:00 PM.</li>
+<li><strong>Estimated Value</strong>: The estimated contract value is $59,422,764.00.</li>
+<li><strong>Recommendation</strong>: A mid-size building maintenance/construction vendor should strongly consider pursuing this solicitation. The substantial estimated value and the broad scope of furniture and furnishings present a significant revenue opportunity. While the vendor may not directly perform construction, their expertise in managing and installing furnishings, potentially including minor renovations or site preparation, could be a valuable asset. The prospective use nature allows for potential long-term business if awarded.</li>
+</ul></div>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>Matched tags</summary>
+        <p>Interior Decoration: &quot;furnishing&quot; in title, &quot;furniture&quot; in title, &quot;furniture&quot; in nigpCodes</p>
+      </details>
+
+       <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32783504&amp;c=852252&amp;h=U1G0MafQnQhQsvqHBkiKQKQON-p59Oh9Sqn3wjMJNc52XZQ4&amp;_xt=.doc" target="_blank" class="attachment-link">ESBD_491975_1771868789694_TXSMART BUY LINK.docx</a>
+        </div>
+    </div>
+
+    <div class="card" data-categories="Bathroom,Carpentry / Glaziery,Concrete,Electrical,Excavating,Exterior Installation,Flooring,Insulation,Interior Installation,Paint,Plumbing,Roofing,Wallpaper,Windows,General Contractors,Interior Maintenance,Hazard Abatement">
+      <div class="card-header">
+        
+
+        <h2 class="card-title">
+        <a href="https://www.txsmartbuy.gov/esbd/SSC-CSP-2025-06767" target="_blank"><span class="rank">#20</span> SSC - RELLIS Hangars 8 &amp; 9 and Restroom Building - Bryan, TX</a>
+      </h2>
+      </div>
+
+      <div class="card-meta">
+        <span><strong>ID:</strong> SSC-CSP-2025-06767</span>
+        <span><strong>Agency:</strong> Texas A&amp;M University System - 710</span>
+        <span><strong>Posted:</strong> 3/31/2026</span>
+        <span class="due normal"><strong>Due:</strong> 4/23/2026 2:00 PM <em>(18 days left)</em></span>
+        
+      </div>
+
+      <div class="card-contact">
+        <span><strong>Contact:</strong> David Ritter</span>
+        <span><strong>Phone:</strong> (979) 219-0774</span>
+        <span><strong>Email:</strong> <a href="mailto:david.ritter@sscserv.com">david.ritter@sscserv.com</a></span>
+      </div>
+
+      <div class="card-description">
+        <p>This solicitation is for the construction of two PEMB hangars and a CMU restroom building at the Texas A&amp;M RELLIS Campus in Bryan, TX. Vendors should care if they have experience with industrial building construction and can meet HUB subcontracting requirements.</p>
+      </div>
+
+      <details class="card-dropdown">
+        <summary>Original description</summary>
+        <p>SSC Services for Education (SSC) as Owner Designated Representative (ODR) for Texas A&amp;M University RELLIS Campus is requesting Competitive Sealed Proposals (CSP) from general construction contractors for the construction of two PEMB hangars and a CMU restroom building. See attached Notice of Project for a link to access all CSP RFP documents and information about the scheduled pre-proposal meeting.</p>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>AI Summary</summary>
+        <div class="ai-summary-content"><ul>
+<li><strong>Overview</strong>: The Texas A&amp;M University System, through SSC Services for Education, is seeking competitive sealed proposals for the construction of two Pre-Engineered Metal Building (PEMB) hangars and one Concrete Masonry Unit (CMU) restroom building located at the RELLIS Campus in Bryan, Texas. This project requires general construction contractors.</li>
+<li><strong>Scope of Work</strong>: The primary deliverable is the complete construction of two PEMB hangars and one CMU restroom building. The solicitation includes various NIGP codes related to building construction, site work, and finishes, indicating a comprehensive scope. A HUB Subcontracting Plan is required.</li>
+<li><strong>Bid Requirements</strong>: While specific qualifications are not detailed in the provided text, the requirement for a HUB Subcontracting Plan is explicit. Vendors should anticipate standard construction contractor qualifications, bonding, and insurance requirements as outlined in the full RFP documents accessible via the provided e-builder link.</li>
+<li><strong>Timeline</strong>:</li>
+<li>Proposal Due Date: April 23, 2026, 2:00 PM</li>
+<li>Public Proposal Opening: April 23, 2026, 2:30 PM</li>
+<li>Pre-Proposal Meeting: April 7, 2026, 10:00 AM</li>
+<li>Project Start/Finish Dates: TBD</li>
+<li><strong>Estimated Value</strong>: The solicitation lists a &quot;Value&quot; of $0.01, which is a placeholder and not indicative of the actual contract value. The scope of work suggests a significant construction project.</li>
+<li><strong>Recommendation</strong>: A mid-size building maintenance and construction vendor with experience in industrial-type buildings (hangars) and a proven ability to manage HUB subcontracting should consider pursuing this opportunity. The project involves new construction rather than ongoing maintenance, so vendors specializing in construction will be better suited. The need for a HUB plan is a critical factor to assess capability.</li>
+</ul></div>
+      </details>
+
+      <details class="card-dropdown">
+        <summary>Matched tags</summary>
+        <p>Bathroom: &quot;restroom&quot; in title, &quot;restroom&quot; in description; Carpentry / Glaziery: &quot;glazing&quot; in nigpCodes; Concrete: &quot;concrete&quot; in nigpCodes, &quot;masonry&quot; in nigpCodes, &quot;cmu&quot; in description; Electrical: &quot;electrical&quot; in nigpCodes; Excavating: &quot;site work&quot; in nigpCodes; Exterior Installation: &quot;siding&quot; in nigpCodes; Flooring: &quot;flooring&quot; in nigpCodes, &quot;floor&quot; in nigpCodes; Insulation: &quot;insulation&quot; in nigpCodes; Interior Installation: &quot;ceiling&quot; in nigpCodes; Paint: &quot;paint&quot; in nigpCodes, &quot;painting&quot; in nigpCodes; Plumbing: &quot;plumbing&quot; in nigpCodes; Roofing: &quot;roof&quot; in nigpCodes, &quot;roofing&quot; in nigpCodes; Wallpaper: &quot;wallpaper&quot; in nigpCodes; Windows: &quot;glass&quot; in nigpCodes, &quot;glazing&quot; in nigpCodes; General Contractors: &quot;construction&quot; in nigpCodes, &quot;construction&quot; in description, &quot;building construction&quot; in nigpCodes, &quot;general construction&quot; in description</p>
+      </details>
+
+       <div class="attachments">
+          <strong>Attachments:</strong>
+          <a href="https://www.txsmartbuy.gov/core/media/media.nl?id=32908783&amp;c=852252&amp;h=GRUondqO7GAL-5Q2hxHOOTrMd4K7b39956DDc_jeBr_LQk8L&amp;_xt=.pdf" target="_blank" class="attachment-link">ESBD_502534_1774982001854_2025-06767_Notice of Project-CS_26.03.20.pdf</a>
+        </div>
     </div>
 
     
     <section class="methodology" id="methodology">
-      <h2>Methodology</h2>
+      <h2>How This Works</h2>
 
-      <h3>Data Source Discovery</h3>
+      <h3>Finding the data</h3>
       <p>
-        I explored the Texas ESBD portal (<a href="https://www.txsmartbuy.gov/esbd">txsmartbuy.gov/esbd</a>)
-        using Firefox DevTools. The site is a JavaScript SPA built on Oracle NetSuite SuiteCommerce Advanced.
-        By monitoring network traffic in the Network tab, I discovered a JSON API endpoint that the frontend
-        uses to fetch solicitation data, specifically a POST endpoint at
-        <code>ESBD.Service.ss</code> for listings and a GET endpoint at
-        <code>ESBD.Details.Service.ss</code> for full solicitation details.
+        All of this comes from the
+        <a href="https://www.txsmartbuy.gov/esbd">Texas ESBD portal</a>.
+        I opened DevTools, watched the network requests, and found two JSON endpoints
+        the site's frontend uses behind the scenes: one for paginated listings, one for
+        full solicitation details. The site runs on NetSuite SuiteCommerce, everything
+        is a JavaScript SPA talking to these APIs. So rather than spinning up a headless
+        browser to scrape rendered HTML, I just hit the API directly. Faster, cleaner, and
+        doesn't break when they change their CSS.
       </p>
 
-      <h3>Approach: Direct API Integration</h3>
-      <p>I chose to query the JSON API directly rather than scraping rendered HTML because:</p>
-      <ul>
-        <li>Structured JSON data is more reliable than HTML parsing</li>
-        <li>Faster execution, no browser rendering overhead (no Playwright/Selenium needed)</li>
-        <li>Less fragile, API contracts change less often than HTML layout</li>
-        <li>Allows efficient pagination and server-side filtering</li>
-      </ul>
-
-      <h3>Relevance Filtering</h3>
+      <h3>Speed</h3>
       <p>
-        I built a weighted keyword scoring engine that maps each of the 50 vendor categories to a curated
-        list of relevant keywords and subcategories. Each RFP is scored across multiple fields:
-      </p>
-      <ul>
-        <li><strong>Title</strong> (weight 3.0) : strongest signal for what the RFP is about</li>
-        <li><strong>NIGP codes</strong> (weight 2.5) : official commodity classification codes</li>
-        <li><strong>Description</strong> (weight 2.0) : full context from the detail page</li>
-        <li><strong>Agency name</strong> (weight 0.5) : weak but sometimes helpful signal</li>
-      </ul>
-      <p>
-        A pre-filter runs on listing data (title + NIGP codes) to skip obviously irrelevant RFPs
-        before making detail API calls, reducing network requests significantly.
+        There are hundreds of listings across dozens of pages. Going one at a time would be
+        painfully slow, so everything runs concurrently, all listing pages fetch at
+        once, detail requests go out in batches of 10, attachment downloads fire off in
+        parallel too. Retries with backoff handle any flaky responses. Both "Open" and
+        "Addendum Posted" statuses are pulled simultaneously and deduplicated.
       </p>
 
-      <h3>Limitations &amp; Trade-offs</h3>
+      <h3>Scoring: keywords + embeddings</h3>
+      <p>
+        Relevance scoring happens in two layers.
+      </p>
+      <p>
+        <strong>Layer 1: keyword matching.</strong>
+        50 vendor categories (HVAC, roofing, electrical, plumbing, painting, etc.) each have
+        a curated keyword list. Every solicitation is checked against those keywords across
+        four fields:
+      </p>
+      <table class="weight-table">
+        <tr><td>Title</td><td>3.0x</td><td>Usually the clearest indicator of what the RFP is</td></tr>
+        <tr><td>NIGP codes</td><td>2.5x</td><td>Standardized commodity codes from the state</td></tr>
+        <tr><td>Description</td><td>2.0x</td><td>Full detail text, lots of signal but also noise</td></tr>
+        <tr><td>Agency name</td><td>0.5x</td><td>Occasionally useful, often not</td></tr>
+      </table>
+      <p>
+        <strong>Layer 2: semantic embeddings.</strong>
+        Keywords only go so far. An RFP about "climate control system upgrades" should match
+        HVAC, but there's no keyword overlap. So after keyword scoring, the tool converts each
+        RFP's text and each category description into vector embeddings (using OpenAI embeddings, costs less than a cent per whole run). Cosine similarity between those vectors measures
+        how close they are <em>in meaning</em>, not just in shared words.
+      </p>
+      <p>
+        The two scores get normalized to the same 0&ndash;1 scale and blended:
+        <strong>40% keyword + 60% semantic = final score</strong>.
+        This way, exact keyword matches still count, but the ranking is mostly driven by
+        actual meaning. Category embeddings are cached to disk so subsequent runs don't
+        recompute them.
+      </p>
+      <p>
+        Before any of this, a quick pre-filter on title and NIGP codes skips obviously
+        irrelevant listings so we don't waste time fetching details for things like
+        office supply contracts.
+      </p>
+
+      <h3>Document extraction</h3>
+      <p>
+        For the top results, every attachment gets downloaded. PDFs are parsed with pdf-parse,
+        Word docs go through mammoth, and plain text files are read as-is. The extracted text
+        is saved alongside the originals and fed into the AI step.
+      </p>
+
+      <h3>AI summaries</h3>
+      <p>
+        Each solicitation's metadata plus all its extracted document text gets sent to an LLM.
+        It comes back with a short one-liner (what you see on the card) and a detailed
+        breakdown: scope, bid requirements, timeline, estimated value, and a recommendation
+        on whether it's worth pursuing. All requests fire in parallel.
+        The AI step is optional, <code>--noai</code> skips it entirely and you get
+        keyword-only scoring with no external API calls beyond the embeddings.
+      </p>
+
+      <h3>limitations</h3>
       <ul>
-        <li>Keyword matching may miss RFPs that use unusual or highly specific terminology</li>
-        <li>Some RFP details exist only inside attached PDF documents, which are not analyzed in the base version</li>
-        <li>The relevance scoring is heuristic (keyword-based), not ML/semantic-based</li>
-        <li>API session cookies may expire during very long runs</li>
+        <li>If an RFP uses terminology that's not in the keyword lists <em>and</em> is too
+            far from the category descriptions for the embedding model to pick up, it won't
+            show up here</li>
+        <li>Scanned PDFs (images, not selectable text) come back empty from extraction</li>
+        <li>Excel files, zip archives, and anything that isn't PDF/DOCX/TXT gets ignored</li>
+        <li>Embeddings are good at catching meaning but not perfect, edge cases exist</li>
       </ul>
     </section>
 
     <footer>
-      LightRFP &mdash; Apr 5, 2026, 5:08 PM &mdash; Data sourced from
+      LightRFP &mdash; Apr 5, 2026, 8:56 PM &mdash; Data sourced from
       <a href="https://www.txsmartbuy.gov/esbd" style="color:#6b7280">Texas ESBD</a>
     </footer>
   </div>
