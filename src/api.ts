@@ -144,7 +144,7 @@ export class ESBDClient {
         details.push(r.value);
       } else {
         failed++;
-        const msg = r.reason instanceof Error ? r.reason.message : String(r.reason);
+        const msg = r.reason instanceof Error ? r.reason.message : String(r.reason ?? "unknown error");
         console.warn(
           `  Detail ${listings[i]!.solicitationId} ✗ (${msg})`,
         );
@@ -184,7 +184,7 @@ export class ESBDClient {
         downloaded++;
       } else {
         failed++;
-        const msg = r.reason instanceof Error ? r.reason.message : String(r.reason);
+        const msg = r.reason instanceof Error ? r.reason.message : String(r.reason ?? "unknown error");
         console.warn(`  Download failed: ${msg}`);
       }
     }
@@ -267,7 +267,7 @@ export async function extractDocuments(
       extracted++;
     } else {
       failed++;
-      const msg = r.reason instanceof Error ? r.reason.message : String(r.reason);
+      const msg = r.reason instanceof Error ? r.reason.message : String(r.reason ?? "unknown error");
       console.warn(`  Extract failed: ${msg}`);
     }
   }
