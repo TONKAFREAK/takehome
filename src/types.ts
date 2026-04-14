@@ -118,3 +118,37 @@ export interface ESBDListRequest {
   expired?: string;
   includePreSolicitation?: boolean;
 }
+
+export interface NYCListResponse {
+  data: NYCListResponseitem[];
+}
+
+export interface NYCListResponseitem {
+  name: string;
+  id: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  page_views: NYCPageViews;
+  attachments: NYCListAttachments;
+
+} 
+
+export interface NYCListAttachments {
+ files : NYCFileData;
+
+}
+
+export interface NYCFileData {
+  id : string;
+  scannedAt: string;
+  state: string;
+} 
+
+export interface NYCPageViews {
+  page_view_last_week: number;
+  page_view_last_month: number;
+  page_view_last_total: number;
+
+}
+
