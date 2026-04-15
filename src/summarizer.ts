@@ -25,12 +25,39 @@ function createModel(): ChatOpenAI {
 
 function buildPrompt(rfp: RFPDetail, extractedTexts: string[]): string {
   const description = stripHtml(rfp.description);
-  const pdfContent =
+  const attachmentContent =
     extractedTexts.length > 0
       ? extractedTexts
           .map((t, i) => `--- Attachment ${i + 1} ---\n${t}`)
           .join("\n\n")
-      : "(No PDF attachments)";
+      : "(No document attachments)";
+
+  if (rfp.source === "nyc") {
+    return `You are an open-data analyst. Summarize this NYC OpenData dataset for a user deciding whether it is useful to them.
+
+DATASET DETAILS:
+- ID: ${rfp.solicitationId}
+- Title: ${rfp.title}
+- Agency: ${rfp.agencyName}
+- Published: ${rfp.postingDate}
+- Tags / columns: ${rfp.nigpCodes}
+- Description: ${description}
+
+ATTACHED DOCUMENT TEXT:
+${attachmentContent}
+
+Respond in EXACTLY this format:
+
+SHORT_SUMMARY: [1-2 sentence plain text summary of what this dataset contains and who would use it]
+
+FULL_SUMMARY:
+1. **Overview**: What this dataset is, in 2-3 sentences.
+2. **Contents**: Key fields/columns and what they mean.
+3. **Update cadence**: How often it refreshes, if stated.
+4. **Possible uses**: Analyses or applications this data enables.
+5. **Caveats**: Known limitations, missing coverage, or reliability notes.
+6. **Recommendation**: Who should care about this dataset and why.`;
+  }
 
   return `You are a government contract analyst. Summarize this solicitation for a building maintenance and construction vendor deciding whether to bid.
 
@@ -46,7 +73,7 @@ SOLICITATION DETAILS:
 - Contact: ${rfp.contactName} | ${rfp.contactEmail} | ${rfp.contactNumber}
 
 ATTACHED DOCUMENT TEXT:
-${pdfContent}
+${attachmentContent}
 
 Respond in EXACTLY this format:
 
