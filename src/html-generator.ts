@@ -11,6 +11,12 @@ import {
 
 const ESBD_DETAIL_URL = "https://www.txsmartbuy.gov/esbd";
 const ESBD_FILE_BASE = "https://www.txsmartbuy.gov";
+const NYC_FILE_BASE = "https://data.cityofnewyork.us";
+
+const SOURCE_LABEL: Record<string, string> = {
+  esbd: "Texas ESBD",
+  nyc: "NYC OpenData",
+};
 
 function renderMarkdown(md: string): string {
   const escaped = esc(md);
@@ -78,18 +84,34 @@ function renderBadge(category: string): string {
   return `<span class="badge" style="background:hsl(${hue},55%,92%);color:hsl(${hue},60%,30%)">${esc(category)}</span>`;
 }
 
+function buildAttachmentUrl(rfp: ScoredRFP, fileURL: string): string {
+  if (rfp.source === "nyc") {
+    return fileURL.startsWith("http") ? fileURL : NYC_FILE_BASE + fileURL;
+  }
+  return fileURL.startsWith("http") ? fileURL : ESBD_FILE_BASE + fileURL;
+}
+
+function buildDetailLink(rfp: ScoredRFP): string {
+  if (rfp.detailUrl) return rfp.detailUrl;
+  if (rfp.source === "nyc") return `${NYC_FILE_BASE}/d/${encodeURIComponent(rfp.solicitationId)}`;
+  return `${ESBD_DETAIL_URL}/${encodeURIComponent(rfp.solicitationId)}`;
+}
+
 function renderCard(rfp: ScoredRFP, rank: number): string {
-  const days = daysUntil(rfp.responseDue);
+  const hasDueDate = rfp.source === "esbd" && !!rfp.responseDue;
+  const days = hasDueDate ? daysUntil(rfp.responseDue) : 999;
   const dueClass = urgencyClass(days);
-  const dueLabel =
-    days < 0
+  const dueLabel = !hasDueDate
+    ? ""
+    : days < 0
       ? "PAST DUE"
       : days === 0
         ? "DUE TODAY"
         : `${days} day${days !== 1 ? "s" : ""} left`;
 
   const description = stripHtml(rfp.description);
-  const detailLink = `${ESBD_DETAIL_URL}/${encodeURIComponent(rfp.solicitationId)}`;
+  const detailLink = buildDetailLink(rfp);
+  const sourceLabel = SOURCE_LABEL[rfp.source] ?? rfp.source;
 
   const attachmentHtml =
     rfp.attachments.length > 0
@@ -98,27 +120,28 @@ function renderCard(rfp: ScoredRFP, rank: number): string {
           ${rfp.attachments
             .map(
               (a) =>
-                `<a href="${esc(ESBD_FILE_BASE + a.fileURL)}" target="_blank" class="attachment-link">${esc(a.fileName)}</a>`,
+                `<a href="${esc(buildAttachmentUrl(rfp, a.fileURL))}" target="_blank" class="attachment-link">${esc(a.fileName)}</a>`,
             )
             .join(" ")}
         </div>`
       : "";
 
-  return `
-    <div class="card" data-categories="${rfp.matchedCategories.map(esc).join(",")}">
-      <div class="card-header">
-        
+  const sourceBadge = `<span class="source-badge source-${esc(rfp.source)}">${esc(sourceLabel)}</span>`;
 
+  return `
+    <div class="card" data-source="${esc(rfp.source)}" data-categories="${rfp.matchedCategories.map(esc).join(",")}">
+      <div class="card-header">
         <h2 class="card-title">
-        <a href="${esc(detailLink)}" target="_blank"><span class="rank">#${rank}</span> ${esc(rfp.title)}</a>
-      </h2>
+          <a href="${esc(detailLink)}" target="_blank"><span class="rank">#${rank}</span> ${esc(rfp.title)}</a>
+        </h2>
+        <div class="badges">${sourceBadge}</div>
       </div>
 
       <div class="card-meta">
         <span><strong>ID:</strong> ${esc(rfp.solicitationId)}</span>
-        <span><strong>Agency:</strong> ${esc(rfp.agencyName)}</span>
-        <span><strong>Posted:</strong> ${esc(rfp.postingDate)}</span>
-        <span class="due ${dueClass}"><strong>Due:</strong> ${esc(rfp.responseDue)} ${esc(rfp.responseTime)} <em>(${dueLabel})</em></span>
+        ${rfp.agencyName ? `<span><strong>Agency:</strong> ${esc(rfp.agencyName)}</span>` : ""}
+        ${rfp.postingDate ? `<span><strong>Posted:</strong> ${esc(rfp.postingDate)}</span>` : ""}
+        ${hasDueDate ? `<span class="due ${dueClass}"><strong>Due:</strong> ${esc(rfp.responseDue)} ${esc(rfp.responseTime)} <em>(${dueLabel})</em></span>` : ""}
         ${rfp.value && parseFloat(rfp.value.replace(/,/g, "")) >= 1 ? `<span><strong>Value:</strong> $${esc(formatCurrency(rfp.value))}</span>` : ""}
       </div>
 
@@ -568,8 +591,66 @@ function getCSS(): string {
       font-weight: 600;
     }
 
-    .card.hidden-by-filter {
+    .card.hidden-by-filter,
+    .card.hidden-by-source {
       display: none;
+    }
+
+    .source-filter {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .source-btn {
+      background: #fff;
+      border: 1px solid #d1d5db;
+      color: #4b5563;
+      padding: 0.4rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .source-btn:hover {
+      border-color: #1a56db;
+      color: #1a56db;
+    }
+
+    .source-btn.active {
+      background: #1a56db;
+      color: #fff;
+      border-color: #1a56db;
+    }
+
+    .source-btn .count {
+      opacity: 0.75;
+      font-weight: 500;
+      margin-left: 0.25rem;
+    }
+
+    .source-badge {
+      display: inline-block;
+      padding: 0.15rem 0.55rem;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .source-badge.source-esbd {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .source-badge.source-nyc {
+      background: #dbeafe;
+      color: #1e40af;
     }
 
     footer {
@@ -605,16 +686,37 @@ export function generateHTML(
     timeStyle: "short",
   });
 
+  const sources = metadata.sources ?? ({} as RunMetadata["sources"]);
+  const sourceEntries = (Object.entries(sources) as [
+    keyof typeof sources,
+    { top: number },
+  ][]).filter(([, s]) => s && s.top > 0);
+
+  const sourceFilter =
+    sourceEntries.length > 1
+      ? `<div class="source-filter">
+      <button class="source-btn active" data-source="all">All <span class="count">(${results.length})</span></button>
+      ${sourceEntries
+        .map(
+          ([key, s]) =>
+            `<button class="source-btn" data-source="${esc(key)}">${esc(SOURCE_LABEL[key] ?? key)} <span class="count">(${s.top})</span></button>`,
+        )
+        .join("")}
+    </div>`
+      : "";
+
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LightRFP — Top ${results.length} Government RFPs</title>
+  <title>LightRFP — Top ${results.length} Government Opportunities</title>
   <style>${getCSS()}</style>
 </head>
 <body>
   <div class="container">
+    ${sourceFilter}
+
     <p class="top-categories"><strong>Top categories:</strong> ${Object.entries(
       metadata.categoryCounts,
     )
@@ -633,17 +735,33 @@ export function generateHTML(
     <footer>
       LightRFP &mdash; ${esc(generatedStr)} &mdash; Data sourced from
       <a href="https://www.txsmartbuy.gov/esbd" style="color:#6b7280">Texas ESBD</a>
+      and
+      <a href="https://data.cityofnewyork.us" style="color:#6b7280">NYC OpenData</a>
     </footer>
   </div>
   <script>
     (function() {
-      var active = null;
-      var links = document.querySelectorAll('.cat-link');
+      var activeCat = null;
+      var activeSource = 'all';
+      var catLinks = document.querySelectorAll('.cat-link');
+      var sourceBtns = document.querySelectorAll('.source-btn');
       var cards = document.querySelectorAll('.card');
 
-      function applyFilter(category) {
-        active = category;
-        links.forEach(function(l) {
+      function applySource(src) {
+        activeSource = src;
+        sourceBtns.forEach(function(b) {
+          b.classList.toggle('active', b.getAttribute('data-source') === src);
+        });
+        cards.forEach(function(card) {
+          var cardSrc = card.getAttribute('data-source');
+          var hide = src !== 'all' && cardSrc !== src;
+          card.classList.toggle('hidden-by-source', hide);
+        });
+      }
+
+      function applyCategory(category) {
+        activeCat = category;
+        catLinks.forEach(function(l) {
           l.classList.toggle('active', l.getAttribute('data-category') === category);
         });
         cards.forEach(function(card) {
@@ -652,18 +770,24 @@ export function generateHTML(
         });
       }
 
-      function clearFilter() {
-        active = null;
-        links.forEach(function(l) { l.classList.remove('active'); });
+      function clearCategory() {
+        activeCat = null;
+        catLinks.forEach(function(l) { l.classList.remove('active'); });
         cards.forEach(function(c) { c.classList.remove('hidden-by-filter'); });
       }
 
-      links.forEach(function(link) {
+      catLinks.forEach(function(link) {
         link.addEventListener('click', function() {
           var cat = link.getAttribute('data-category');
-          if (active === cat) { clearFilter(); } else { applyFilter(cat); }
+          if (activeCat === cat) { clearCategory(); } else { applyCategory(cat); }
         });
-        link.addEventListener('dblclick', function() { clearFilter(); });
+        link.addEventListener('dblclick', clearCategory);
+      });
+
+      sourceBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          applySource(btn.getAttribute('data-source') || 'all');
+        });
       });
     })();
   </script>
